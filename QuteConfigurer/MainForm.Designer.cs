@@ -1,4 +1,4 @@
-﻿namespace QtConfigurator
+﻿namespace Qute
 {
     partial class MainForm
     {

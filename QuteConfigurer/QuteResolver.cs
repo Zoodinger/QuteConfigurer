@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using Microsoft.Win32;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-namespace QtConfigurator
+namespace Qute
 {
     static class QuteResolver
     {
@@ -24,6 +27,55 @@ namespace QtConfigurator
             public override string ToString() {
                 return Name;
             }
+        }
+
+        public struct UEProject
+        {
+            public string Engine;
+            public string Name;
+
+            public UEProject(string name, string engine) {
+                Name = name;
+                Engine = engine;
+            }
+        }
+
+        public static UEProject GetProjectInfo(string path) {
+            var project = new UEProject();
+
+            try {
+                using (var reader = new StreamReader(path)) {
+                    var data = reader.ReadToEnd();
+                    var json = JObject.Parse(data);
+
+                    foreach (var node in json) {
+                        if (node.Key == "EngineAssociation") {
+                            project.Engine = node.Value.ToString();
+                        }
+
+                        if (node.Key != "Modules") {
+                            continue;
+                        }
+
+                        foreach (var module in node.Value.Select(JObject.FromObject)) {
+                            foreach (var entry in module) {
+                                if (entry.Key == "Name") {
+                                    project.Name = entry.Value.ToString();
+                                }
+                            }
+
+                        }
+                    }
+                }
+            } catch (FileNotFoundException) {
+                Console.WriteLine("Error: File not found.");
+            } catch (ArgumentException) {
+                Console.WriteLine("Error: Invalid project path.");
+            } catch {
+                Console.WriteLine("Error: Could not read project information.");
+            }
+
+            return project;
         }
 
         /// <summary>
@@ -85,7 +137,7 @@ namespace QtConfigurator
                             switch (keyAttr.Value) {
                                 case "PE.Profile.Id":
                                     kit.Id = value.InnerText
-                                        .Replace("%{Qt:Version}", "") 
+                                        .Replace("%{Qt:Version}", "")
                                         .Replace("  ", " ").Trim(); // Avoid double spaces in name
                                     break;
                                 case "PE.Profile.Name":

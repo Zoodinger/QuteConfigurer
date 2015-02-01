@@ -2,15 +2,32 @@
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
-using QtConfigurator.Properties;
+using Qute.Properties;
 
-namespace QtConfigurator
+namespace Qute
 {
     public partial class MainForm : Form
     {
         public MainForm() {
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => {
+                var resourceName = new AssemblyName(args.Name).Name + ".dll";
+                var resource = Array.Find(GetType().Assembly.GetManifestResourceNames(), element => element.EndsWith(resourceName));
+
+                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource)) {
+                    if (stream != null) {
+                        var assemblyData = new Byte[stream.Length];
+                        stream.Read(assemblyData, 0, assemblyData.Length);
+                        return Assembly.Load(assemblyData);
+                    }
+                }
+
+                return null;
+            };
+
+
             InitializeComponent();
         }
 
@@ -33,15 +50,15 @@ namespace QtConfigurator
             }
         }
 
-        private void txtQtPath_TextChanged(object sender, System.EventArgs e) {
+        private void txtQtPath_TextChanged(object sender, EventArgs e) {
             if (!Directory.Exists(txtQtPath.Text)) {
-                txtQtPath.ForeColor = Color.Red ;
+                txtQtPath.ForeColor = Color.Red;
             } else {
                 txtQtPath.ForeColor = Color.Black;
             }
         }
 
-        private void browseQt_Click(object sender, System.EventArgs e) {
+        private void browseQt_Click(object sender, EventArgs e) {
             var dialog = new FolderBrowserDialog();
             if (dialog.ShowDialog() == DialogResult.OK) {
                 txtQtPath.Text = dialog.SelectedPath;
@@ -79,6 +96,19 @@ namespace QtConfigurator
         }
 
         private void btnQtFiles_Click(object sender, EventArgs e) {
+            QuteResolver.UEProject project = QuteResolver.GetProjectInfo(txtProjectPath.Text);
+
+            if (string.IsNullOrWhiteSpace(project.Name) || string.IsNullOrWhiteSpace(project.Engine)) {
+                Console.WriteLine("Error: Failed to read data from project file.");
+                return;
+            }
+
+            var path = Path.GetDirectoryName(txtProjectPath.Text) ?? "";
+            path = Path.Combine(path, @"Intermediate\ProjectFiles\MyQtProject.vcxproj");
+            if (!File.Exists(path)) {
+                Console.WriteLine("Error: Could not detect Visual Studio project files.");
+            }
+
 
         }
 

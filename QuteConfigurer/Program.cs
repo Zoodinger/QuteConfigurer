@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using QtConfigurator.Properties;
+using Qute.Properties;
 
-namespace QtConfigurator
+namespace Qute
 {
     static class Program
     {

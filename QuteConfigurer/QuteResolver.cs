@@ -31,17 +31,19 @@ namespace Qute
 
         public struct UEProject
         {
+            public string Path;
             public string Engine;
             public string Name;
 
-            public UEProject(string name, string engine) {
+            public UEProject(string path, string name, string engine) {
                 Name = name;
                 Engine = engine;
+                Path = path;
             }
         }
 
         public static UEProject GetProjectInfo(string path) {
-            var project = new UEProject();
+            var project = new UEProject { Path = path };
 
             try {
                 using (var reader = new StreamReader(path)) {

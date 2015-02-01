@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="QuteExporter.cs" />
     <Compile Include="QuteResolver.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

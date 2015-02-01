@@ -12,6 +12,8 @@ namespace Qute
     public partial class MainForm : Form
     {
         public MainForm() {
+
+            //Json dll is embedded as a resource. This code will make sure it's loaded.
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => {
                 var resourceName = new AssemblyName(args.Name).Name + ".dll";
                 var resource = Array.Find(GetType().Assembly.GetManifestResourceNames(), element => element.EndsWith(resourceName));
@@ -46,6 +48,15 @@ namespace Qute
                 if (kit.Name == Settings.Default.KitName
                     && kit.Id == Settings.Default.KitId) {
                     comboKits.SelectedItem = kit;
+                }
+            }
+
+            //If the program is run in a project directory, set active project to the first *.uproject file found.
+            var dir = Directory.GetCurrentDirectory();
+            if (Directory.Exists(dir)) {
+                foreach (var file in Directory.GetFiles(dir, "*.uproject")) {
+                    txtProjectPath.Text = file;
+                    break;
                 }
             }
         }
@@ -98,18 +109,7 @@ namespace Qute
         private void btnQtFiles_Click(object sender, EventArgs e) {
             QuteResolver.UEProject project = QuteResolver.GetProjectInfo(txtProjectPath.Text);
 
-            if (string.IsNullOrWhiteSpace(project.Name) || string.IsNullOrWhiteSpace(project.Engine)) {
-                Console.WriteLine("Error: Failed to read data from project file.");
-                return;
-            }
-
-            var path = Path.GetDirectoryName(txtProjectPath.Text) ?? "";
-            path = Path.Combine(path, @"Intermediate\ProjectFiles\MyQtProject.vcxproj");
-            if (!File.Exists(path)) {
-                Console.WriteLine("Error: Could not detect Visual Studio project files.");
-            }
-
-
+            QuteExporter.ExportProject(project);
         }
 
         private void btnBrowseProject_Click(object sender, EventArgs e) {
@@ -183,7 +183,6 @@ namespace Qute
             Console.WriteLine("Help: Generate Qt project files. "
               + "Visual Studio project files must be up-to-date before performing this operation. "
               + "Do this whenever you add code to your project outside of Qt Creator, or after upgrading the engine.");
-
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {

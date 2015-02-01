@@ -48,6 +48,7 @@
             this.projectGroup = new System.Windows.Forms.GroupBox();
             this.btnVSFiles = new System.Windows.Forms.Button();
             this.generateGroup = new System.Windows.Forms.GroupBox();
+            this.lblInfo = new System.Windows.Forms.Label();
             this.btnHelpQt = new System.Windows.Forms.Button();
             this.btnHelpBuildConfig = new System.Windows.Forms.Button();
             this.btnHelpVS = new System.Windows.Forms.Button();
@@ -73,12 +74,74 @@
             lblQtPath.TabIndex = 0;
             lblQtPath.Text = "Qt Path";
             // 
+            // lblQtBuildKit
+            // 
+            lblQtBuildKit.AutoSize = true;
+            lblQtBuildKit.Location = new System.Drawing.Point(6, 55);
+            lblQtBuildKit.Name = "lblQtBuildKit";
+            lblQtBuildKit.Size = new System.Drawing.Size(59, 13);
+            lblQtBuildKit.TabIndex = 7;
+            lblQtBuildKit.Text = "Qt Build Kit";
+            // 
+            // lblProject
+            // 
+            lblProject.AutoSize = true;
+            lblProject.Location = new System.Drawing.Point(6, 24);
+            lblProject.Name = "lblProject";
+            lblProject.Size = new System.Drawing.Size(40, 13);
+            lblProject.TabIndex = 10;
+            lblProject.Text = "Project";
+            // 
+            // lblUEPath
+            // 
+            lblUEPath.AutoSize = true;
+            lblUEPath.Location = new System.Drawing.Point(6, 95);
+            lblUEPath.Name = "lblUEPath";
+            lblUEPath.Size = new System.Drawing.Size(99, 13);
+            lblUEPath.TabIndex = 13;
+            lblUEPath.Text = "Unreal Engine Path";
+            // 
+            // lblStep3
+            // 
+            lblStep3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            lblStep3.AutoSize = true;
+            lblStep3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblStep3.Location = new System.Drawing.Point(307, 82);
+            lblStep3.Name = "lblStep3";
+            lblStep3.Size = new System.Drawing.Size(38, 13);
+            lblStep3.TabIndex = 21;
+            lblStep3.Text = "Step 3";
+            // 
+            // lblStep1
+            // 
+            lblStep1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            lblStep1.AutoSize = true;
+            lblStep1.Enabled = false;
+            lblStep1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblStep1.Location = new System.Drawing.Point(307, 24);
+            lblStep1.Name = "lblStep1";
+            lblStep1.Size = new System.Drawing.Size(38, 13);
+            lblStep1.TabIndex = 0;
+            lblStep1.Text = "Step 1";
+            // 
+            // lblStep2
+            // 
+            lblStep2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            lblStep2.AutoSize = true;
+            lblStep2.Enabled = false;
+            lblStep2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblStep2.Location = new System.Drawing.Point(307, 53);
+            lblStep2.Name = "lblStep2";
+            lblStep2.Size = new System.Drawing.Size(38, 13);
+            lblStep2.TabIndex = 13;
+            lblStep2.Text = "Step 2";
+            // 
             // browseQt
             // 
             this.browseQt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.browseQt.AutoSize = true;
             this.browseQt.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.browseQt.Location = new System.Drawing.Point(454, 30);
+            this.browseQt.Location = new System.Drawing.Point(453, 30);
             this.browseQt.Name = "browseQt";
             this.browseQt.Size = new System.Drawing.Size(26, 23);
             this.browseQt.TabIndex = 1;
@@ -94,14 +157,14 @@
             this.txtQtPath.ForeColor = System.Drawing.Color.Black;
             this.txtQtPath.Location = new System.Drawing.Point(6, 32);
             this.txtQtPath.Name = "txtQtPath";
-            this.txtQtPath.Size = new System.Drawing.Size(442, 20);
+            this.txtQtPath.Size = new System.Drawing.Size(441, 20);
             this.txtQtPath.TabIndex = 2;
             this.txtQtPath.TextChanged += new System.EventHandler(this.txtQtPath_TextChanged);
             // 
             // btnQtFiles
             // 
             this.btnQtFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnQtFiles.Location = new System.Drawing.Point(352, 77);
+            this.btnQtFiles.Location = new System.Drawing.Point(351, 77);
             this.btnQtFiles.Name = "btnQtFiles";
             this.btnQtFiles.Size = new System.Drawing.Size(152, 23);
             this.btnQtFiles.TabIndex = 3;
@@ -114,7 +177,7 @@
             this.btnDetectQt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDetectQt.AutoSize = true;
             this.btnDetectQt.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDetectQt.Location = new System.Drawing.Point(486, 30);
+            this.btnDetectQt.Location = new System.Drawing.Point(485, 30);
             this.btnDetectQt.Name = "btnDetectQt";
             this.btnDetectQt.Size = new System.Drawing.Size(49, 23);
             this.btnDetectQt.TabIndex = 4;
@@ -130,18 +193,9 @@
             this.comboKits.FormattingEnabled = true;
             this.comboKits.Location = new System.Drawing.Point(6, 71);
             this.comboKits.Name = "comboKits";
-            this.comboKits.Size = new System.Drawing.Size(442, 21);
+            this.comboKits.Size = new System.Drawing.Size(441, 21);
             this.comboKits.Sorted = true;
             this.comboKits.TabIndex = 6;
-            // 
-            // lblQtBuildKit
-            // 
-            lblQtBuildKit.AutoSize = true;
-            lblQtBuildKit.Location = new System.Drawing.Point(6, 55);
-            lblQtBuildKit.Name = "lblQtBuildKit";
-            lblQtBuildKit.Size = new System.Drawing.Size(59, 13);
-            lblQtBuildKit.TabIndex = 7;
-            lblQtBuildKit.Text = "Qt Build Kit";
             // 
             // btnKitReadMe
             // 
@@ -151,7 +205,7 @@
             this.btnKitReadMe.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnKitReadMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnKitReadMe.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.btnKitReadMe.Location = new System.Drawing.Point(453, 69);
+            this.btnKitReadMe.Location = new System.Drawing.Point(452, 69);
             this.btnKitReadMe.Name = "btnKitReadMe";
             this.btnKitReadMe.Size = new System.Drawing.Size(82, 23);
             this.btnKitReadMe.TabIndex = 8;
@@ -167,25 +221,16 @@
             this.txtProjectPath.ForeColor = System.Drawing.Color.Black;
             this.txtProjectPath.Location = new System.Drawing.Point(52, 21);
             this.txtProjectPath.Name = "txtProjectPath";
-            this.txtProjectPath.Size = new System.Drawing.Size(450, 20);
+            this.txtProjectPath.Size = new System.Drawing.Size(449, 20);
             this.txtProjectPath.TabIndex = 9;
             this.txtProjectPath.TextChanged += new System.EventHandler(this.txtProjectPath_TextChanged);
-            // 
-            // lblProject
-            // 
-            lblProject.AutoSize = true;
-            lblProject.Location = new System.Drawing.Point(6, 24);
-            lblProject.Name = "lblProject";
-            lblProject.Size = new System.Drawing.Size(40, 13);
-            lblProject.TabIndex = 10;
-            lblProject.Text = "Project";
             // 
             // btnBrowseProject
             // 
             this.btnBrowseProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBrowseProject.AutoSize = true;
             this.btnBrowseProject.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBrowseProject.Location = new System.Drawing.Point(508, 19);
+            this.btnBrowseProject.Location = new System.Drawing.Point(507, 19);
             this.btnBrowseProject.Name = "btnBrowseProject";
             this.btnBrowseProject.Size = new System.Drawing.Size(26, 23);
             this.btnBrowseProject.TabIndex = 11;
@@ -198,7 +243,8 @@
             this.btnBuildConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuildConfig.AutoSize = true;
             this.btnBuildConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBuildConfig.Location = new System.Drawing.Point(352, 19);
+            this.btnBuildConfig.Enabled = false;
+            this.btnBuildConfig.Location = new System.Drawing.Point(351, 19);
             this.btnBuildConfig.Name = "btnBuildConfig";
             this.btnBuildConfig.Size = new System.Drawing.Size(152, 23);
             this.btnBuildConfig.TabIndex = 12;
@@ -206,21 +252,12 @@
             this.btnBuildConfig.UseVisualStyleBackColor = true;
             this.btnBuildConfig.Click += new System.EventHandler(this.btnBuildConfig_Click);
             // 
-            // lblUEPath
-            // 
-            lblUEPath.AutoSize = true;
-            lblUEPath.Location = new System.Drawing.Point(6, 95);
-            lblUEPath.Name = "lblUEPath";
-            lblUEPath.Size = new System.Drawing.Size(99, 13);
-            lblUEPath.TabIndex = 13;
-            lblUEPath.Text = "Unreal Engine Path";
-            // 
             // btnDetectUEPath
             // 
             this.btnDetectUEPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDetectUEPath.AutoSize = true;
             this.btnDetectUEPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDetectUEPath.Location = new System.Drawing.Point(486, 108);
+            this.btnDetectUEPath.Location = new System.Drawing.Point(485, 108);
             this.btnDetectUEPath.Name = "btnDetectUEPath";
             this.btnDetectUEPath.Size = new System.Drawing.Size(49, 23);
             this.btnDetectUEPath.TabIndex = 16;
@@ -236,7 +273,7 @@
             this.txtUEPath.ForeColor = System.Drawing.Color.Black;
             this.txtUEPath.Location = new System.Drawing.Point(6, 111);
             this.txtUEPath.Name = "txtUEPath";
-            this.txtUEPath.Size = new System.Drawing.Size(442, 20);
+            this.txtUEPath.Size = new System.Drawing.Size(441, 20);
             this.txtUEPath.TabIndex = 15;
             this.txtUEPath.TextChanged += new System.EventHandler(this.txtUEPath_TextChanged);
             // 
@@ -245,7 +282,7 @@
             this.btnBrowseUEPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBrowseUEPath.AutoSize = true;
             this.btnBrowseUEPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBrowseUEPath.Location = new System.Drawing.Point(454, 108);
+            this.btnBrowseUEPath.Location = new System.Drawing.Point(453, 108);
             this.btnBrowseUEPath.Name = "btnBrowseUEPath";
             this.btnBrowseUEPath.Size = new System.Drawing.Size(26, 23);
             this.btnBrowseUEPath.TabIndex = 14;
@@ -268,9 +305,10 @@
             this.generalConfigGroup.Controls.Add(this.comboKits);
             this.generalConfigGroup.Controls.Add(lblQtBuildKit);
             this.generalConfigGroup.Controls.Add(this.btnKitReadMe);
+            this.generalConfigGroup.Enabled = false;
             this.generalConfigGroup.Location = new System.Drawing.Point(12, 12);
             this.generalConfigGroup.Name = "generalConfigGroup";
-            this.generalConfigGroup.Size = new System.Drawing.Size(541, 144);
+            this.generalConfigGroup.Size = new System.Drawing.Size(540, 144);
             this.generalConfigGroup.TabIndex = 17;
             this.generalConfigGroup.TabStop = false;
             // 
@@ -283,7 +321,7 @@
             this.projectGroup.Controls.Add(this.btnBrowseProject);
             this.projectGroup.Location = new System.Drawing.Point(12, 162);
             this.projectGroup.Name = "projectGroup";
-            this.projectGroup.Size = new System.Drawing.Size(540, 51);
+            this.projectGroup.Size = new System.Drawing.Size(539, 51);
             this.projectGroup.TabIndex = 18;
             this.projectGroup.TabStop = false;
             // 
@@ -291,7 +329,8 @@
             // 
             this.btnVSFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVSFiles.AutoSize = true;
-            this.btnVSFiles.Location = new System.Drawing.Point(352, 48);
+            this.btnVSFiles.Enabled = false;
+            this.btnVSFiles.Location = new System.Drawing.Point(351, 48);
             this.btnVSFiles.Name = "btnVSFiles";
             this.btnVSFiles.Size = new System.Drawing.Size(152, 23);
             this.btnVSFiles.TabIndex = 19;
@@ -303,6 +342,7 @@
             // 
             this.generateGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.generateGroup.Controls.Add(this.lblInfo);
             this.generateGroup.Controls.Add(lblStep3);
             this.generateGroup.Controls.Add(this.btnHelpQt);
             this.generateGroup.Controls.Add(this.btnHelpBuildConfig);
@@ -314,20 +354,19 @@
             this.generateGroup.Controls.Add(this.btnQtFiles);
             this.generateGroup.Location = new System.Drawing.Point(12, 219);
             this.generateGroup.Name = "generateGroup";
-            this.generateGroup.Size = new System.Drawing.Size(541, 111);
+            this.generateGroup.Size = new System.Drawing.Size(540, 111);
             this.generateGroup.TabIndex = 20;
             this.generateGroup.TabStop = false;
             // 
-            // lblStep3
+            // lblInfo
             // 
-            lblStep3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            lblStep3.AutoSize = true;
-            lblStep3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblStep3.Location = new System.Drawing.Point(308, 82);
-            lblStep3.Name = "lblStep3";
-            lblStep3.Size = new System.Drawing.Size(38, 13);
-            lblStep3.TabIndex = 21;
-            lblStep3.Text = "Step 3";
+            this.lblInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfo.Location = new System.Drawing.Point(6, 16);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(296, 84);
+            this.lblInfo.TabIndex = 22;
+            this.lblInfo.Text = "Not implemented features are currently disabled.";
+            this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnHelpQt
             // 
@@ -335,7 +374,7 @@
             this.btnHelpQt.AutoSize = true;
             this.btnHelpQt.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHelpQt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelpQt.Location = new System.Drawing.Point(510, 77);
+            this.btnHelpQt.Location = new System.Drawing.Point(509, 77);
             this.btnHelpQt.Name = "btnHelpQt";
             this.btnHelpQt.Size = new System.Drawing.Size(24, 23);
             this.btnHelpQt.TabIndex = 20;
@@ -348,8 +387,9 @@
             this.btnHelpBuildConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnHelpBuildConfig.AutoSize = true;
             this.btnHelpBuildConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnHelpBuildConfig.Enabled = false;
             this.btnHelpBuildConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelpBuildConfig.Location = new System.Drawing.Point(510, 19);
+            this.btnHelpBuildConfig.Location = new System.Drawing.Point(509, 19);
             this.btnHelpBuildConfig.Name = "btnHelpBuildConfig";
             this.btnHelpBuildConfig.Size = new System.Drawing.Size(24, 23);
             this.btnHelpBuildConfig.TabIndex = 14;
@@ -357,35 +397,14 @@
             this.btnHelpBuildConfig.UseVisualStyleBackColor = true;
             this.btnHelpBuildConfig.Click += new System.EventHandler(this.btnHelpBuildConfig_Click);
             // 
-            // lblStep1
-            // 
-            lblStep1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            lblStep1.AutoSize = true;
-            lblStep1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblStep1.Location = new System.Drawing.Point(308, 24);
-            lblStep1.Name = "lblStep1";
-            lblStep1.Size = new System.Drawing.Size(38, 13);
-            lblStep1.TabIndex = 0;
-            lblStep1.Text = "Step 1";
-            // 
-            // lblStep2
-            // 
-            lblStep2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            lblStep2.AutoSize = true;
-            lblStep2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblStep2.Location = new System.Drawing.Point(308, 53);
-            lblStep2.Name = "lblStep2";
-            lblStep2.Size = new System.Drawing.Size(38, 13);
-            lblStep2.TabIndex = 13;
-            lblStep2.Text = "Step 2";
-            // 
             // btnHelpVS
             // 
             this.btnHelpVS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnHelpVS.AutoSize = true;
             this.btnHelpVS.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnHelpVS.Enabled = false;
             this.btnHelpVS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelpVS.Location = new System.Drawing.Point(510, 48);
+            this.btnHelpVS.Location = new System.Drawing.Point(509, 48);
             this.btnHelpVS.Name = "btnHelpVS";
             this.btnHelpVS.Size = new System.Drawing.Size(24, 23);
             this.btnHelpVS.TabIndex = 2;
@@ -404,7 +423,7 @@
             this.txtLog.Location = new System.Drawing.Point(12, 336);
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
-            this.txtLog.Size = new System.Drawing.Size(541, 165);
+            this.txtLog.Size = new System.Drawing.Size(540, 163);
             this.txtLog.TabIndex = 21;
             this.txtLog.Text = "";
             // 
@@ -412,15 +431,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(565, 513);
+            this.ClientSize = new System.Drawing.Size(564, 511);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.generateGroup);
             this.Controls.Add(this.projectGroup);
             this.Controls.Add(this.generalConfigGroup);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(580, 550);
             this.Name = "MainForm";
-            this.Text = "Qt Configurator";
+            this.Text = "Qute Configurer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.generalConfigGroup.ResumeLayout(false);
@@ -455,6 +475,7 @@
         private System.Windows.Forms.Button btnHelpQt;
         private System.Windows.Forms.Button btnHelpBuildConfig;
         private System.Windows.Forms.RichTextBox txtLog;
+        private System.Windows.Forms.Label lblInfo;
     }
 }
 

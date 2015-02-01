@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using QtConfigurator.Properties;
 
@@ -34,16 +28,16 @@ namespace QtConfigurator
                 comboKits.Items.Add(kit);
                 if (kit.Name == Settings.Default.KitName
                     && kit.Id == Settings.Default.KitId) {
-                        comboKits.SelectedItem = kit;
+                    comboKits.SelectedItem = kit;
                 }
             }
         }
 
         private void txtQtPath_TextChanged(object sender, System.EventArgs e) {
             if (!Directory.Exists(txtQtPath.Text)) {
-                txtQtPath.ForeColor = SystemColors.GrayText;
+                txtQtPath.ForeColor = Color.Red ;
             } else {
-                txtQtPath.ForeColor = SystemColors.WindowText;
+                txtQtPath.ForeColor = Color.Black;
             }
         }
 
@@ -57,7 +51,7 @@ namespace QtConfigurator
 
         private void btnDetectQt_Click(object sender, EventArgs e) {
             var path = QuteResolver.GetDetectedQtPath();
-            if (path != "" && Directory.Exists(path)) {
+            if (path != null && Directory.Exists(path)) {
                 txtQtPath.Text = path;
                 Console.WriteLine("Qt path changed to '{0}'.", path);
             } else {
@@ -68,9 +62,9 @@ namespace QtConfigurator
 
         private class ConsoleRedirector : TextWriter
         {
-            private readonly TextBox _textBox;
+            private readonly RichTextBox _textBox;
 
-            public ConsoleRedirector(TextBox textbox) {
+            public ConsoleRedirector(RichTextBox textbox) {
                 _textBox = textbox;
             }
 
@@ -84,14 +78,12 @@ namespace QtConfigurator
             }
         }
 
-        private void button1_Click(object sender, EventArgs e) {
-            foreach (var kit in QuteResolver.GetKits()) {
-                Console.WriteLine("{0}, {1}", kit.Name, kit.Id);
-            }
+        private void btnQtFiles_Click(object sender, EventArgs e) {
+
         }
 
         private void btnBrowseProject_Click(object sender, EventArgs e) {
-            var dialog = new OpenFileDialog {Filter = "Unreal Project File (*.uproject)|*.uproject|All types (*.*)|*.*"};
+            var dialog = new OpenFileDialog { Filter = "Unreal Project File (*.uproject)|*.uproject|All types (*.*)|*.*" };
             var res = dialog.ShowDialog();
 
             if (res == DialogResult.OK) {
@@ -102,16 +94,12 @@ namespace QtConfigurator
 
         private void btnDetectUEPath_Click(object sender, EventArgs e) {
             var path = QuteResolver.GetDetectedUEPath();
-            if (path != "" && Directory.Exists(path)) {
+            if (path != null && Directory.Exists(path)) {
                 txtUEPath.Text = path;
                 Console.WriteLine("Unreal Engine path changed to '{0}'.", path);
             } else {
                 Console.WriteLine("Could not auto-detect Unreal Engine installation path.");
             }
-        }
-
-        private void lblPath_Click(object sender, EventArgs e) {
-
         }
 
         private void btnBrowseUEPath_Click(object sender, EventArgs e) {
@@ -124,14 +112,59 @@ namespace QtConfigurator
 
         private void txtUEPath_TextChanged(object sender, EventArgs e) {
             if (!Directory.Exists(txtUEPath.Text)) {
-                txtUEPath.ForeColor = SystemColors.GrayText;
+                txtUEPath.ForeColor = Color.Red;
             } else {
-                txtUEPath.ForeColor = SystemColors.WindowText;
+                txtUEPath.ForeColor = Color.Black;
             }
         }
 
         private void txtProjectPath_TextChanged(object sender, EventArgs e) {
+            if (!File.Exists(txtProjectPath.Text)) {
+                txtProjectPath.ForeColor = Color.Red;
+            } else {
+                txtProjectPath.ForeColor = Color.Black;
+            }
+        }
 
+        private void btnKitReadMe_Click(object sender, EventArgs e) {
+            Console.WriteLine("Operation not yet supported.");
+        }
+
+        private void btnBuildConfig_Click(object sender, EventArgs e) {
+            Console.WriteLine("Operation not yet supported.");
+        }
+
+        private void btnGenVSFiles_Click(object sender, EventArgs e) {
+            Console.WriteLine("Operation not yet supported.");
+        }
+
+        private void btnHelpVS_Click(object sender, EventArgs e) {
+            Console.WriteLine("Help: Generate project files for Visual Studio. "
+              + "You should perform this operation when VS Project files become out of sync,"
+              + " or right before you generate Qt project files.");
+        }
+
+        private void btnHelpBuildConfig_Click(object sender, EventArgs e) {
+            Console.WriteLine("Help: Generate build configuration every time you change the engine. "
+             + "An appropriate Qt Kit must be selected!");
+        }
+
+        private void btnHelpQt_Click(object sender, EventArgs e) {
+            Console.WriteLine("Help: Generate Qt project files. "
+              + "Visual Studio project files must be up-to-date before performing this operation. "
+              + "Do this whenever you add code to your project outside of Qt Creator, or after upgrading the engine.");
+
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+            // Save all settings
+            Settings.Default.QtPath = txtQtPath.Text;
+            var kit = comboKits.SelectedItem is QuteResolver.Kit ? (QuteResolver.Kit)
+                comboKits.SelectedItem : new QuteResolver.Kit();
+            Settings.Default.KitId = kit.Id;
+            Settings.Default.KitName = kit.Name;
+            Settings.Default.UEPath = txtUEPath.Text;
+            Settings.Default.Save();
         }
 
     }

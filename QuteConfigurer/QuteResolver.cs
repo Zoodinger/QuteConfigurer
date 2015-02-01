@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using Microsoft.Win32;
 
 namespace QtConfigurator
 {
-    class QuteResolver
+    static class QuteResolver
     {
+        /// <summary>
+        /// Contains information about a Qt kit.
+        /// </summary>
         public struct Kit
         {
             public string Name;
@@ -53,23 +53,25 @@ namespace QtConfigurator
             }
         }
 
+        /// <summary>
+        /// Get a sequence containing all the kits
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<Kit> GetKits() {
-            var outList = new List<Kit>();
-
             var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var fullPath = Path.Combine(appData, @"QtProject\qtcreator\profiles.xml");
 
             var doc = new XmlDocument();
 
             if (!File.Exists(fullPath)) {
-                return outList;
+                yield break;
             }
 
             doc.Load(fullPath);
             var root = doc.SelectSingleNode("qtcreator");
 
             if (root == null) {
-                return outList;
+                yield break;
             }
 
             foreach (XmlNode dataChild in root.ChildNodes) {
@@ -83,24 +85,22 @@ namespace QtConfigurator
                             switch (keyAttr.Value) {
                                 case "PE.Profile.Id":
                                     kit.Id = value.InnerText
-                                        .Replace("%{Qt:Version} ", "") // Avoid double spaces in name
-                                        .Replace("%{Qt:Version}", "");
+                                        .Replace("%{Qt:Version}", "") 
+                                        .Replace("  ", " ").Trim(); // Avoid double spaces in name
                                     break;
                                 case "PE.Profile.Name":
                                     kit.Name = value.InnerText
                                         .Replace("%{Qt:Version}", "")
-                                        .Replace("  ", " "); // Avoid double spaces in name
+                                        .Replace("  ", " ").Trim(); // Avoid double spaces in name
                                     break;
                             }
                         }
                     }
                     if (kit.Name != "" && kit.Id != "") {
-                        outList.Add(kit);
+                        yield return kit;
                     }
                 }
             }
-
-            return outList;
         }
     }
 }

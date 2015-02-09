@@ -116,7 +116,6 @@
             // 
             lblStep1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblStep1.AutoSize = true;
-            lblStep1.Enabled = false;
             lblStep1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblStep1.Location = new System.Drawing.Point(307, 24);
             lblStep1.Name = "lblStep1";
@@ -141,6 +140,7 @@
             this.browseQt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.browseQt.AutoSize = true;
             this.browseQt.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.browseQt.Enabled = false;
             this.browseQt.Location = new System.Drawing.Point(453, 30);
             this.browseQt.Name = "browseQt";
             this.browseQt.Size = new System.Drawing.Size(26, 23);
@@ -154,6 +154,7 @@
             this.txtQtPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtQtPath.BackColor = System.Drawing.Color.White;
+            this.txtQtPath.Enabled = false;
             this.txtQtPath.ForeColor = System.Drawing.Color.Black;
             this.txtQtPath.Location = new System.Drawing.Point(6, 32);
             this.txtQtPath.Name = "txtQtPath";
@@ -177,6 +178,7 @@
             this.btnDetectQt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDetectQt.AutoSize = true;
             this.btnDetectQt.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDetectQt.Enabled = false;
             this.btnDetectQt.Location = new System.Drawing.Point(485, 30);
             this.btnDetectQt.Name = "btnDetectQt";
             this.btnDetectQt.Size = new System.Drawing.Size(49, 23);
@@ -243,7 +245,6 @@
             this.btnBuildConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuildConfig.AutoSize = true;
             this.btnBuildConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBuildConfig.Enabled = false;
             this.btnBuildConfig.Location = new System.Drawing.Point(351, 19);
             this.btnBuildConfig.Name = "btnBuildConfig";
             this.btnBuildConfig.Size = new System.Drawing.Size(152, 23);
@@ -305,7 +306,6 @@
             this.generalConfigGroup.Controls.Add(this.comboKits);
             this.generalConfigGroup.Controls.Add(lblQtBuildKit);
             this.generalConfigGroup.Controls.Add(this.btnKitReadMe);
-            this.generalConfigGroup.Enabled = false;
             this.generalConfigGroup.Location = new System.Drawing.Point(12, 12);
             this.generalConfigGroup.Name = "generalConfigGroup";
             this.generalConfigGroup.Size = new System.Drawing.Size(540, 144);
@@ -387,7 +387,6 @@
             this.btnHelpBuildConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnHelpBuildConfig.AutoSize = true;
             this.btnHelpBuildConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnHelpBuildConfig.Enabled = false;
             this.btnHelpBuildConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHelpBuildConfig.Location = new System.Drawing.Point(509, 19);
             this.btnHelpBuildConfig.Name = "btnHelpBuildConfig";
@@ -417,8 +416,9 @@
             this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLog.BackColor = System.Drawing.SystemColors.Window;
-            this.txtLog.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLog.BackColor = System.Drawing.Color.Black;
+            this.txtLog.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLog.ForeColor = System.Drawing.Color.Green;
             this.txtLog.HideSelection = false;
             this.txtLog.Location = new System.Drawing.Point(12, 336);
             this.txtLog.Name = "txtLog";

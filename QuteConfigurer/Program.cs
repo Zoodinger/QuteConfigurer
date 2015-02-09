@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Deployment.Application;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -15,8 +17,6 @@ namespace Qute
         /// Initializes default settings if they don't exist.
         /// </summary>
         static void InitSettings() {
-       //     Settings.Default.UEPath = "";
-         //   Settings.Default.QtPath = "";
 
             //Attempts to get the current user's name.
             if (Settings.Default.Username.Trim() == string.Empty) {
@@ -40,10 +40,13 @@ namespace Qute
                 Settings.Default.UEPath = value;
             }
 
-            Console.WriteLine(Settings.Default.Username);
-            Console.WriteLine(Settings.Default.QtPath);
-
             Settings.Default.Save();
+        }
+
+        internal static string GetVersion() {
+            return ApplicationDeployment.IsNetworkDeployed
+                   ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString()
+                   : Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
         /// <summary>

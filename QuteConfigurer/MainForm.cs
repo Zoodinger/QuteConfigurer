@@ -34,10 +34,10 @@ namespace Qute
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
-            Console.SetOut(new ConsoleRedirector(txtLog));
+            Console.SetOut(new QuteConsoleWriter(txtLog, Color.LightGray));
+            Console.SetError(new QuteConsoleWriter(txtLog, Color.Red));
 
             //Set up the input fields to have already stored settings.
-
             txtQtPath.Text = Settings.Default.QtPath;
             txtUEPath.Text = Settings.Default.UEPath;
 
@@ -88,23 +88,6 @@ namespace Qute
         }
 
 
-        private class ConsoleRedirector : TextWriter
-        {
-            private readonly RichTextBox _textBox;
-
-            public ConsoleRedirector(RichTextBox textbox) {
-                _textBox = textbox;
-            }
-
-            public override void Write(char value) {
-                base.Write(value);
-                _textBox.AppendText(value.ToString(CultureInfo.InvariantCulture));
-            }
-
-            public override Encoding Encoding {
-                get { return Encoding.UTF8; }
-            }
-        }
 
         private void btnQtFiles_Click(object sender, EventArgs e) {
             QuteResolver.UEProject project = QuteResolver.GetProjectInfo(txtProjectPath.Text);
@@ -157,32 +140,39 @@ namespace Qute
         }
 
         private void btnKitReadMe_Click(object sender, EventArgs e) {
-            Console.WriteLine("Operation not yet supported.");
+            Console.Error.WriteLine("Operation not yet supported.");
         }
 
         private void btnBuildConfig_Click(object sender, EventArgs e) {
-            Console.WriteLine("Operation not yet supported.");
+            QuteResolver.UEProject project = QuteResolver.GetProjectInfo(txtProjectPath.Text);
+            if (comboKits.SelectedItem is QuteResolver.Kit) {
+                var kit = (QuteResolver.Kit)comboKits.SelectedItem;
+                QuteExporter.ExportConfiguration(project, kit);
+            }
         }
 
         private void btnGenVSFiles_Click(object sender, EventArgs e) {
-            Console.WriteLine("Operation not yet supported.");
+            Console.Error.WriteLine("Operation not yet supported.");
         }
 
         private void btnHelpVS_Click(object sender, EventArgs e) {
-            Console.WriteLine("Help: Generate project files for Visual Studio. "
+            MessageBox.Show("Generate project files for Visual Studio. "
               + "You should perform this operation when VS Project files become out of sync,"
-              + " or right before you generate Qt project files.");
+              + " or right before you generate Qt project files.",
+              "Help on '" + btnVSFiles.Text + "'", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnHelpBuildConfig_Click(object sender, EventArgs e) {
-            Console.WriteLine("Help: Generate build configuration every time you change the engine. "
-             + "An appropriate Qt Kit must be selected!");
+            MessageBox.Show("Generate build configuration every time you change the engine. "
+             + "An appropriate Qt Kit must be selected!",
+             "Help on '" + btnBuildConfig.Text + "'", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnHelpQt_Click(object sender, EventArgs e) {
-            Console.WriteLine("Help: Generate Qt project files. "
+            MessageBox.Show("Generate Qt project files. "
               + "Visual Studio project files must be up-to-date before performing this operation. "
-              + "Do this whenever you add code to your project outside of Qt Creator, or after upgrading the engine.");
+              + "Do this whenever you add code to your project outside of Qt Creator, or after upgrading the engine.",
+            "Help on '" + btnQtFiles.Text + "'", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {

@@ -34,12 +34,6 @@ namespace Qute
             public string Path;
             public string Engine;
             public string Name;
-
-            public UEProject(string path, string name, string engine) {
-                Name = name;
-                Engine = engine;
-                Path = path;
-            }
         }
 
         public static UEProject GetProjectInfo(string path) {
@@ -70,11 +64,11 @@ namespace Qute
                     }
                 }
             } catch (FileNotFoundException) {
-                Console.WriteLine("Error: File not found.");
+                Console.Error.WriteLine("Error: File not found.");
             } catch (ArgumentException) {
-                Console.WriteLine("Error: Invalid project path.");
+                Console.Error.WriteLine("Error: Invalid project path.");
             } catch {
-                Console.WriteLine("Error: Could not read project information.");
+                Console.Error.WriteLine("Error: Could not read project information.");
             }
 
             return project;

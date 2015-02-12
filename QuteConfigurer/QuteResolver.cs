@@ -33,10 +33,11 @@ namespace Qute
             public string Path;
             public string Engine;
             public string Name;
+            public string ErrorStatus;
         }
 
         public static UEProject GetProjectInfo(string path) {
-            var project = new UEProject { Path = path };
+            var project = new UEProject { Path = path, ErrorStatus = null };
 
             try {
                 using (var reader = new StreamReader(path)) {
@@ -63,11 +64,11 @@ namespace Qute
                     }
                 }
             } catch (FileNotFoundException) {
-                Console.Error.WriteLine("Error: File not found.");
+                project.ErrorStatus = "Error: File not found.";
             } catch (ArgumentException) {
-                Console.Error.WriteLine("Error: Invalid project path.");
+                project.ErrorStatus = "Error: Invalid project path.";
             } catch {
-                Console.Error.WriteLine("Error: Could not read project information.");
+                project.ErrorStatus = "Error: Could not read project information.";
             }
 
             return project;

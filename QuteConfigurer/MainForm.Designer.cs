@@ -62,6 +62,7 @@
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.btnProjInfo = new System.Windows.Forms.Button();
             lblQtPath = new System.Windows.Forms.Label();
             lblQtBuildKit = new System.Windows.Forms.Label();
             lblProject = new System.Windows.Forms.Label();
@@ -92,11 +93,11 @@
             // lblQtBuildKit
             // 
             lblQtBuildKit.AutoSize = true;
-            lblQtBuildKit.Location = new System.Drawing.Point(6, 55);
+            lblQtBuildKit.Location = new System.Drawing.Point(6, 24);
             lblQtBuildKit.Name = "lblQtBuildKit";
-            lblQtBuildKit.Size = new System.Drawing.Size(59, 13);
+            lblQtBuildKit.Size = new System.Drawing.Size(33, 13);
             lblQtBuildKit.TabIndex = 7;
-            lblQtBuildKit.Text = "Qt Build Kit";
+            lblQtBuildKit.Text = "Qt Kit";
             // 
             // lblProject
             // 
@@ -110,7 +111,7 @@
             // lblUEPath
             // 
             lblUEPath.AutoSize = true;
-            lblUEPath.Location = new System.Drawing.Point(6, 95);
+            lblUEPath.Location = new System.Drawing.Point(4, 55);
             lblUEPath.Name = "lblUEPath";
             lblUEPath.Size = new System.Drawing.Size(99, 13);
             lblUEPath.TabIndex = 13;
@@ -148,7 +149,7 @@
             this.btnQtFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnQtFiles.AutoSize = true;
             this.btnQtFiles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnQtFiles.Location = new System.Drawing.Point(307, 97);
+            this.btnQtFiles.Location = new System.Drawing.Point(308, 127);
             this.btnQtFiles.Name = "btnQtFiles";
             this.btnQtFiles.Size = new System.Drawing.Size(64, 23);
             this.btnQtFiles.TabIndex = 3;
@@ -176,9 +177,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboKits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboKits.FormattingEnabled = true;
-            this.comboKits.Location = new System.Drawing.Point(6, 71);
+            this.comboKits.Location = new System.Drawing.Point(45, 19);
             this.comboKits.Name = "comboKits";
-            this.comboKits.Size = new System.Drawing.Size(613, 21);
+            this.comboKits.Size = new System.Drawing.Size(193, 21);
             this.comboKits.Sorted = true;
             this.comboKits.TabIndex = 6;
             // 
@@ -190,7 +191,7 @@
             this.btnKitReadMe.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnKitReadMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnKitReadMe.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.btnKitReadMe.Location = new System.Drawing.Point(624, 71);
+            this.btnKitReadMe.Location = new System.Drawing.Point(244, 19);
             this.btnKitReadMe.Name = "btnKitReadMe";
             this.btnKitReadMe.Size = new System.Drawing.Size(82, 23);
             this.btnKitReadMe.TabIndex = 8;
@@ -206,7 +207,7 @@
             this.txtProjectPath.ForeColor = System.Drawing.Color.Black;
             this.txtProjectPath.Location = new System.Drawing.Point(52, 21);
             this.txtProjectPath.Name = "txtProjectPath";
-            this.txtProjectPath.Size = new System.Drawing.Size(621, 20);
+            this.txtProjectPath.Size = new System.Drawing.Size(567, 20);
             this.txtProjectPath.TabIndex = 9;
             this.txtProjectPath.TextChanged += new System.EventHandler(this.txtProjectPath_TextChanged);
             // 
@@ -215,7 +216,7 @@
             this.btnBrowseProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBrowseProject.AutoSize = true;
             this.btnBrowseProject.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBrowseProject.Location = new System.Drawing.Point(679, 19);
+            this.btnBrowseProject.Location = new System.Drawing.Point(625, 19);
             this.btnBrowseProject.Name = "btnBrowseProject";
             this.btnBrowseProject.Size = new System.Drawing.Size(26, 23);
             this.btnBrowseProject.TabIndex = 11;
@@ -228,7 +229,7 @@
             this.btnBuildConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuildConfig.AutoSize = true;
             this.btnBuildConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBuildConfig.Location = new System.Drawing.Point(260, 97);
+            this.btnBuildConfig.Location = new System.Drawing.Point(259, 127);
             this.btnBuildConfig.Name = "btnBuildConfig";
             this.btnBuildConfig.Size = new System.Drawing.Size(64, 23);
             this.btnBuildConfig.TabIndex = 12;
@@ -241,7 +242,7 @@
             this.btnDetectUEPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDetectUEPath.AutoSize = true;
             this.btnDetectUEPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDetectUEPath.Location = new System.Drawing.Point(657, 109);
+            this.btnDetectUEPath.Location = new System.Drawing.Point(656, 69);
             this.btnDetectUEPath.Name = "btnDetectUEPath";
             this.btnDetectUEPath.Size = new System.Drawing.Size(49, 23);
             this.btnDetectUEPath.TabIndex = 16;
@@ -255,7 +256,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtUEPath.BackColor = System.Drawing.Color.White;
             this.txtUEPath.ForeColor = System.Drawing.Color.Black;
-            this.txtUEPath.Location = new System.Drawing.Point(6, 111);
+            this.txtUEPath.Location = new System.Drawing.Point(6, 71);
             this.txtUEPath.Name = "txtUEPath";
             this.txtUEPath.Size = new System.Drawing.Size(613, 20);
             this.txtUEPath.TabIndex = 15;
@@ -266,7 +267,7 @@
             this.btnBrowseUEPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBrowseUEPath.AutoSize = true;
             this.btnBrowseUEPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBrowseUEPath.Location = new System.Drawing.Point(625, 109);
+            this.btnBrowseUEPath.Location = new System.Drawing.Point(625, 69);
             this.btnBrowseUEPath.Name = "btnBrowseUEPath";
             this.btnBrowseUEPath.Size = new System.Drawing.Size(26, 23);
             this.btnBrowseUEPath.TabIndex = 14;
@@ -286,12 +287,9 @@
             this.generalConfigGroup.Controls.Add(this.btnBrowseUEPath);
             this.generalConfigGroup.Controls.Add(this.btnDetectQt);
             this.generalConfigGroup.Controls.Add(lblUEPath);
-            this.generalConfigGroup.Controls.Add(this.comboKits);
-            this.generalConfigGroup.Controls.Add(lblQtBuildKit);
-            this.generalConfigGroup.Controls.Add(this.btnKitReadMe);
             this.generalConfigGroup.Location = new System.Drawing.Point(12, 12);
             this.generalConfigGroup.Name = "generalConfigGroup";
-            this.generalConfigGroup.Size = new System.Drawing.Size(712, 137);
+            this.generalConfigGroup.Size = new System.Drawing.Size(712, 101);
             this.generalConfigGroup.TabIndex = 17;
             this.generalConfigGroup.TabStop = false;
             // 
@@ -299,10 +297,11 @@
             // 
             this.projectGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.projectGroup.Controls.Add(this.btnProjInfo);
             this.projectGroup.Controls.Add(this.txtProjectPath);
             this.projectGroup.Controls.Add(lblProject);
             this.projectGroup.Controls.Add(this.btnBrowseProject);
-            this.projectGroup.Location = new System.Drawing.Point(12, 155);
+            this.projectGroup.Location = new System.Drawing.Point(12, 119);
             this.projectGroup.Name = "projectGroup";
             this.projectGroup.Size = new System.Drawing.Size(711, 50);
             this.projectGroup.TabIndex = 18;
@@ -327,7 +326,7 @@
             this.btnHelpQt.AutoSize = true;
             this.btnHelpQt.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHelpQt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelpQt.Location = new System.Drawing.Point(277, 97);
+            this.btnHelpQt.Location = new System.Drawing.Point(278, 127);
             this.btnHelpQt.Name = "btnHelpQt";
             this.btnHelpQt.Size = new System.Drawing.Size(24, 23);
             this.btnHelpQt.TabIndex = 20;
@@ -337,10 +336,11 @@
             // 
             // btnHelpBuildConfig
             // 
+            this.btnHelpBuildConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnHelpBuildConfig.AutoSize = true;
             this.btnHelpBuildConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHelpBuildConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelpBuildConfig.Location = new System.Drawing.Point(141, 18);
+            this.btnHelpBuildConfig.Location = new System.Drawing.Point(229, 127);
             this.btnHelpBuildConfig.Name = "btnHelpBuildConfig";
             this.btnHelpBuildConfig.Size = new System.Drawing.Size(24, 23);
             this.btnHelpBuildConfig.TabIndex = 14;
@@ -350,11 +350,10 @@
             // 
             // btnHelpVS
             // 
-            this.btnHelpVS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnHelpVS.AutoSize = true;
             this.btnHelpVS.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHelpVS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelpVS.Location = new System.Drawing.Point(230, 97);
+            this.btnHelpVS.Location = new System.Drawing.Point(141, 19);
             this.btnHelpVS.Name = "btnHelpVS";
             this.btnHelpVS.Size = new System.Drawing.Size(24, 23);
             this.btnHelpVS.TabIndex = 2;
@@ -371,10 +370,10 @@
             this.txtLog.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLog.ForeColor = System.Drawing.Color.Green;
             this.txtLog.HideSelection = false;
-            this.txtLog.Location = new System.Drawing.Point(12, 343);
+            this.txtLog.Location = new System.Drawing.Point(12, 337);
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
-            this.txtLog.Size = new System.Drawing.Size(712, 156);
+            this.txtLog.Size = new System.Drawing.Size(712, 162);
             this.txtLog.TabIndex = 21;
             this.txtLog.Text = "";
             // 
@@ -383,7 +382,7 @@
             this.spContainer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.spContainer.IsSplitterFixed = true;
-            this.spContainer.Location = new System.Drawing.Point(12, 211);
+            this.spContainer.Location = new System.Drawing.Point(12, 175);
             this.spContainer.Name = "spContainer";
             // 
             // spContainer.Panel1
@@ -393,19 +392,22 @@
             // spContainer.Panel2
             // 
             this.spContainer.Panel2.Controls.Add(this.grpQtProjFiles);
-            this.spContainer.Size = new System.Drawing.Size(711, 126);
-            this.spContainer.SplitterDistance = 330;
+            this.spContainer.Size = new System.Drawing.Size(711, 156);
+            this.spContainer.SplitterDistance = 329;
             this.spContainer.TabIndex = 22;
             // 
             // grpBuildConfig
             // 
             this.grpBuildConfig.Controls.Add(this.spEditorOrDevelop);
             this.grpBuildConfig.Controls.Add(this.btnBuildConfig);
-            this.grpBuildConfig.Controls.Add(this.btnHelpVS);
+            this.grpBuildConfig.Controls.Add(this.btnHelpBuildConfig);
+            this.grpBuildConfig.Controls.Add(lblQtBuildKit);
+            this.grpBuildConfig.Controls.Add(this.comboKits);
+            this.grpBuildConfig.Controls.Add(this.btnKitReadMe);
             this.grpBuildConfig.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpBuildConfig.Location = new System.Drawing.Point(0, 0);
             this.grpBuildConfig.Name = "grpBuildConfig";
-            this.grpBuildConfig.Size = new System.Drawing.Size(330, 126);
+            this.grpBuildConfig.Size = new System.Drawing.Size(329, 156);
             this.grpBuildConfig.TabIndex = 0;
             this.grpBuildConfig.TabStop = false;
             this.grpBuildConfig.Text = "Build Configurations";
@@ -414,7 +416,7 @@
             // 
             this.spEditorOrDevelop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.spEditorOrDevelop.Location = new System.Drawing.Point(3, 19);
+            this.spEditorOrDevelop.Location = new System.Drawing.Point(3, 48);
             this.spEditorOrDevelop.Name = "spEditorOrDevelop";
             // 
             // spEditorOrDevelop.Panel1
@@ -428,8 +430,8 @@
             this.spEditorOrDevelop.Panel2.Controls.Add(this.chkShipStand);
             this.spEditorOrDevelop.Panel2.Controls.Add(this.chkDebugStand);
             this.spEditorOrDevelop.Panel2.Controls.Add(this.chkDevStand);
-            this.spEditorOrDevelop.Size = new System.Drawing.Size(324, 73);
-            this.spEditorOrDevelop.SplitterDistance = 160;
+            this.spEditorOrDevelop.Size = new System.Drawing.Size(323, 73);
+            this.spEditorOrDevelop.SplitterDistance = 159;
             this.spEditorOrDevelop.SplitterWidth = 1;
             this.spEditorOrDevelop.TabIndex = 13;
             // 
@@ -509,13 +511,13 @@
             // 
             this.grpQtProjFiles.Controls.Add(this.checkBox1);
             this.grpQtProjFiles.Controls.Add(this.btnHelpQt);
-            this.grpQtProjFiles.Controls.Add(this.btnHelpBuildConfig);
+            this.grpQtProjFiles.Controls.Add(this.btnHelpVS);
             this.grpQtProjFiles.Controls.Add(this.btnQtFiles);
             this.grpQtProjFiles.Controls.Add(this.btnVSFiles);
             this.grpQtProjFiles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpQtProjFiles.Location = new System.Drawing.Point(0, 0);
             this.grpQtProjFiles.Name = "grpQtProjFiles";
-            this.grpQtProjFiles.Size = new System.Drawing.Size(377, 126);
+            this.grpQtProjFiles.Size = new System.Drawing.Size(378, 156);
             this.grpQtProjFiles.TabIndex = 0;
             this.grpQtProjFiles.TabStop = false;
             this.grpQtProjFiles.Text = "Qt Project Files";
@@ -559,6 +561,18 @@
             this.checkBox7.TabIndex = 3;
             this.checkBox7.Text = "Debug Standalone";
             this.checkBox7.UseVisualStyleBackColor = true;
+            // 
+            // btnProjInfo
+            // 
+            this.btnProjInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnProjInfo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnProjInfo.Location = new System.Drawing.Point(656, 19);
+            this.btnProjInfo.Name = "btnProjInfo";
+            this.btnProjInfo.Size = new System.Drawing.Size(49, 23);
+            this.btnProjInfo.TabIndex = 17;
+            this.btnProjInfo.Text = "Info";
+            this.btnProjInfo.UseVisualStyleBackColor = true;
+            this.btnProjInfo.Click += new System.EventHandler(this.btnProjInfo_Click);
             // 
             // MainForm
             // 
@@ -633,6 +647,7 @@
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.Button btnProjInfo;
     }
 }
 

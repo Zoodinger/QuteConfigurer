@@ -55,6 +55,7 @@ namespace Qute
             if (Directory.Exists(dir)) {
                 foreach (var file in Directory.GetFiles(dir, "*.uproject")) {
                     txtProjectPath.Text = file;
+                    txtProjectPath_TextChanged(null, null);
                     break;
                 }
             }
@@ -89,9 +90,12 @@ namespace Qute
 
 
         private void btnQtFiles_Click(object sender, EventArgs e) {
-            QuteResolver.UEProject project = QuteResolver.GetProjectInfo(txtProjectPath.Text);
-
-            QuteExporter.ExportProject(project);
+            var project = QuteResolver.GetProjectInfo(txtProjectPath.Text);
+            if (project.ErrorStatus != null) {
+                Console.Error.WriteLine(project.ErrorStatus);
+            } else {
+                QuteExporter.ExportProject(project);
+            }
         }
 
         private void btnBrowseProject_Click(object sender, EventArgs e) {
@@ -133,8 +137,10 @@ namespace Qute
         private void txtProjectPath_TextChanged(object sender, EventArgs e) {
             if (!File.Exists(txtProjectPath.Text)) {
                 txtProjectPath.ForeColor = Color.Red;
+                btnProjInfo.Enabled = false;
             } else {
                 txtProjectPath.ForeColor = Color.Black;
+                btnProjInfo.Enabled = true;
             }
         }
 
@@ -183,6 +189,15 @@ namespace Qute
             Settings.Default.KitName = kit.Name;
             Settings.Default.UEPath = txtUEPath.Text;
             Settings.Default.Save();
+        }
+
+        private void btnProjInfo_Click(object sender, EventArgs e) {
+            var info = QuteResolver.GetProjectInfo(txtProjectPath.Text);
+            if (info.ErrorStatus == null) {
+                Console.WriteLine("Name: {0}\nEngine: {1}", info.Name, info.Engine);
+            } else {
+                Console.Error.WriteLine(info.ErrorStatus);
+            }
         }
 
     }

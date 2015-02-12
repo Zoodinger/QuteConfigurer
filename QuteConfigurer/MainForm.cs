@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
 using Qute.Properties;
 
@@ -11,6 +9,7 @@ namespace Qute
 {
     public partial class MainForm : Form
     {
+
         public MainForm() {
 
             //Json dll is embedded as a resource. This code will make sure it's loaded.

@@ -29,9 +29,6 @@
             System.Windows.Forms.Label lblQtBuildKit;
             System.Windows.Forms.Label lblProject;
             System.Windows.Forms.Label lblUEPath;
-            System.Windows.Forms.Label lblStep3;
-            System.Windows.Forms.Label lblStep1;
-            System.Windows.Forms.Label lblStep2;
             this.browseQt = new System.Windows.Forms.Button();
             this.txtQtPath = new System.Windows.Forms.TextBox();
             this.btnQtFiles = new System.Windows.Forms.Button();
@@ -47,22 +44,40 @@
             this.generalConfigGroup = new System.Windows.Forms.GroupBox();
             this.projectGroup = new System.Windows.Forms.GroupBox();
             this.btnVSFiles = new System.Windows.Forms.Button();
-            this.generateGroup = new System.Windows.Forms.GroupBox();
-            this.lblInfo = new System.Windows.Forms.Label();
             this.btnHelpQt = new System.Windows.Forms.Button();
             this.btnHelpBuildConfig = new System.Windows.Forms.Button();
             this.btnHelpVS = new System.Windows.Forms.Button();
             this.txtLog = new System.Windows.Forms.RichTextBox();
+            this.spContainer = new System.Windows.Forms.SplitContainer();
+            this.grpBuildConfig = new System.Windows.Forms.GroupBox();
+            this.spEditorOrDevelop = new System.Windows.Forms.SplitContainer();
+            this.chkShipEd = new System.Windows.Forms.CheckBox();
+            this.chkDevEd = new System.Windows.Forms.CheckBox();
+            this.chkDebugEd = new System.Windows.Forms.CheckBox();
+            this.chkShipStand = new System.Windows.Forms.CheckBox();
+            this.chkDebugStand = new System.Windows.Forms.CheckBox();
+            this.chkDevStand = new System.Windows.Forms.CheckBox();
+            this.grpQtProjFiles = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
             lblQtPath = new System.Windows.Forms.Label();
             lblQtBuildKit = new System.Windows.Forms.Label();
             lblProject = new System.Windows.Forms.Label();
             lblUEPath = new System.Windows.Forms.Label();
-            lblStep3 = new System.Windows.Forms.Label();
-            lblStep1 = new System.Windows.Forms.Label();
-            lblStep2 = new System.Windows.Forms.Label();
             this.generalConfigGroup.SuspendLayout();
             this.projectGroup.SuspendLayout();
-            this.generateGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spContainer)).BeginInit();
+            this.spContainer.Panel1.SuspendLayout();
+            this.spContainer.Panel2.SuspendLayout();
+            this.spContainer.SuspendLayout();
+            this.grpBuildConfig.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spEditorOrDevelop)).BeginInit();
+            this.spEditorOrDevelop.Panel1.SuspendLayout();
+            this.spEditorOrDevelop.Panel2.SuspendLayout();
+            this.spEditorOrDevelop.SuspendLayout();
+            this.grpQtProjFiles.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblQtPath
@@ -101,47 +116,13 @@
             lblUEPath.TabIndex = 13;
             lblUEPath.Text = "Unreal Engine Path";
             // 
-            // lblStep3
-            // 
-            lblStep3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            lblStep3.AutoSize = true;
-            lblStep3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblStep3.Location = new System.Drawing.Point(307, 82);
-            lblStep3.Name = "lblStep3";
-            lblStep3.Size = new System.Drawing.Size(38, 13);
-            lblStep3.TabIndex = 21;
-            lblStep3.Text = "Step 3";
-            // 
-            // lblStep1
-            // 
-            lblStep1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            lblStep1.AutoSize = true;
-            lblStep1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblStep1.Location = new System.Drawing.Point(307, 24);
-            lblStep1.Name = "lblStep1";
-            lblStep1.Size = new System.Drawing.Size(38, 13);
-            lblStep1.TabIndex = 0;
-            lblStep1.Text = "Step 1";
-            // 
-            // lblStep2
-            // 
-            lblStep2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            lblStep2.AutoSize = true;
-            lblStep2.Enabled = false;
-            lblStep2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblStep2.Location = new System.Drawing.Point(307, 53);
-            lblStep2.Name = "lblStep2";
-            lblStep2.Size = new System.Drawing.Size(38, 13);
-            lblStep2.TabIndex = 13;
-            lblStep2.Text = "Step 2";
-            // 
             // browseQt
             // 
             this.browseQt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.browseQt.AutoSize = true;
             this.browseQt.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.browseQt.Enabled = false;
-            this.browseQt.Location = new System.Drawing.Point(453, 30);
+            this.browseQt.Location = new System.Drawing.Point(625, 30);
             this.browseQt.Name = "browseQt";
             this.browseQt.Size = new System.Drawing.Size(26, 23);
             this.browseQt.TabIndex = 1;
@@ -158,18 +139,20 @@
             this.txtQtPath.ForeColor = System.Drawing.Color.Black;
             this.txtQtPath.Location = new System.Drawing.Point(6, 32);
             this.txtQtPath.Name = "txtQtPath";
-            this.txtQtPath.Size = new System.Drawing.Size(441, 20);
+            this.txtQtPath.Size = new System.Drawing.Size(613, 20);
             this.txtQtPath.TabIndex = 2;
             this.txtQtPath.TextChanged += new System.EventHandler(this.txtQtPath_TextChanged);
             // 
             // btnQtFiles
             // 
-            this.btnQtFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnQtFiles.Location = new System.Drawing.Point(351, 77);
+            this.btnQtFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnQtFiles.AutoSize = true;
+            this.btnQtFiles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnQtFiles.Location = new System.Drawing.Point(307, 97);
             this.btnQtFiles.Name = "btnQtFiles";
-            this.btnQtFiles.Size = new System.Drawing.Size(152, 23);
+            this.btnQtFiles.Size = new System.Drawing.Size(64, 23);
             this.btnQtFiles.TabIndex = 3;
-            this.btnQtFiles.Text = "Generate Qt Project Files";
+            this.btnQtFiles.Text = "Generate!";
             this.btnQtFiles.UseVisualStyleBackColor = true;
             this.btnQtFiles.Click += new System.EventHandler(this.btnQtFiles_Click);
             // 
@@ -179,7 +162,7 @@
             this.btnDetectQt.AutoSize = true;
             this.btnDetectQt.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnDetectQt.Enabled = false;
-            this.btnDetectQt.Location = new System.Drawing.Point(485, 30);
+            this.btnDetectQt.Location = new System.Drawing.Point(657, 30);
             this.btnDetectQt.Name = "btnDetectQt";
             this.btnDetectQt.Size = new System.Drawing.Size(49, 23);
             this.btnDetectQt.TabIndex = 4;
@@ -195,7 +178,7 @@
             this.comboKits.FormattingEnabled = true;
             this.comboKits.Location = new System.Drawing.Point(6, 71);
             this.comboKits.Name = "comboKits";
-            this.comboKits.Size = new System.Drawing.Size(441, 21);
+            this.comboKits.Size = new System.Drawing.Size(613, 21);
             this.comboKits.Sorted = true;
             this.comboKits.TabIndex = 6;
             // 
@@ -207,7 +190,7 @@
             this.btnKitReadMe.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnKitReadMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnKitReadMe.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.btnKitReadMe.Location = new System.Drawing.Point(452, 69);
+            this.btnKitReadMe.Location = new System.Drawing.Point(624, 71);
             this.btnKitReadMe.Name = "btnKitReadMe";
             this.btnKitReadMe.Size = new System.Drawing.Size(82, 23);
             this.btnKitReadMe.TabIndex = 8;
@@ -223,7 +206,7 @@
             this.txtProjectPath.ForeColor = System.Drawing.Color.Black;
             this.txtProjectPath.Location = new System.Drawing.Point(52, 21);
             this.txtProjectPath.Name = "txtProjectPath";
-            this.txtProjectPath.Size = new System.Drawing.Size(449, 20);
+            this.txtProjectPath.Size = new System.Drawing.Size(621, 20);
             this.txtProjectPath.TabIndex = 9;
             this.txtProjectPath.TextChanged += new System.EventHandler(this.txtProjectPath_TextChanged);
             // 
@@ -232,7 +215,7 @@
             this.btnBrowseProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBrowseProject.AutoSize = true;
             this.btnBrowseProject.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBrowseProject.Location = new System.Drawing.Point(507, 19);
+            this.btnBrowseProject.Location = new System.Drawing.Point(679, 19);
             this.btnBrowseProject.Name = "btnBrowseProject";
             this.btnBrowseProject.Size = new System.Drawing.Size(26, 23);
             this.btnBrowseProject.TabIndex = 11;
@@ -242,14 +225,14 @@
             // 
             // btnBuildConfig
             // 
-            this.btnBuildConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBuildConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuildConfig.AutoSize = true;
             this.btnBuildConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBuildConfig.Location = new System.Drawing.Point(351, 19);
+            this.btnBuildConfig.Location = new System.Drawing.Point(260, 97);
             this.btnBuildConfig.Name = "btnBuildConfig";
-            this.btnBuildConfig.Size = new System.Drawing.Size(152, 23);
+            this.btnBuildConfig.Size = new System.Drawing.Size(64, 23);
             this.btnBuildConfig.TabIndex = 12;
-            this.btnBuildConfig.Text = "Generate Build Configuration";
+            this.btnBuildConfig.Text = "Generate!";
             this.btnBuildConfig.UseVisualStyleBackColor = true;
             this.btnBuildConfig.Click += new System.EventHandler(this.btnBuildConfig_Click);
             // 
@@ -258,7 +241,7 @@
             this.btnDetectUEPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDetectUEPath.AutoSize = true;
             this.btnDetectUEPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDetectUEPath.Location = new System.Drawing.Point(485, 108);
+            this.btnDetectUEPath.Location = new System.Drawing.Point(657, 109);
             this.btnDetectUEPath.Name = "btnDetectUEPath";
             this.btnDetectUEPath.Size = new System.Drawing.Size(49, 23);
             this.btnDetectUEPath.TabIndex = 16;
@@ -274,7 +257,7 @@
             this.txtUEPath.ForeColor = System.Drawing.Color.Black;
             this.txtUEPath.Location = new System.Drawing.Point(6, 111);
             this.txtUEPath.Name = "txtUEPath";
-            this.txtUEPath.Size = new System.Drawing.Size(441, 20);
+            this.txtUEPath.Size = new System.Drawing.Size(613, 20);
             this.txtUEPath.TabIndex = 15;
             this.txtUEPath.TextChanged += new System.EventHandler(this.txtUEPath_TextChanged);
             // 
@@ -283,7 +266,7 @@
             this.btnBrowseUEPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBrowseUEPath.AutoSize = true;
             this.btnBrowseUEPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBrowseUEPath.Location = new System.Drawing.Point(453, 108);
+            this.btnBrowseUEPath.Location = new System.Drawing.Point(625, 109);
             this.btnBrowseUEPath.Name = "btnBrowseUEPath";
             this.btnBrowseUEPath.Size = new System.Drawing.Size(26, 23);
             this.btnBrowseUEPath.TabIndex = 14;
@@ -308,7 +291,7 @@
             this.generalConfigGroup.Controls.Add(this.btnKitReadMe);
             this.generalConfigGroup.Location = new System.Drawing.Point(12, 12);
             this.generalConfigGroup.Name = "generalConfigGroup";
-            this.generalConfigGroup.Size = new System.Drawing.Size(540, 144);
+            this.generalConfigGroup.Size = new System.Drawing.Size(712, 137);
             this.generalConfigGroup.TabIndex = 17;
             this.generalConfigGroup.TabStop = false;
             // 
@@ -319,62 +302,32 @@
             this.projectGroup.Controls.Add(this.txtProjectPath);
             this.projectGroup.Controls.Add(lblProject);
             this.projectGroup.Controls.Add(this.btnBrowseProject);
-            this.projectGroup.Location = new System.Drawing.Point(12, 162);
+            this.projectGroup.Location = new System.Drawing.Point(12, 155);
             this.projectGroup.Name = "projectGroup";
-            this.projectGroup.Size = new System.Drawing.Size(539, 51);
+            this.projectGroup.Size = new System.Drawing.Size(711, 50);
             this.projectGroup.TabIndex = 18;
             this.projectGroup.TabStop = false;
             // 
             // btnVSFiles
             // 
-            this.btnVSFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVSFiles.AutoSize = true;
+            this.btnVSFiles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnVSFiles.Enabled = false;
-            this.btnVSFiles.Location = new System.Drawing.Point(351, 48);
+            this.btnVSFiles.Location = new System.Drawing.Point(6, 19);
             this.btnVSFiles.Name = "btnVSFiles";
-            this.btnVSFiles.Size = new System.Drawing.Size(152, 23);
+            this.btnVSFiles.Size = new System.Drawing.Size(129, 23);
             this.btnVSFiles.TabIndex = 19;
-            this.btnVSFiles.Text = "Generate VS Project Files";
+            this.btnVSFiles.Text = "Update VS Project Files";
             this.btnVSFiles.UseVisualStyleBackColor = true;
             this.btnVSFiles.Click += new System.EventHandler(this.btnGenVSFiles_Click);
             // 
-            // generateGroup
-            // 
-            this.generateGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.generateGroup.Controls.Add(this.lblInfo);
-            this.generateGroup.Controls.Add(lblStep3);
-            this.generateGroup.Controls.Add(this.btnHelpQt);
-            this.generateGroup.Controls.Add(this.btnHelpBuildConfig);
-            this.generateGroup.Controls.Add(this.btnVSFiles);
-            this.generateGroup.Controls.Add(this.btnBuildConfig);
-            this.generateGroup.Controls.Add(lblStep1);
-            this.generateGroup.Controls.Add(lblStep2);
-            this.generateGroup.Controls.Add(this.btnHelpVS);
-            this.generateGroup.Controls.Add(this.btnQtFiles);
-            this.generateGroup.Location = new System.Drawing.Point(12, 219);
-            this.generateGroup.Name = "generateGroup";
-            this.generateGroup.Size = new System.Drawing.Size(540, 111);
-            this.generateGroup.TabIndex = 20;
-            this.generateGroup.TabStop = false;
-            // 
-            // lblInfo
-            // 
-            this.lblInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInfo.Location = new System.Drawing.Point(6, 16);
-            this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(296, 84);
-            this.lblInfo.TabIndex = 22;
-            this.lblInfo.Text = "Not implemented features are currently disabled.";
-            this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // btnHelpQt
             // 
-            this.btnHelpQt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnHelpQt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnHelpQt.AutoSize = true;
             this.btnHelpQt.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHelpQt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelpQt.Location = new System.Drawing.Point(509, 77);
+            this.btnHelpQt.Location = new System.Drawing.Point(277, 97);
             this.btnHelpQt.Name = "btnHelpQt";
             this.btnHelpQt.Size = new System.Drawing.Size(24, 23);
             this.btnHelpQt.TabIndex = 20;
@@ -384,11 +337,10 @@
             // 
             // btnHelpBuildConfig
             // 
-            this.btnHelpBuildConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnHelpBuildConfig.AutoSize = true;
             this.btnHelpBuildConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHelpBuildConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelpBuildConfig.Location = new System.Drawing.Point(509, 19);
+            this.btnHelpBuildConfig.Location = new System.Drawing.Point(141, 18);
             this.btnHelpBuildConfig.Name = "btnHelpBuildConfig";
             this.btnHelpBuildConfig.Size = new System.Drawing.Size(24, 23);
             this.btnHelpBuildConfig.TabIndex = 14;
@@ -398,12 +350,11 @@
             // 
             // btnHelpVS
             // 
-            this.btnHelpVS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnHelpVS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnHelpVS.AutoSize = true;
             this.btnHelpVS.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnHelpVS.Enabled = false;
             this.btnHelpVS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelpVS.Location = new System.Drawing.Point(509, 48);
+            this.btnHelpVS.Location = new System.Drawing.Point(230, 97);
             this.btnHelpVS.Name = "btnHelpVS";
             this.btnHelpVS.Size = new System.Drawing.Size(24, 23);
             this.btnHelpVS.TabIndex = 2;
@@ -420,25 +371,207 @@
             this.txtLog.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLog.ForeColor = System.Drawing.Color.Green;
             this.txtLog.HideSelection = false;
-            this.txtLog.Location = new System.Drawing.Point(12, 336);
+            this.txtLog.Location = new System.Drawing.Point(12, 343);
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
-            this.txtLog.Size = new System.Drawing.Size(540, 163);
+            this.txtLog.Size = new System.Drawing.Size(712, 156);
             this.txtLog.TabIndex = 21;
             this.txtLog.Text = "";
+            // 
+            // spContainer
+            // 
+            this.spContainer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.spContainer.IsSplitterFixed = true;
+            this.spContainer.Location = new System.Drawing.Point(12, 211);
+            this.spContainer.Name = "spContainer";
+            // 
+            // spContainer.Panel1
+            // 
+            this.spContainer.Panel1.Controls.Add(this.grpBuildConfig);
+            // 
+            // spContainer.Panel2
+            // 
+            this.spContainer.Panel2.Controls.Add(this.grpQtProjFiles);
+            this.spContainer.Size = new System.Drawing.Size(711, 126);
+            this.spContainer.SplitterDistance = 330;
+            this.spContainer.TabIndex = 22;
+            // 
+            // grpBuildConfig
+            // 
+            this.grpBuildConfig.Controls.Add(this.spEditorOrDevelop);
+            this.grpBuildConfig.Controls.Add(this.btnBuildConfig);
+            this.grpBuildConfig.Controls.Add(this.btnHelpVS);
+            this.grpBuildConfig.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpBuildConfig.Location = new System.Drawing.Point(0, 0);
+            this.grpBuildConfig.Name = "grpBuildConfig";
+            this.grpBuildConfig.Size = new System.Drawing.Size(330, 126);
+            this.grpBuildConfig.TabIndex = 0;
+            this.grpBuildConfig.TabStop = false;
+            this.grpBuildConfig.Text = "Build Configurations";
+            // 
+            // spEditorOrDevelop
+            // 
+            this.spEditorOrDevelop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.spEditorOrDevelop.Location = new System.Drawing.Point(3, 19);
+            this.spEditorOrDevelop.Name = "spEditorOrDevelop";
+            // 
+            // spEditorOrDevelop.Panel1
+            // 
+            this.spEditorOrDevelop.Panel1.Controls.Add(this.chkShipEd);
+            this.spEditorOrDevelop.Panel1.Controls.Add(this.chkDevEd);
+            this.spEditorOrDevelop.Panel1.Controls.Add(this.chkDebugEd);
+            // 
+            // spEditorOrDevelop.Panel2
+            // 
+            this.spEditorOrDevelop.Panel2.Controls.Add(this.chkShipStand);
+            this.spEditorOrDevelop.Panel2.Controls.Add(this.chkDebugStand);
+            this.spEditorOrDevelop.Panel2.Controls.Add(this.chkDevStand);
+            this.spEditorOrDevelop.Size = new System.Drawing.Size(324, 73);
+            this.spEditorOrDevelop.SplitterDistance = 160;
+            this.spEditorOrDevelop.SplitterWidth = 1;
+            this.spEditorOrDevelop.TabIndex = 13;
+            // 
+            // chkShipEd
+            // 
+            this.chkShipEd.AutoSize = true;
+            this.chkShipEd.Checked = true;
+            this.chkShipEd.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkShipEd.Location = new System.Drawing.Point(3, 49);
+            this.chkShipEd.Name = "chkShipEd";
+            this.chkShipEd.Size = new System.Drawing.Size(97, 17);
+            this.chkShipEd.TabIndex = 2;
+            this.chkShipEd.Text = "Shipping Editor";
+            this.chkShipEd.UseVisualStyleBackColor = true;
+            // 
+            // chkDevEd
+            // 
+            this.chkDevEd.AutoSize = true;
+            this.chkDevEd.Checked = true;
+            this.chkDevEd.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDevEd.Location = new System.Drawing.Point(3, 26);
+            this.chkDevEd.Name = "chkDevEd";
+            this.chkDevEd.Size = new System.Drawing.Size(119, 17);
+            this.chkDevEd.TabIndex = 1;
+            this.chkDevEd.Text = "Development Editor";
+            this.chkDevEd.UseVisualStyleBackColor = true;
+            // 
+            // chkDebugEd
+            // 
+            this.chkDebugEd.AutoSize = true;
+            this.chkDebugEd.Checked = true;
+            this.chkDebugEd.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDebugEd.Location = new System.Drawing.Point(3, 3);
+            this.chkDebugEd.Name = "chkDebugEd";
+            this.chkDebugEd.Size = new System.Drawing.Size(88, 17);
+            this.chkDebugEd.TabIndex = 0;
+            this.chkDebugEd.Text = "Debug Editor";
+            this.chkDebugEd.UseVisualStyleBackColor = true;
+            // 
+            // chkShipStand
+            // 
+            this.chkShipStand.AutoSize = true;
+            this.chkShipStand.Checked = true;
+            this.chkShipStand.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkShipStand.Location = new System.Drawing.Point(3, 49);
+            this.chkShipStand.Name = "chkShipStand";
+            this.chkShipStand.Size = new System.Drawing.Size(124, 17);
+            this.chkShipStand.TabIndex = 5;
+            this.chkShipStand.Text = "Shipping Standalone";
+            this.chkShipStand.UseVisualStyleBackColor = true;
+            // 
+            // chkDebugStand
+            // 
+            this.chkDebugStand.AutoSize = true;
+            this.chkDebugStand.Checked = true;
+            this.chkDebugStand.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDebugStand.Location = new System.Drawing.Point(3, 3);
+            this.chkDebugStand.Name = "chkDebugStand";
+            this.chkDebugStand.Size = new System.Drawing.Size(115, 17);
+            this.chkDebugStand.TabIndex = 3;
+            this.chkDebugStand.Text = "Debug Standalone";
+            this.chkDebugStand.UseVisualStyleBackColor = true;
+            // 
+            // chkDevStand
+            // 
+            this.chkDevStand.AutoSize = true;
+            this.chkDevStand.Checked = true;
+            this.chkDevStand.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDevStand.Location = new System.Drawing.Point(3, 26);
+            this.chkDevStand.Name = "chkDevStand";
+            this.chkDevStand.Size = new System.Drawing.Size(146, 17);
+            this.chkDevStand.TabIndex = 4;
+            this.chkDevStand.Text = "Development Standalone";
+            this.chkDevStand.UseVisualStyleBackColor = true;
+            // 
+            // grpQtProjFiles
+            // 
+            this.grpQtProjFiles.Controls.Add(this.checkBox1);
+            this.grpQtProjFiles.Controls.Add(this.btnHelpQt);
+            this.grpQtProjFiles.Controls.Add(this.btnHelpBuildConfig);
+            this.grpQtProjFiles.Controls.Add(this.btnQtFiles);
+            this.grpQtProjFiles.Controls.Add(this.btnVSFiles);
+            this.grpQtProjFiles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpQtProjFiles.Location = new System.Drawing.Point(0, 0);
+            this.grpQtProjFiles.Name = "grpQtProjFiles";
+            this.grpQtProjFiles.Size = new System.Drawing.Size(377, 126);
+            this.grpQtProjFiles.TabIndex = 0;
+            this.grpQtProjFiles.TabStop = false;
+            this.grpQtProjFiles.Text = "Qt Project Files";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(6, 48);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(170, 17);
+            this.checkBox1.TabIndex = 21;
+            this.checkBox1.Text = "Scan for additional source files";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(3, 49);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(97, 17);
+            this.checkBox5.TabIndex = 5;
+            this.checkBox5.Text = "Shipping Editor";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Location = new System.Drawing.Point(3, 26);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(146, 17);
+            this.checkBox6.TabIndex = 4;
+            this.checkBox6.Text = "Development Standalone";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(3, 3);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(115, 17);
+            this.checkBox7.TabIndex = 3;
+            this.checkBox7.Text = "Debug Standalone";
+            this.checkBox7.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(564, 511);
+            this.ClientSize = new System.Drawing.Size(736, 511);
+            this.Controls.Add(this.spContainer);
             this.Controls.Add(this.txtLog);
-            this.Controls.Add(this.generateGroup);
             this.Controls.Add(this.projectGroup);
             this.Controls.Add(this.generalConfigGroup);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(580, 550);
+            this.MinimumSize = new System.Drawing.Size(752, 550);
             this.Name = "MainForm";
             this.Text = "Qute Configurer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -447,8 +580,20 @@
             this.generalConfigGroup.PerformLayout();
             this.projectGroup.ResumeLayout(false);
             this.projectGroup.PerformLayout();
-            this.generateGroup.ResumeLayout(false);
-            this.generateGroup.PerformLayout();
+            this.spContainer.Panel1.ResumeLayout(false);
+            this.spContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spContainer)).EndInit();
+            this.spContainer.ResumeLayout(false);
+            this.grpBuildConfig.ResumeLayout(false);
+            this.grpBuildConfig.PerformLayout();
+            this.spEditorOrDevelop.Panel1.ResumeLayout(false);
+            this.spEditorOrDevelop.Panel1.PerformLayout();
+            this.spEditorOrDevelop.Panel2.ResumeLayout(false);
+            this.spEditorOrDevelop.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spEditorOrDevelop)).EndInit();
+            this.spEditorOrDevelop.ResumeLayout(false);
+            this.grpQtProjFiles.ResumeLayout(false);
+            this.grpQtProjFiles.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -470,12 +615,24 @@
         private System.Windows.Forms.GroupBox generalConfigGroup;
         private System.Windows.Forms.GroupBox projectGroup;
         private System.Windows.Forms.Button btnVSFiles;
-        private System.Windows.Forms.GroupBox generateGroup;
         private System.Windows.Forms.Button btnHelpVS;
         private System.Windows.Forms.Button btnHelpQt;
         private System.Windows.Forms.Button btnHelpBuildConfig;
         private System.Windows.Forms.RichTextBox txtLog;
-        private System.Windows.Forms.Label lblInfo;
+        private System.Windows.Forms.SplitContainer spContainer;
+        private System.Windows.Forms.GroupBox grpBuildConfig;
+        private System.Windows.Forms.GroupBox grpQtProjFiles;
+        private System.Windows.Forms.SplitContainer spEditorOrDevelop;
+        private System.Windows.Forms.CheckBox chkShipEd;
+        private System.Windows.Forms.CheckBox chkDevEd;
+        private System.Windows.Forms.CheckBox chkDebugEd;
+        private System.Windows.Forms.CheckBox chkShipStand;
+        private System.Windows.Forms.CheckBox chkDebugStand;
+        private System.Windows.Forms.CheckBox chkDevStand;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.CheckBox checkBox7;
     }
 }
 

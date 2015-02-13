@@ -26,30 +26,6 @@ namespace Qute.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string QtPath {
-            get {
-                return ((string)(this["QtPath"]));
-            }
-            set {
-                this["QtPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Username {
-            get {
-                return ((string)(this["Username"]));
-            }
-            set {
-                this["Username"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string UEPath {
             get {
                 return ((string)(this["UEPath"]));
@@ -80,6 +56,18 @@ namespace Qute.Properties {
             }
             set {
                 this["KitId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2047")]
+        public ulong ConfigFlags {
+            get {
+                return ((ulong)(this["ConfigFlags"]));
+            }
+            set {
+                this["ConfigFlags"] = value;
             }
         }
     }

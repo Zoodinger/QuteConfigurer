@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using Qute.Properties;
@@ -9,6 +11,8 @@ namespace Qute
 {
     public partial class MainForm : Form
     {
+
+        #region Initialize
 
         public MainForm() {
 
@@ -30,6 +34,107 @@ namespace Qute
 
 
             InitializeComponent();
+
+            InitializeConfigurations();
+        }
+        
+        private void InitializeConfigurations() {
+            var configurations = new object[] 
+            {
+                new Configuration.Build {
+                    Name = "Debug Editor",
+                    State = Configuration.State.Debug,
+                    Mode = Configuration.Mode.Editor,
+                    Target = Configuration.Target.Win64,
+                    Flag = Configuration.Flag.Rocket,
+                    WorkDir = "./Intermediate/Build/"
+                },
+                new Configuration.Build {
+                    Name = "Debug",
+                    State = Configuration.State.Debug,
+                    Mode = Configuration.Mode.None,
+                    Target = Configuration.Target.Win64,
+                    Flag = Configuration.Flag.Rocket,
+                    WorkDir = "./Intermediate/Build/"
+                },
+                new Configuration.Build {
+                    Name = "Development Editor",
+                    State = Configuration.State.Development,
+                    Mode = Configuration.Mode.Editor,
+                    Target = Configuration.Target.Win64,
+                    Flag = Configuration.Flag.Rocket,
+                    WorkDir = "./Intermediate/Build/"
+                },
+                new Configuration.Build {
+                    Name = "Development",
+                    State = Configuration.State.Development,
+                    Mode = Configuration.Mode.None,
+                    Target = Configuration.Target.Win64,
+                    Flag = Configuration.Flag.Rocket,
+                    WorkDir = "./Intermediate/Build/"
+                }
+            };
+
+            var runs = new object[] {
+                new Configuration.Run {
+                    Name = "Debug Editor",
+                    WorkDir = "./Binaries/Win64",
+                    ProjectArgument = true,
+                    Flag = Configuration.Flag.Debug,
+                },
+                new Configuration.Run {
+                    Name = "Debug",
+                    WorkDir = "./Binaries/Win64",
+                    Flag = Configuration.Flag.None,
+                    ProjectArgument = false,
+                },
+                new Configuration.Run {
+                    Name = "Debug in new window",
+                    WorkDir = "./Binaries/Win64",
+                    Flag = Configuration.Flag.None,
+                    ProjectArgument = false,
+                },
+                new Configuration.Run {
+                    Name = "Development Editor",
+                    WorkDir = "./Binaries/Win64",
+                    Flag = Configuration.Flag.None,
+                    ProjectArgument = true,
+                },
+                new Configuration.Run {
+                    Name = "Development",
+                    WorkDir = "./Binaries/Win64",
+                    Flag = Configuration.Flag.None,
+                    ProjectArgument = false,
+                },
+                new Configuration.Run {
+                    Name = "Development in new window",
+                    WorkDir = "./Binaries/Win64",
+                    ProjectArgument = false,
+                    Flag = Configuration.Flag.Game,
+                }
+            };
+
+            //The items showing in the design view are just placeholders.
+            listBuild.Items.Clear();
+            listRun.Items.Clear();
+            listBuild.Items.AddRange(configurations);
+            listRun.Items.AddRange(runs);
+
+            // Whether a configuration is checked is encoded in an unsigned long number.
+            // Each bit, starting from right to left, represents whether a configuration is ticked or not.
+            // 
+
+            var checkedCodes = Settings.Default.ConfigFlags;
+            var flag = 1ul;
+
+            for (var i = 0; i < listBuild.Items.Count; ++i) {
+                listBuild.SetItemChecked(i, (checkedCodes & flag) != 0);
+                flag = flag << 1;
+            }
+
+            for (var i = 0; i < listRun.Items.Count; ++i) {
+                listRun.SetItemChecked(i, (checkedCodes & flag) != 0);
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
@@ -37,7 +142,6 @@ namespace Qute
             Console.SetError(new QuteConsoleWriter(txtLog, Color.Red));
 
             //Set up the input fields to have already stored settings.
-            txtQtPath.Text = Settings.Default.QtPath;
             txtUEPath.Text = Settings.Default.UEPath;
 
             var kits = QuteResolver.GetKits();
@@ -61,40 +165,15 @@ namespace Qute
             }
         }
 
-        private void txtQtPath_TextChanged(object sender, EventArgs e) {
-            if (!Directory.Exists(txtQtPath.Text)) {
-                txtQtPath.ForeColor = Color.Red;
-            } else {
-                txtQtPath.ForeColor = Color.Black;
-            }
-        }
-
-        private void browseQt_Click(object sender, EventArgs e) {
-            var dialog = new FolderBrowserDialog();
-            if (dialog.ShowDialog() == DialogResult.OK) {
-                txtQtPath.Text = dialog.SelectedPath;
-                Console.WriteLine("Qt path changed to '{0}'.", dialog.SelectedPath);
-            }
-        }
-
-        private void btnDetectQt_Click(object sender, EventArgs e) {
-            var path = QuteResolver.GetDetectedQtPath();
-            if (path != null && Directory.Exists(path)) {
-                txtQtPath.Text = path;
-                Console.WriteLine("Qt path changed to '{0}'.", path);
-            } else {
-                Console.WriteLine("Could not auto-detect Qt installation path.");
-            }
-        }
-
+        #endregion
 
 
         private void btnQtFiles_Click(object sender, EventArgs e) {
-            var project = QuteResolver.GetProjectInfo(txtProjectPath.Text);
-            if (project.ErrorStatus != null) {
-                Console.Error.WriteLine(project.ErrorStatus);
-            } else {
+            try {
+                var project = QuteResolver.GetProjectInfo(txtProjectPath.Text);
                 QuteExporter.ExportProject(project);
+            } catch (QuteResolver.ProjectException ex) {
+                Console.Error.WriteLine(ex.Message);
             }
         }
 
@@ -149,10 +228,18 @@ namespace Qute
         }
 
         private void btnBuildConfig_Click(object sender, EventArgs e) {
-            QuteResolver.UEProject project = QuteResolver.GetProjectInfo(txtProjectPath.Text);
-            if (comboKits.SelectedItem is QuteResolver.Kit) {
-                var kit = (QuteResolver.Kit)comboKits.SelectedItem;
-                QuteExporter.ExportConfiguration(project, kit);
+            try {
+                QuteResolver.UEProject project = QuteResolver.GetProjectInfo(txtProjectPath.Text);
+                if (comboKits.SelectedItem is QuteResolver.Kit) {
+                    var kit = (QuteResolver.Kit)comboKits.SelectedItem;
+                    QuteExporter.ExportConfiguration(
+                        project,
+                        kit,
+                        listBuild.CheckedItems.OfType<Configuration.Build>(),
+                        listRun.CheckedItems.OfType<Configuration.Run>());
+                }
+            } catch (QuteResolver.ProjectException ex) {
+                Console.Error.WriteLine(ex.Message);
             }
         }
 
@@ -182,7 +269,6 @@ namespace Qute
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             // Save all settings
-            Settings.Default.QtPath = txtQtPath.Text;
             var kit = comboKits.SelectedItem is QuteResolver.Kit ? (QuteResolver.Kit)
                 comboKits.SelectedItem : new QuteResolver.Kit();
             Settings.Default.KitId = kit.Id;
@@ -192,12 +278,20 @@ namespace Qute
         }
 
         private void btnProjInfo_Click(object sender, EventArgs e) {
-            var info = QuteResolver.GetProjectInfo(txtProjectPath.Text);
-            if (info.ErrorStatus == null) {
+            try {
+                var info = QuteResolver.GetProjectInfo(txtProjectPath.Text);
                 Console.WriteLine("Name: {0}\nEngine: {1}", info.Name, info.Engine);
-            } else {
-                Console.Error.WriteLine(info.ErrorStatus);
+            } catch (QuteResolver.ProjectException ex) {
+                Console.Error.WriteLine(ex.Message);
             }
+        }
+
+        private void listRun_SelectedIndexChanged(object sender, EventArgs e) {
+            listRun.SelectedIndex = -1;
+        }
+
+        private void listBuild_SelectedIndexChanged(object sender, EventArgs e) {
+            listBuild.SelectedIndex = -1;
         }
 
     }

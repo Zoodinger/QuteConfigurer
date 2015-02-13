@@ -33,11 +33,24 @@ namespace Qute
             public string Path;
             public string Engine;
             public string Name;
-            public string ErrorStatus;
+
+            public UEProject(string name, string engine, string path) {
+                Path = path;
+                Engine = engine;
+                Name = name;
+            }
+        }
+
+        public class ProjectException : Exception
+        {
+            public ProjectException(string message)
+                : base(message) {
+            }
         }
 
         public static UEProject GetProjectInfo(string path) {
-            var project = new UEProject { Path = path, ErrorStatus = null };
+            string name = null;
+            string engine = null;
 
             try {
                 using (var reader = new StreamReader(path)) {
@@ -46,7 +59,7 @@ namespace Qute
 
                     foreach (var node in json) {
                         if (node.Key == "EngineAssociation") {
-                            project.Engine = node.Value.ToString();
+                            engine = node.Value.ToString();
                         }
 
                         if (node.Key != "Modules") {
@@ -56,22 +69,28 @@ namespace Qute
                         foreach (var module in node.Value.Select(JObject.FromObject)) {
                             foreach (var entry in module) {
                                 if (entry.Key == "Name") {
-                                    project.Name = entry.Value.ToString();
+                                    name = entry.Value.ToString();
                                 }
                             }
 
                         }
                     }
                 }
+
             } catch (FileNotFoundException) {
-                project.ErrorStatus = "Error: File not found.";
+                throw new ProjectException("Error: File not found.");
             } catch (ArgumentException) {
-                project.ErrorStatus = "Error: Invalid project path.";
+                throw new ProjectException("Error: Invalid project path.");
             } catch {
-                project.ErrorStatus = "Error: Could not read project information.";
+                throw new ProjectException("Error: Could not read project information.");
             }
 
-            return project;
+            if (name == null || engine == null) {
+                throw new ProjectException("Error: Missing project information.");
+            }
+
+            return new UEProject(name, engine, path);
+
         }
 
         /// <summary>

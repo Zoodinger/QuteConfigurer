@@ -11,8 +11,11 @@
     <Setting Name="KitId" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ConfigFlags" Type="System.UInt64" Scope="User">
-      <Value Profile="(Default)">2047</Value>
+    <Setting Name="ConfigFlags" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">4294967295</Value>
+    </Setting>
+    <Setting Name="AlwaysUpdateVS" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

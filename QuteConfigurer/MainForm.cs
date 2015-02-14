@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -11,10 +11,12 @@ namespace Qute
 {
     public partial class MainForm : Form
     {
+        private readonly ProjectData _data;
 
         #region Initialize
-
         public MainForm() {
+
+            _data = new ProjectData();
 
             //Json dll is embedded as a resource. This code will make sure it's loaded.
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => {
@@ -37,7 +39,7 @@ namespace Qute
 
             InitializeConfigurations();
         }
-        
+
         private void InitializeConfigurations() {
             var configurations = new object[] 
             {
@@ -45,95 +47,58 @@ namespace Qute
                     Name = "Debug Editor",
                     State = Configuration.State.Debug,
                     Mode = Configuration.Mode.Editor,
-                    Target = Configuration.Target.Win64,
-                    Flag = Configuration.Flag.Rocket,
-                    WorkDir = "./Intermediate/Build/"
+                    BuildFlags = Configuration.Flag.Rocket,
+                    Platform = Configuration.Target.Win64,
+                    RunFlags = Configuration.Flag.Debug,
+                    ExeSuffix = "",
+                    RunFromEditor = true,
                 },
                 new Configuration.Build {
-                    Name = "Debug",
+                    Name = "Debug Standalone",
                     State = Configuration.State.Debug,
-                    Mode = Configuration.Mode.None,
-                    Target = Configuration.Target.Win64,
-                    Flag = Configuration.Flag.Rocket,
-                    WorkDir = "./Intermediate/Build/"
+                    Mode = Configuration.Mode.Normal,
+                    BuildFlags = Configuration.Flag.Rocket,
+                    Platform = Configuration.Target.Win64,
+                    RunFlags = Configuration.Flag.None,
+                    ExeSuffix = Configuration.Target.Win64 + "-" + Configuration.State.Debug,
+                    RunFromEditor = false,
                 },
                 new Configuration.Build {
                     Name = "Development Editor",
                     State = Configuration.State.Development,
                     Mode = Configuration.Mode.Editor,
-                    Target = Configuration.Target.Win64,
-                    Flag = Configuration.Flag.Rocket,
-                    WorkDir = "./Intermediate/Build/"
+                    BuildFlags = Configuration.Flag.Rocket,
+                    Platform = Configuration.Target.Win64,
+                    RunFlags = Configuration.Flag.None,
+                    ExeSuffix = "",
+                    RunFromEditor = true,
                 },
                 new Configuration.Build {
-                    Name = "Development",
+                    Name = "Development Standalone",
                     State = Configuration.State.Development,
-                    Mode = Configuration.Mode.None,
-                    Target = Configuration.Target.Win64,
-                    Flag = Configuration.Flag.Rocket,
-                    WorkDir = "./Intermediate/Build/"
-                }
-            };
-
-            var runs = new object[] {
-                new Configuration.Run {
-                    Name = "Debug Editor",
-                    WorkDir = "./Binaries/Win64",
-                    ProjectArgument = true,
-                    Flag = Configuration.Flag.Debug,
-                },
-                new Configuration.Run {
-                    Name = "Debug",
-                    WorkDir = "./Binaries/Win64",
-                    Flag = Configuration.Flag.None,
-                    ProjectArgument = false,
-                },
-                new Configuration.Run {
-                    Name = "Debug in new window",
-                    WorkDir = "./Binaries/Win64",
-                    Flag = Configuration.Flag.None,
-                    ProjectArgument = false,
-                },
-                new Configuration.Run {
-                    Name = "Development Editor",
-                    WorkDir = "./Binaries/Win64",
-                    Flag = Configuration.Flag.None,
-                    ProjectArgument = true,
-                },
-                new Configuration.Run {
-                    Name = "Development",
-                    WorkDir = "./Binaries/Win64",
-                    Flag = Configuration.Flag.None,
-                    ProjectArgument = false,
-                },
-                new Configuration.Run {
-                    Name = "Development in new window",
-                    WorkDir = "./Binaries/Win64",
-                    ProjectArgument = false,
-                    Flag = Configuration.Flag.Game,
+                    Mode = Configuration.Mode.Normal,
+                    BuildFlags = Configuration.Flag.Rocket,
+                    Platform = Configuration.Target.Win64,
+                    RunFlags = Configuration.Flag.None,
+                    ExeSuffix = "",
+                    RunFromEditor = false,
                 }
             };
 
             //The items showing in the design view are just placeholders.
             listBuild.Items.Clear();
-            listRun.Items.Clear();
             listBuild.Items.AddRange(configurations);
-            listRun.Items.AddRange(runs);
 
             // Whether a configuration is checked is encoded in an unsigned long number.
             // Each bit, starting from right to left, represents whether a configuration is ticked or not.
             // 
 
             var checkedCodes = Settings.Default.ConfigFlags;
-            var flag = 1ul;
+            var flag = 1u;
 
             for (var i = 0; i < listBuild.Items.Count; ++i) {
                 listBuild.SetItemChecked(i, (checkedCodes & flag) != 0);
                 flag = flag << 1;
-            }
-
-            for (var i = 0; i < listRun.Items.Count; ++i) {
-                listRun.SetItemChecked(i, (checkedCodes & flag) != 0);
             }
         }
 
@@ -163,6 +128,8 @@ namespace Qute
                     break;
                 }
             }
+
+            checkAlwaysUpdateVS.Checked = Settings.Default.AlwaysUpdateVS;
         }
 
         #endregion
@@ -170,9 +137,12 @@ namespace Qute
 
         private void btnQtFiles_Click(object sender, EventArgs e) {
             try {
-                var project = QuteResolver.GetProjectInfo(txtProjectPath.Text);
-                QuteExporter.ExportProject(project);
-            } catch (QuteResolver.ProjectException ex) {
+                if (checkAlwaysUpdateVS.Checked) {
+                    UpdateVSFiles();
+                }
+                _data.UEProject = QuteResolver.GetProjectInfo(txtProjectPath.Text);
+                QuteExporter.ExportProject(_data);
+            } catch (Exception ex) {
                 Console.Error.WriteLine(ex.Message);
             }
         }
@@ -206,6 +176,7 @@ namespace Qute
         }
 
         private void txtUEPath_TextChanged(object sender, EventArgs e) {
+            _data.UEPath = txtUEPath.Text;
             if (!Directory.Exists(txtUEPath.Text)) {
                 txtUEPath.ForeColor = Color.Red;
             } else {
@@ -224,27 +195,51 @@ namespace Qute
         }
 
         private void btnKitReadMe_Click(object sender, EventArgs e) {
-            Console.Error.WriteLine("Operation not yet supported.");
+            Console.Error.WriteLine("Operation is not supported yet.");
         }
 
         private void btnBuildConfig_Click(object sender, EventArgs e) {
             try {
-                QuteResolver.UEProject project = QuteResolver.GetProjectInfo(txtProjectPath.Text);
+                _data.UEProject = QuteResolver.GetProjectInfo(txtProjectPath.Text);
+
                 if (comboKits.SelectedItem is QuteResolver.Kit) {
-                    var kit = (QuteResolver.Kit)comboKits.SelectedItem;
-                    QuteExporter.ExportConfiguration(
-                        project,
-                        kit,
-                        listBuild.CheckedItems.OfType<Configuration.Build>(),
-                        listRun.CheckedItems.OfType<Configuration.Run>());
+                    QuteExporter.ExportConfiguration(_data, listBuild.CheckedItems.OfType<Configuration.Build>());
                 }
             } catch (QuteResolver.ProjectException ex) {
                 Console.Error.WriteLine(ex.Message);
             }
         }
 
+        private void UpdateVSFiles() {
+            _data.UEProject = QuteResolver.GetProjectInfo(txtProjectPath.Text);
+
+            var gen = _data.GetGenerateCmd();
+            if (!File.Exists(gen)) {
+                throw new QuteResolver.ProjectException("Error: Could not find file " + gen);
+            }
+
+            var startInfo = new ProcessStartInfo {
+                WindowStyle = ProcessWindowStyle.Normal,
+                FileName = _data.GetGenerateCmd(),
+                Arguments = _data.UEProject.Path
+            };
+
+            var process = new Process {
+                StartInfo = startInfo
+            };
+
+            process.Start();
+            process.WaitForExit();
+
+            Console.WriteLine("Visual Studio project files were upgraded.");
+        }
+
         private void btnGenVSFiles_Click(object sender, EventArgs e) {
-            Console.Error.WriteLine("Operation not yet supported.");
+            try {
+                UpdateVSFiles();
+            } catch (Exception ex) {
+                Console.Error.WriteLine(ex.Message);
+            }
         }
 
         private void btnHelpVS_Click(object sender, EventArgs e) {
@@ -274,6 +269,21 @@ namespace Qute
             Settings.Default.KitId = kit.Id;
             Settings.Default.KitName = kit.Name;
             Settings.Default.UEPath = txtUEPath.Text;
+            Settings.Default.AlwaysUpdateVS = checkAlwaysUpdateVS.Checked;
+
+            var flag = 1u;
+            var code = 0xFFFFFFFF;
+
+            for (var i = 0; i < listBuild.Items.Count; ++i) {
+                //Remove 1 bit for each build configuration that is unchecked.
+                if (listBuild.GetItemChecked(i) == false) {
+                    code = (0xFFFFFFFF - flag) & code;
+                }
+                flag = flag << 1;
+            }
+
+            Settings.Default.ConfigFlags = code;
+
             Settings.Default.Save();
         }
 
@@ -286,12 +296,28 @@ namespace Qute
             }
         }
 
-        private void listRun_SelectedIndexChanged(object sender, EventArgs e) {
-            listRun.SelectedIndex = -1;
-        }
-
         private void listBuild_SelectedIndexChanged(object sender, EventArgs e) {
             listBuild.SelectedIndex = -1;
+        }
+
+        private void comboKits_SelectedIndexChanged(object sender, EventArgs e) {
+            _data.Kit = (QuteResolver.Kit)comboKits.SelectedItem;
+        }
+
+        private void txtProjectPath_Leave(object sender, EventArgs e) {
+            try {
+                _data.UEProject = QuteResolver.GetProjectInfo(txtProjectPath.Text);
+            } catch {
+                // Suppress errors
+            }
+        }
+
+        private void checkAlwaysUpdateVS_CheckedChanged(object sender, EventArgs e) {
+            btnVSFiles.Enabled = !checkAlwaysUpdateVS.Checked;
+        }
+
+        private void btnOpenInQt_Click(object sender, EventArgs e) {
+            Console.Error.WriteLine("Operation is not supported yet.");
         }
 
     }

@@ -61,13 +61,25 @@ namespace Qute.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2047")]
-        public ulong ConfigFlags {
+        [global::System.Configuration.DefaultSettingValueAttribute("4294967295")]
+        public uint ConfigFlags {
             get {
-                return ((ulong)(this["ConfigFlags"]));
+                return ((uint)(this["ConfigFlags"]));
             }
             set {
                 this["ConfigFlags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AlwaysUpdateVS {
+            get {
+                return ((bool)(this["AlwaysUpdateVS"]));
+            }
+            set {
+                this["AlwaysUpdateVS"] = value;
             }
         }
     }

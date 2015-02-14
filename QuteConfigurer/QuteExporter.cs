@@ -9,13 +9,17 @@ using Qute.Properties;
 
 namespace Qute
 {
+    /// <summary>
+    /// Responsible for writing data to the disk.
+    /// </summary>
     static class QuteExporter
     {
         /// <summary>
         /// Export all necessary Qt Project files.
         /// </summary>
-        /// <param name="project"></param>
-        public static void ExportProject(QuteResolver.UEProject project) {
+        /// <param name="data"></param>
+        public static void ExportProject(ProjectData data) {
+            var project = data.UEProject;
             if (string.IsNullOrWhiteSpace(project.Name) || string.IsNullOrWhiteSpace(project.Engine)) {
                 Console.Error.WriteLine("Error: Failed to read data from project file.");
                 return;
@@ -150,21 +154,15 @@ namespace Qute
             writer.WriteEndElement();
         }
 
-        public static void ExportConfiguration(QuteResolver.UEProject project, QuteResolver.Kit kit, IEnumerable<Configuration.Build> builds, IEnumerable<Configuration.Run> runs) {
-            if (string.IsNullOrWhiteSpace(project.Name) || string.IsNullOrWhiteSpace(project.Engine)) {
+        public static void ExportConfiguration(ProjectData data, IEnumerable<Configuration.Build> builds) {
+            var kit = data.Kit;
+            if (string.IsNullOrWhiteSpace(data.UEProject.Name) || string.IsNullOrWhiteSpace(data.UEProject.Engine)) {
                 Console.Error.WriteLine("Error: Failed to read data from project file.");
                 return;
             }
 
-            var unrealEnginePath = Path.Combine(Settings.Default.UEPath, project.Engine);
-            var unrealBatchPath = Path.Combine(unrealEnginePath, @"Engine\Build\BatchFiles\");
-
-            var projPath = Path.GetDirectoryName(project.Path) ?? "";
-            var configPath = Path.Combine(projPath, @"Intermediate\ProjectFiles\");
-            //var workingDir = Path.Combine(projPath, @"Intermediate\Build\");            
-
             try {
-                using (var xml = new XmlTextWriter(configPath + project.Name + ".pro.user", Encoding.UTF8)) {
+                using (var xml = new XmlTextWriter(Path.Combine(data.GetProjectFilesDir(), data.UEProject.Name) + ".pro.user", Encoding.UTF8)) {
                     xml.Formatting = Formatting.Indented;
                     xml.WriteStartDocument();
                     xml.WriteDocType("QtCreatorProject", null, null, null);
@@ -190,13 +188,11 @@ namespace Qute
                             foreach (var build in builds) {
                                 xml.StartQMap("QVariantMap", "ProjectExplorer.Target.BuildConfiguration." + buildCount++);
                                 {
-                                    xml.WriteQValue("QString", "ProjectExplorer.BuildConfiguration.BuildDirectory", "");
+                                    xml.WriteQValue("QString", "ProjectExplorer.BuildConfiguration.BuildDirectory", "./Qute/" + build.Name.Replace(" ", ""));
 
                                     var arguments = string.Format("{0}{1} {2} {3} \"{4}\" {5}",
-                                        project.Name, build.Mode, build.Target, build.State, project.Path, build.Flag);
-                                    var workDir = build.WorkDir;
-
-
+                                        data.UEProject.Name, build.Mode, build.Platform, build.State, data.UEProject.Path, build.BuildFlags);
+                                     var workDir = @"..\Build";
 
                                     //Information for the Build command
                                     xml.StartQMap("QVariantMap", "ProjectExplorer.BuildConfiguration.BuildStepList.0");
@@ -205,7 +201,7 @@ namespace Qute
                                         {
                                             xml.WriteQValue("bool", "ProjectExplorer.BuildStep.Enabled", true);
                                             xml.WriteQValue("QString", "ProjectExplorer.ProcessStep.Arguments", arguments);
-                                            xml.WriteQValue("QString", "ProjectExplorer.ProcessStep.Command", unrealBatchPath + "Build.bat");
+                                            xml.WriteQValue("QString", "ProjectExplorer.ProcessStep.Command", data.GetBuildCmd());
                                             xml.WriteQValue("QString", "ProjectExplorer.ProcessStep.WorkingDirectory", workDir);
                                             xml.WriteQValue("QString", "ProjectExplorer.ProjectConfiguration.DefaultDisplayName", "Custom Process Step");
                                             xml.WriteQValue("QString", "ProjectExplorer.ProjectConfiguration.DisplayName", "Custom Process Step");
@@ -227,8 +223,8 @@ namespace Qute
                                         {
                                             xml.WriteQValue("bool", "ProjectExplorer.BuildStep.Enabled", true);
                                             xml.WriteQValue("QString", "ProjectExplorer.ProcessStep.Arguments", arguments);
-                                            xml.WriteQValue("QString", "ProjectExplorer.ProcessStep.Command", unrealBatchPath + "Clean.bat");
-                                            xml.WriteQValue("QString", "ProjectExplorer.ProcessStep.WorkingDirectory", build.WorkDir);
+                                            xml.WriteQValue("QString", "ProjectExplorer.ProcessStep.Command", data.GetCleanCmd());
+                                            xml.WriteQValue("QString", "ProjectExplorer.ProcessStep.WorkingDirectory", workDir);
                                             xml.WriteQValue("QString", "ProjectExplorer.ProjectConfiguration.DefaultDisplayName", "Custom Process Step");
                                             // xml.WriteQValue("QString", "ProjectExplorer.ProjectConfiguration.DisplayName", "Custom Process Step");
                                             xml.WriteQValue("QString", "ProjectExplorer.ProjectConfiguration.Id", "ProjectExplorer.ProcessStep");
@@ -256,28 +252,39 @@ namespace Qute
                             }
                             xml.WriteQValue("int", "ProjectExplorer.Target.BuildConfigurationCount", buildCount);
 
+                            var runCount = 0;
+                            foreach (var run in builds) {
+                                xml.StartQMap("QVariantMap", "ProjectExplorer.Target.RunConfiguration." + runCount++);
+                                {
+                                    string argument;
+                                    string exe;
 
-                            xml.StartQMap("QVariantMap", "ProjectExplorer.Target.RunConfiguration.0");
-                            {
-                                var editorExecutable = Path.Combine(unrealEnginePath, @"Engine\Binaries\Win64\UE4Editor.exe");
-                                var argument = string.Format("\"{0}\" -game", project.Path);
-                                var wDir = Path.Combine(projPath, @"Binaries\Win64");
+                                    if (run.RunFromEditor) {
+                                        exe = data.GetEngineExe();
+                                        argument = string.Format("\"{0}\" ", data.UEProject.Path) + run.RunFlags;
+                                    } else {
+                                        exe = string.Format("..\\..\\Binaries\\{0}\\{1}{2}.exe", run.Platform, data.UEProject.Name, run.ExeSuffix);
+                                        argument = run.RunFlags;
+                                    }
 
-                                xml.WriteQValue("QString", "ProjectExplorer.CustomExecutableRunConfiguration.Arguments", argument);
-                                xml.WriteQValue("QString", "ProjectExplorer.CustomExecutableRunConfiguration.Executable", editorExecutable);
-                                xml.WriteQValue("bool", "ProjectExplorer.CustomExecutableRunConfiguration.UseTerminal", false);
-                                xml.WriteQValue("QString", "ProjectExplorer.CustomExecutableRunConfiguration.WorkingDirectory", wDir);
-                                xml.WriteQValue("QString", "ProjectExplorer.ProjectConfiguration.DefaultDisplayName", "Run");
-                                xml.WriteQValue("QString", "ProjectExplorer.ProjectConfiguration.DisplayName", "Run");
-                                xml.WriteQValue("QString", "ProjectExplorer.ProjectConfiguration.Id", "ProjectExplorer.CustomExecutableRunConfiguration");
-                                xml.WriteQValue("bool", "RunConfiguration.UseCppDebugger", true);
-                                xml.WriteQValue("bool", "RunConfiguration.UseCppDebuggerAuto", false);
-                                xml.WriteQValue("bool", "RunConfiguration.UseMultiProcess", false);
-                                xml.WriteQValue("bool", "RunConfiguration.UseQmlDebugger", false);
-                                xml.WriteQValue("bool", "RunConfiguration.UseQmlDebuggerAuto", false);
+                                    var workDir = @"..\..\Binaries\" + run.Platform;
+
+                                    xml.WriteQValue("QString", "ProjectExplorer.CustomExecutableRunConfiguration.Arguments", argument);
+                                    xml.WriteQValue("QString", "ProjectExplorer.CustomExecutableRunConfiguration.Executable", exe);
+                                    xml.WriteQValue("bool", "ProjectExplorer.CustomExecutableRunConfiguration.UseTerminal", false);
+                                    xml.WriteQValue("QString", "ProjectExplorer.CustomExecutableRunConfiguration.WorkingDirectory", workDir);
+                                    xml.WriteQValue("QString", "ProjectExplorer.ProjectConfiguration.DefaultDisplayName", run.Name);
+                                    xml.WriteQValue("QString", "ProjectExplorer.ProjectConfiguration.DisplayName", run.Name);
+                                    xml.WriteQValue("QString", "ProjectExplorer.ProjectConfiguration.Id", "ProjectExplorer.CustomExecutableRunConfiguration");
+                                    xml.WriteQValue("bool", "RunConfiguration.UseCppDebugger", true);
+                                    xml.WriteQValue("bool", "RunConfiguration.UseCppDebuggerAuto", false);
+                                    xml.WriteQValue("bool", "RunConfiguration.UseMultiProcess", false);
+                                    xml.WriteQValue("bool", "RunConfiguration.UseQmlDebugger", false);
+                                    xml.WriteQValue("bool", "RunConfiguration.UseQmlDebuggerAuto", false);
+                                }
+                                xml.EndQMap();
                             }
-                            xml.EndQMap();
-                            xml.WriteQValue("int", "ProjectExplorer.Target.RunConfigurationCount", 1);
+                            xml.WriteQValue("int", "ProjectExplorer.Target.RunConfigurationCount", runCount);
                         }
                         xml.WriteEndElement(); // valuemap
                     }
@@ -324,8 +331,9 @@ namespace Qute
 
                     xml.WriteEndElement();
                 }
-                Console.WriteLine("Project Configuration was created in " + configPath);
+                Console.WriteLine("Project Configuration was created in " + data.GetProjectFilesDir());
             } catch (Exception e) {
+                Console.Error.WriteLine(e.Message);
                 Console.Error.WriteLine("Error: Failed to write project configuration.");
             }
         }

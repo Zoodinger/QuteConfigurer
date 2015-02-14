@@ -6,6 +6,9 @@ using System.Windows.Forms;
 
 namespace Qute
 {
+    /// <summary>
+    /// A TextWriter that outputs text to a RichTextBox
+    /// </summary>
     class QuteConsoleWriter : TextWriter
     {
         private readonly RichTextBox _textBox;

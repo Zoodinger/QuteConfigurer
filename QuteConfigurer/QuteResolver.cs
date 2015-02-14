@@ -8,6 +8,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Qute
 {
+    /// <summary>
+    /// Responsible for reading data from the disk.
+    /// </summary>
     static class QuteResolver
     {
         /// <summary>

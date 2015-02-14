@@ -45,31 +45,19 @@
             this.btnHelpVS = new System.Windows.Forms.Button();
             this.txtLog = new System.Windows.Forms.RichTextBox();
             this.grpConfigurations = new System.Windows.Forms.GroupBox();
-            this.spBuildRun = new System.Windows.Forms.SplitContainer();
-            this.grpBuild = new System.Windows.Forms.GroupBox();
             this.listBuild = new System.Windows.Forms.CheckedListBox();
-            this.grpRun = new System.Windows.Forms.GroupBox();
-            this.listRun = new System.Windows.Forms.CheckedListBox();
             this.grpProjFiles = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.spContainer = new System.Windows.Forms.SplitContainer();
+            this.checkAlwaysUpdateVS = new System.Windows.Forms.CheckBox();
+            this.btnOpenInQt = new System.Windows.Forms.Button();
             lblQtBuildKit = new System.Windows.Forms.Label();
             lblProject = new System.Windows.Forms.Label();
             lblUEPath = new System.Windows.Forms.Label();
             this.generalConfigGroup.SuspendLayout();
             this.grpConfigurations.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.spBuildRun)).BeginInit();
-            this.spBuildRun.Panel1.SuspendLayout();
-            this.spBuildRun.Panel2.SuspendLayout();
-            this.spBuildRun.SuspendLayout();
-            this.grpBuild.SuspendLayout();
-            this.grpRun.SuspendLayout();
             this.grpProjFiles.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spContainer)).BeginInit();
             this.spContainer.Panel1.SuspendLayout();
@@ -106,14 +94,12 @@
             // 
             // btnQtFiles
             // 
-            this.btnQtFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnQtFiles.AutoSize = true;
             this.btnQtFiles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnQtFiles.Location = new System.Drawing.Point(126, 185);
+            this.btnQtFiles.Location = new System.Drawing.Point(36, 48);
             this.btnQtFiles.Name = "btnQtFiles";
-            this.btnQtFiles.Size = new System.Drawing.Size(64, 23);
+            this.btnQtFiles.Size = new System.Drawing.Size(135, 23);
             this.btnQtFiles.TabIndex = 3;
-            this.btnQtFiles.Text = "Generate!";
+            this.btnQtFiles.Text = "Generate Qt Project Files";
             this.btnQtFiles.UseVisualStyleBackColor = true;
             this.btnQtFiles.Click += new System.EventHandler(this.btnQtFiles_Click);
             // 
@@ -125,9 +111,10 @@
             this.comboKits.FormattingEnabled = true;
             this.comboKits.Location = new System.Drawing.Point(45, 19);
             this.comboKits.Name = "comboKits";
-            this.comboKits.Size = new System.Drawing.Size(238, 21);
+            this.comboKits.Size = new System.Drawing.Size(121, 21);
             this.comboKits.Sorted = true;
             this.comboKits.TabIndex = 6;
+            this.comboKits.SelectedIndexChanged += new System.EventHandler(this.comboKits_SelectedIndexChanged);
             // 
             // btnKitReadMe
             // 
@@ -137,7 +124,7 @@
             this.btnKitReadMe.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnKitReadMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnKitReadMe.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.btnKitReadMe.Location = new System.Drawing.Point(289, 19);
+            this.btnKitReadMe.Location = new System.Drawing.Point(172, 19);
             this.btnKitReadMe.Name = "btnKitReadMe";
             this.btnKitReadMe.Size = new System.Drawing.Size(82, 23);
             this.btnKitReadMe.TabIndex = 8;
@@ -153,16 +140,17 @@
             this.txtProjectPath.ForeColor = System.Drawing.Color.Black;
             this.txtProjectPath.Location = new System.Drawing.Point(6, 71);
             this.txtProjectPath.Name = "txtProjectPath";
-            this.txtProjectPath.Size = new System.Drawing.Size(475, 20);
+            this.txtProjectPath.Size = new System.Drawing.Size(421, 20);
             this.txtProjectPath.TabIndex = 9;
             this.txtProjectPath.TextChanged += new System.EventHandler(this.txtProjectPath_TextChanged);
+            this.txtProjectPath.Leave += new System.EventHandler(this.txtProjectPath_Leave);
             // 
             // btnBrowseProject
             // 
             this.btnBrowseProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBrowseProject.AutoSize = true;
             this.btnBrowseProject.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBrowseProject.Location = new System.Drawing.Point(487, 69);
+            this.btnBrowseProject.Location = new System.Drawing.Point(433, 69);
             this.btnBrowseProject.Name = "btnBrowseProject";
             this.btnBrowseProject.Size = new System.Drawing.Size(26, 23);
             this.btnBrowseProject.TabIndex = 11;
@@ -175,7 +163,7 @@
             this.btnBuildConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuildConfig.AutoSize = true;
             this.btnBuildConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBuildConfig.Location = new System.Drawing.Point(304, 185);
+            this.btnBuildConfig.Location = new System.Drawing.Point(187, 146);
             this.btnBuildConfig.Name = "btnBuildConfig";
             this.btnBuildConfig.Size = new System.Drawing.Size(64, 23);
             this.btnBuildConfig.TabIndex = 12;
@@ -188,7 +176,7 @@
             this.btnDetectUEPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDetectUEPath.AutoSize = true;
             this.btnDetectUEPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDetectUEPath.Location = new System.Drawing.Point(518, 30);
+            this.btnDetectUEPath.Location = new System.Drawing.Point(464, 30);
             this.btnDetectUEPath.Name = "btnDetectUEPath";
             this.btnDetectUEPath.Size = new System.Drawing.Size(49, 23);
             this.btnDetectUEPath.TabIndex = 16;
@@ -204,7 +192,7 @@
             this.txtUEPath.ForeColor = System.Drawing.Color.Black;
             this.txtUEPath.Location = new System.Drawing.Point(6, 32);
             this.txtUEPath.Name = "txtUEPath";
-            this.txtUEPath.Size = new System.Drawing.Size(475, 20);
+            this.txtUEPath.Size = new System.Drawing.Size(421, 20);
             this.txtUEPath.TabIndex = 15;
             this.txtUEPath.TextChanged += new System.EventHandler(this.txtUEPath_TextChanged);
             // 
@@ -213,7 +201,7 @@
             this.btnBrowseUEPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBrowseUEPath.AutoSize = true;
             this.btnBrowseUEPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBrowseUEPath.Location = new System.Drawing.Point(487, 30);
+            this.btnBrowseUEPath.Location = new System.Drawing.Point(433, 30);
             this.btnBrowseUEPath.Name = "btnBrowseUEPath";
             this.btnBrowseUEPath.Size = new System.Drawing.Size(26, 23);
             this.btnBrowseUEPath.TabIndex = 14;
@@ -235,7 +223,7 @@
             this.generalConfigGroup.Controls.Add(lblUEPath);
             this.generalConfigGroup.Location = new System.Drawing.Point(12, 12);
             this.generalConfigGroup.Name = "generalConfigGroup";
-            this.generalConfigGroup.Size = new System.Drawing.Size(574, 102);
+            this.generalConfigGroup.Size = new System.Drawing.Size(520, 102);
             this.generalConfigGroup.TabIndex = 17;
             this.generalConfigGroup.TabStop = false;
             // 
@@ -243,7 +231,7 @@
             // 
             this.btnProjInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnProjInfo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnProjInfo.Location = new System.Drawing.Point(518, 69);
+            this.btnProjInfo.Location = new System.Drawing.Point(464, 69);
             this.btnProjInfo.Name = "btnProjInfo";
             this.btnProjInfo.Size = new System.Drawing.Size(49, 23);
             this.btnProjInfo.TabIndex = 17;
@@ -253,12 +241,10 @@
             // 
             // btnVSFiles
             // 
-            this.btnVSFiles.AutoSize = true;
             this.btnVSFiles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnVSFiles.Enabled = false;
             this.btnVSFiles.Location = new System.Drawing.Point(36, 19);
             this.btnVSFiles.Name = "btnVSFiles";
-            this.btnVSFiles.Size = new System.Drawing.Size(129, 23);
+            this.btnVSFiles.Size = new System.Drawing.Size(135, 23);
             this.btnVSFiles.TabIndex = 19;
             this.btnVSFiles.Text = "Update VS Project Files";
             this.btnVSFiles.UseVisualStyleBackColor = true;
@@ -266,11 +252,10 @@
             // 
             // btnHelpQt
             // 
-            this.btnHelpQt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnHelpQt.AutoSize = true;
             this.btnHelpQt.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHelpQt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelpQt.Location = new System.Drawing.Point(96, 185);
+            this.btnHelpQt.Location = new System.Drawing.Point(6, 48);
             this.btnHelpQt.Name = "btnHelpQt";
             this.btnHelpQt.Size = new System.Drawing.Size(24, 23);
             this.btnHelpQt.TabIndex = 20;
@@ -284,7 +269,7 @@
             this.btnHelpBuildConfig.AutoSize = true;
             this.btnHelpBuildConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHelpBuildConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelpBuildConfig.Location = new System.Drawing.Point(274, 185);
+            this.btnHelpBuildConfig.Location = new System.Drawing.Point(157, 146);
             this.btnHelpBuildConfig.Name = "btnHelpBuildConfig";
             this.btnHelpBuildConfig.Size = new System.Drawing.Size(24, 23);
             this.btnHelpBuildConfig.TabIndex = 14;
@@ -314,16 +299,16 @@
             this.txtLog.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLog.ForeColor = System.Drawing.Color.Green;
             this.txtLog.HideSelection = false;
-            this.txtLog.Location = new System.Drawing.Point(12, 340);
+            this.txtLog.Location = new System.Drawing.Point(12, 301);
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
-            this.txtLog.Size = new System.Drawing.Size(574, 148);
+            this.txtLog.Size = new System.Drawing.Size(520, 99);
             this.txtLog.TabIndex = 21;
             this.txtLog.Text = "";
             // 
             // grpConfigurations
             // 
-            this.grpConfigurations.Controls.Add(this.spBuildRun);
+            this.grpConfigurations.Controls.Add(this.listBuild);
             this.grpConfigurations.Controls.Add(this.btnBuildConfig);
             this.grpConfigurations.Controls.Add(this.btnHelpBuildConfig);
             this.grpConfigurations.Controls.Add(lblQtBuildKit);
@@ -332,93 +317,33 @@
             this.grpConfigurations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpConfigurations.Location = new System.Drawing.Point(0, 0);
             this.grpConfigurations.Name = "grpConfigurations";
-            this.grpConfigurations.Size = new System.Drawing.Size(374, 214);
+            this.grpConfigurations.Size = new System.Drawing.Size(257, 175);
             this.grpConfigurations.TabIndex = 0;
             this.grpConfigurations.TabStop = false;
             this.grpConfigurations.Text = "Configurations";
             // 
-            // spBuildRun
-            // 
-            this.spBuildRun.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.spBuildRun.Location = new System.Drawing.Point(3, 48);
-            this.spBuildRun.Name = "spBuildRun";
-            // 
-            // spBuildRun.Panel1
-            // 
-            this.spBuildRun.Panel1.Controls.Add(this.grpBuild);
-            // 
-            // spBuildRun.Panel2
-            // 
-            this.spBuildRun.Panel2.Controls.Add(this.grpRun);
-            this.spBuildRun.Size = new System.Drawing.Size(368, 131);
-            this.spBuildRun.SplitterDistance = 183;
-            this.spBuildRun.SplitterWidth = 1;
-            this.spBuildRun.TabIndex = 13;
-            // 
-            // grpBuild
-            // 
-            this.grpBuild.Controls.Add(this.listBuild);
-            this.grpBuild.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpBuild.Location = new System.Drawing.Point(0, 0);
-            this.grpBuild.Name = "grpBuild";
-            this.grpBuild.Size = new System.Drawing.Size(183, 131);
-            this.grpBuild.TabIndex = 0;
-            this.grpBuild.TabStop = false;
-            this.grpBuild.Text = "Build";
-            // 
             // listBuild
             // 
+            this.listBuild.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBuild.CheckOnClick = true;
-            this.listBuild.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBuild.FormattingEnabled = true;
             this.listBuild.Items.AddRange(new object[] {
             "Debug Editor",
-            "Debug",
+            "Debug Standalone",
             "Development Editor",
-            "Development"});
-            this.listBuild.Location = new System.Drawing.Point(3, 16);
+            "Development Standalone"});
+            this.listBuild.Location = new System.Drawing.Point(6, 46);
             this.listBuild.Name = "listBuild";
-            this.listBuild.Size = new System.Drawing.Size(177, 112);
+            this.listBuild.Size = new System.Drawing.Size(245, 94);
             this.listBuild.TabIndex = 0;
             this.listBuild.SelectedIndexChanged += new System.EventHandler(this.listBuild_SelectedIndexChanged);
             // 
-            // grpRun
-            // 
-            this.grpRun.Controls.Add(this.listRun);
-            this.grpRun.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpRun.Location = new System.Drawing.Point(0, 0);
-            this.grpRun.Name = "grpRun";
-            this.grpRun.Size = new System.Drawing.Size(184, 131);
-            this.grpRun.TabIndex = 0;
-            this.grpRun.TabStop = false;
-            this.grpRun.Text = "Run";
-            // 
-            // listRun
-            // 
-            this.listRun.CheckOnClick = true;
-            this.listRun.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listRun.FormattingEnabled = true;
-            this.listRun.Items.AddRange(new object[] {
-            "Debug Editor",
-            "Debug",
-            "Debug In New Window",
-            "Development Editor",
-            "Development",
-            "Development In New Window"});
-            this.listRun.Location = new System.Drawing.Point(3, 16);
-            this.listRun.Name = "listRun";
-            this.listRun.Size = new System.Drawing.Size(178, 112);
-            this.listRun.TabIndex = 1;
-            this.listRun.SelectedIndexChanged += new System.EventHandler(this.listRun_SelectedIndexChanged);
-            // 
             // grpProjFiles
             // 
-            this.grpProjFiles.Controls.Add(this.label1);
-            this.grpProjFiles.Controls.Add(this.checkBox1);
-            this.grpProjFiles.Controls.Add(this.radioButton2);
-            this.grpProjFiles.Controls.Add(this.radioButton1);
+            this.grpProjFiles.Controls.Add(this.btnOpenInQt);
+            this.grpProjFiles.Controls.Add(this.checkAlwaysUpdateVS);
             this.grpProjFiles.Controls.Add(this.btnHelpQt);
             this.grpProjFiles.Controls.Add(this.btnHelpVS);
             this.grpProjFiles.Controls.Add(this.btnQtFiles);
@@ -426,56 +351,10 @@
             this.grpProjFiles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpProjFiles.Location = new System.Drawing.Point(0, 0);
             this.grpProjFiles.Name = "grpProjFiles";
-            this.grpProjFiles.Size = new System.Drawing.Size(196, 214);
+            this.grpProjFiles.Size = new System.Drawing.Size(259, 175);
             this.grpProjFiles.TabIndex = 0;
             this.grpProjFiles.TabStop = false;
             this.grpProjFiles.Text = "Project Files";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.Location = new System.Drawing.Point(6, 114);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(184, 68);
-            this.label1.TabIndex = 24;
-            this.label1.Text = "These options are currently not supported.";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(6, 94);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(135, 17);
-            this.checkBox1.TabIndex = 23;
-            this.checkBox1.Text = "Scan for additional files";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Enabled = false;
-            this.radioButton2.Location = new System.Drawing.Point(6, 71);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(144, 17);
-            this.radioButton2.TabIndex = 22;
-            this.radioButton2.Text = "Only update source code";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Enabled = false;
-            this.radioButton1.Location = new System.Drawing.Point(6, 48);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(121, 17);
-            this.radioButton1.TabIndex = 21;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Generate everything";
-            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // checkBox5
             // 
@@ -511,7 +390,6 @@
             // 
             this.spContainer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.spContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.spContainer.IsSplitterFixed = true;
             this.spContainer.Location = new System.Drawing.Point(12, 120);
             this.spContainer.Name = "spContainer";
@@ -523,20 +401,46 @@
             // spContainer.Panel2
             // 
             this.spContainer.Panel2.Controls.Add(this.grpProjFiles);
-            this.spContainer.Size = new System.Drawing.Size(574, 214);
-            this.spContainer.SplitterDistance = 374;
+            this.spContainer.Size = new System.Drawing.Size(520, 175);
+            this.spContainer.SplitterDistance = 257;
             this.spContainer.TabIndex = 22;
+            // 
+            // checkAlwaysUpdateVS
+            // 
+            this.checkAlwaysUpdateVS.AutoSize = true;
+            this.checkAlwaysUpdateVS.Location = new System.Drawing.Point(177, 23);
+            this.checkAlwaysUpdateVS.Name = "checkAlwaysUpdateVS";
+            this.checkAlwaysUpdateVS.Size = new System.Drawing.Size(59, 17);
+            this.checkAlwaysUpdateVS.TabIndex = 21;
+            this.checkAlwaysUpdateVS.Text = "Always";
+            this.checkAlwaysUpdateVS.UseVisualStyleBackColor = true;
+            this.checkAlwaysUpdateVS.CheckedChanged += new System.EventHandler(this.checkAlwaysUpdateVS_CheckedChanged);
+            // 
+            // btnOpenInQt
+            // 
+            this.btnOpenInQt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpenInQt.AutoSize = true;
+            this.btnOpenInQt.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnOpenInQt.Location = new System.Drawing.Point(148, 146);
+            this.btnOpenInQt.Name = "btnOpenInQt";
+            this.btnOpenInQt.Size = new System.Drawing.Size(105, 23);
+            this.btnOpenInQt.TabIndex = 15;
+            this.btnOpenInQt.Text = "Open in Qt Creator";
+            this.btnOpenInQt.UseVisualStyleBackColor = true;
+            this.btnOpenInQt.Click += new System.EventHandler(this.btnOpenInQt_Click);
             // 
             // MainForm
             // 
+            this.AcceptButton = this.btnOpenInQt;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(598, 500);
+            this.ClientSize = new System.Drawing.Size(544, 412);
             this.Controls.Add(this.spContainer);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.generalConfigGroup);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(560, 347);
             this.Name = "MainForm";
             this.Text = "Qute Configurer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -545,12 +449,6 @@
             this.generalConfigGroup.PerformLayout();
             this.grpConfigurations.ResumeLayout(false);
             this.grpConfigurations.PerformLayout();
-            this.spBuildRun.Panel1.ResumeLayout(false);
-            this.spBuildRun.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.spBuildRun)).EndInit();
-            this.spBuildRun.ResumeLayout(false);
-            this.grpBuild.ResumeLayout(false);
-            this.grpRun.ResumeLayout(false);
             this.grpProjFiles.ResumeLayout(false);
             this.grpProjFiles.PerformLayout();
             this.spContainer.Panel1.ResumeLayout(false);
@@ -580,20 +478,14 @@
         private System.Windows.Forms.RichTextBox txtLog;
         private System.Windows.Forms.GroupBox grpConfigurations;
         private System.Windows.Forms.GroupBox grpProjFiles;
-        private System.Windows.Forms.SplitContainer spBuildRun;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.CheckBox checkBox7;
         private System.Windows.Forms.Button btnProjInfo;
-        private System.Windows.Forms.GroupBox grpBuild;
-        private System.Windows.Forms.GroupBox grpRun;
         private System.Windows.Forms.SplitContainer spContainer;
         private System.Windows.Forms.CheckedListBox listBuild;
-        private System.Windows.Forms.CheckedListBox listRun;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkAlwaysUpdateVS;
+        private System.Windows.Forms.Button btnOpenInQt;
     }
 }
 

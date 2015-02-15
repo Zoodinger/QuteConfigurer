@@ -25,18 +25,15 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label lblQtBuildKit;
             System.Windows.Forms.Label lblProject;
-            System.Windows.Forms.Label lblUEPath;
             this.btnQtFiles = new System.Windows.Forms.Button();
             this.comboKits = new System.Windows.Forms.ComboBox();
             this.btnKitReadMe = new System.Windows.Forms.Button();
             this.txtProjectPath = new System.Windows.Forms.TextBox();
             this.btnBrowseProject = new System.Windows.Forms.Button();
             this.btnBuildConfig = new System.Windows.Forms.Button();
-            this.btnDetectUEPath = new System.Windows.Forms.Button();
-            this.txtUEPath = new System.Windows.Forms.TextBox();
-            this.btnBrowseUEPath = new System.Windows.Forms.Button();
             this.generalConfigGroup = new System.Windows.Forms.GroupBox();
             this.btnProjInfo = new System.Windows.Forms.Button();
             this.btnVSFiles = new System.Windows.Forms.Button();
@@ -47,28 +44,41 @@
             this.grpConfigurations = new System.Windows.Forms.GroupBox();
             this.listBuild = new System.Windows.Forms.CheckedListBox();
             this.grpProjFiles = new System.Windows.Forms.GroupBox();
+            this.btnOpenInQt = new System.Windows.Forms.Button();
+            this.QtPathMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.SetQtPath = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkAlwaysUpdateVS = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.spContainer = new System.Windows.Forms.SplitContainer();
-            this.checkAlwaysUpdateVS = new System.Windows.Forms.CheckBox();
-            this.btnOpenInQt = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuPrepareKit = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             lblQtBuildKit = new System.Windows.Forms.Label();
             lblProject = new System.Windows.Forms.Label();
-            lblUEPath = new System.Windows.Forms.Label();
             this.generalConfigGroup.SuspendLayout();
             this.grpConfigurations.SuspendLayout();
             this.grpProjFiles.SuspendLayout();
+            this.QtPathMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spContainer)).BeginInit();
             this.spContainer.Panel1.SuspendLayout();
             this.spContainer.Panel2.SuspendLayout();
             this.spContainer.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblQtBuildKit
             // 
             lblQtBuildKit.AutoSize = true;
-            lblQtBuildKit.Location = new System.Drawing.Point(6, 24);
+            lblQtBuildKit.Location = new System.Drawing.Point(6, 22);
             lblQtBuildKit.Name = "lblQtBuildKit";
             lblQtBuildKit.Size = new System.Drawing.Size(33, 13);
             lblQtBuildKit.TabIndex = 7;
@@ -77,27 +87,18 @@
             // lblProject
             // 
             lblProject.AutoSize = true;
-            lblProject.Location = new System.Drawing.Point(6, 55);
+            lblProject.Location = new System.Drawing.Point(6, 16);
             lblProject.Name = "lblProject";
             lblProject.Size = new System.Drawing.Size(40, 13);
             lblProject.TabIndex = 10;
             lblProject.Text = "Project";
-            // 
-            // lblUEPath
-            // 
-            lblUEPath.AutoSize = true;
-            lblUEPath.Location = new System.Drawing.Point(3, 16);
-            lblUEPath.Name = "lblUEPath";
-            lblUEPath.Size = new System.Drawing.Size(99, 13);
-            lblUEPath.TabIndex = 13;
-            lblUEPath.Text = "Unreal Engine Path";
             // 
             // btnQtFiles
             // 
             this.btnQtFiles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnQtFiles.Location = new System.Drawing.Point(36, 48);
             this.btnQtFiles.Name = "btnQtFiles";
-            this.btnQtFiles.Size = new System.Drawing.Size(135, 23);
+            this.btnQtFiles.Size = new System.Drawing.Size(141, 23);
             this.btnQtFiles.TabIndex = 3;
             this.btnQtFiles.Text = "Generate Qt Project Files";
             this.btnQtFiles.UseVisualStyleBackColor = true;
@@ -109,26 +110,23 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboKits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboKits.FormattingEnabled = true;
-            this.comboKits.Location = new System.Drawing.Point(45, 19);
+            this.comboKits.Location = new System.Drawing.Point(75, 19);
             this.comboKits.Name = "comboKits";
-            this.comboKits.Size = new System.Drawing.Size(121, 21);
+            this.comboKits.Size = new System.Drawing.Size(176, 21);
             this.comboKits.Sorted = true;
             this.comboKits.TabIndex = 6;
             this.comboKits.SelectedIndexChanged += new System.EventHandler(this.comboKits_SelectedIndexChanged);
             // 
             // btnKitReadMe
             // 
-            this.btnKitReadMe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnKitReadMe.AutoSize = true;
             this.btnKitReadMe.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnKitReadMe.BackColor = System.Drawing.SystemColors.Highlight;
-            this.btnKitReadMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnKitReadMe.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.btnKitReadMe.Location = new System.Drawing.Point(172, 19);
+            this.btnKitReadMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnKitReadMe.Location = new System.Drawing.Point(45, 17);
             this.btnKitReadMe.Name = "btnKitReadMe";
-            this.btnKitReadMe.Size = new System.Drawing.Size(82, 23);
+            this.btnKitReadMe.Size = new System.Drawing.Size(24, 23);
             this.btnKitReadMe.TabIndex = 8;
-            this.btnKitReadMe.Text = "Read me first!";
+            this.btnKitReadMe.Text = "?";
             this.btnKitReadMe.UseVisualStyleBackColor = false;
             this.btnKitReadMe.Click += new System.EventHandler(this.btnKitReadMe_Click);
             // 
@@ -138,7 +136,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtProjectPath.BackColor = System.Drawing.Color.White;
             this.txtProjectPath.ForeColor = System.Drawing.Color.Black;
-            this.txtProjectPath.Location = new System.Drawing.Point(6, 71);
+            this.txtProjectPath.Location = new System.Drawing.Point(6, 32);
             this.txtProjectPath.Name = "txtProjectPath";
             this.txtProjectPath.Size = new System.Drawing.Size(421, 20);
             this.txtProjectPath.TabIndex = 9;
@@ -150,7 +148,7 @@
             this.btnBrowseProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBrowseProject.AutoSize = true;
             this.btnBrowseProject.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBrowseProject.Location = new System.Drawing.Point(433, 69);
+            this.btnBrowseProject.Location = new System.Drawing.Point(433, 30);
             this.btnBrowseProject.Name = "btnBrowseProject";
             this.btnBrowseProject.Size = new System.Drawing.Size(26, 23);
             this.btnBrowseProject.TabIndex = 11;
@@ -171,59 +169,17 @@
             this.btnBuildConfig.UseVisualStyleBackColor = true;
             this.btnBuildConfig.Click += new System.EventHandler(this.btnBuildConfig_Click);
             // 
-            // btnDetectUEPath
-            // 
-            this.btnDetectUEPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDetectUEPath.AutoSize = true;
-            this.btnDetectUEPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDetectUEPath.Location = new System.Drawing.Point(464, 30);
-            this.btnDetectUEPath.Name = "btnDetectUEPath";
-            this.btnDetectUEPath.Size = new System.Drawing.Size(49, 23);
-            this.btnDetectUEPath.TabIndex = 16;
-            this.btnDetectUEPath.Text = "Detect";
-            this.btnDetectUEPath.UseVisualStyleBackColor = true;
-            this.btnDetectUEPath.Click += new System.EventHandler(this.btnDetectUEPath_Click);
-            // 
-            // txtUEPath
-            // 
-            this.txtUEPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUEPath.BackColor = System.Drawing.Color.White;
-            this.txtUEPath.ForeColor = System.Drawing.Color.Black;
-            this.txtUEPath.Location = new System.Drawing.Point(6, 32);
-            this.txtUEPath.Name = "txtUEPath";
-            this.txtUEPath.Size = new System.Drawing.Size(421, 20);
-            this.txtUEPath.TabIndex = 15;
-            this.txtUEPath.TextChanged += new System.EventHandler(this.txtUEPath_TextChanged);
-            // 
-            // btnBrowseUEPath
-            // 
-            this.btnBrowseUEPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseUEPath.AutoSize = true;
-            this.btnBrowseUEPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBrowseUEPath.Location = new System.Drawing.Point(433, 30);
-            this.btnBrowseUEPath.Name = "btnBrowseUEPath";
-            this.btnBrowseUEPath.Size = new System.Drawing.Size(26, 23);
-            this.btnBrowseUEPath.TabIndex = 14;
-            this.btnBrowseUEPath.Text = "...";
-            this.btnBrowseUEPath.UseVisualStyleBackColor = true;
-            this.btnBrowseUEPath.Click += new System.EventHandler(this.btnBrowseUEPath_Click);
-            // 
             // generalConfigGroup
             // 
             this.generalConfigGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.generalConfigGroup.Controls.Add(lblProject);
-            this.generalConfigGroup.Controls.Add(this.btnDetectUEPath);
-            this.generalConfigGroup.Controls.Add(this.txtUEPath);
-            this.generalConfigGroup.Controls.Add(this.btnBrowseUEPath);
             this.generalConfigGroup.Controls.Add(this.txtProjectPath);
             this.generalConfigGroup.Controls.Add(this.btnProjInfo);
             this.generalConfigGroup.Controls.Add(this.btnBrowseProject);
-            this.generalConfigGroup.Controls.Add(lblUEPath);
-            this.generalConfigGroup.Location = new System.Drawing.Point(12, 12);
+            this.generalConfigGroup.Location = new System.Drawing.Point(12, 27);
             this.generalConfigGroup.Name = "generalConfigGroup";
-            this.generalConfigGroup.Size = new System.Drawing.Size(520, 102);
+            this.generalConfigGroup.Size = new System.Drawing.Size(520, 61);
             this.generalConfigGroup.TabIndex = 17;
             this.generalConfigGroup.TabStop = false;
             // 
@@ -231,7 +187,7 @@
             // 
             this.btnProjInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnProjInfo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnProjInfo.Location = new System.Drawing.Point(464, 69);
+            this.btnProjInfo.Location = new System.Drawing.Point(465, 30);
             this.btnProjInfo.Name = "btnProjInfo";
             this.btnProjInfo.Size = new System.Drawing.Size(49, 23);
             this.btnProjInfo.TabIndex = 17;
@@ -244,9 +200,9 @@
             this.btnVSFiles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnVSFiles.Location = new System.Drawing.Point(36, 19);
             this.btnVSFiles.Name = "btnVSFiles";
-            this.btnVSFiles.Size = new System.Drawing.Size(135, 23);
+            this.btnVSFiles.Size = new System.Drawing.Size(141, 23);
             this.btnVSFiles.TabIndex = 19;
-            this.btnVSFiles.Text = "Update VS Project Files";
+            this.btnVSFiles.Text = "Generate VS Project Files";
             this.btnVSFiles.UseVisualStyleBackColor = true;
             this.btnVSFiles.Click += new System.EventHandler(this.btnGenVSFiles_Click);
             // 
@@ -299,10 +255,10 @@
             this.txtLog.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLog.ForeColor = System.Drawing.Color.Green;
             this.txtLog.HideSelection = false;
-            this.txtLog.Location = new System.Drawing.Point(12, 301);
+            this.txtLog.Location = new System.Drawing.Point(12, 275);
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
-            this.txtLog.Size = new System.Drawing.Size(520, 99);
+            this.txtLog.Size = new System.Drawing.Size(520, 127);
             this.txtLog.TabIndex = 21;
             this.txtLog.Text = "";
             // 
@@ -311,16 +267,16 @@
             this.grpConfigurations.Controls.Add(this.listBuild);
             this.grpConfigurations.Controls.Add(this.btnBuildConfig);
             this.grpConfigurations.Controls.Add(this.btnHelpBuildConfig);
+            this.grpConfigurations.Controls.Add(this.btnKitReadMe);
             this.grpConfigurations.Controls.Add(lblQtBuildKit);
             this.grpConfigurations.Controls.Add(this.comboKits);
-            this.grpConfigurations.Controls.Add(this.btnKitReadMe);
             this.grpConfigurations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpConfigurations.Location = new System.Drawing.Point(0, 0);
             this.grpConfigurations.Name = "grpConfigurations";
             this.grpConfigurations.Size = new System.Drawing.Size(257, 175);
             this.grpConfigurations.TabIndex = 0;
             this.grpConfigurations.TabStop = false;
-            this.grpConfigurations.Text = "Configurations";
+            this.grpConfigurations.Text = " ";
             // 
             // listBuild
             // 
@@ -355,6 +311,52 @@
             this.grpProjFiles.TabIndex = 0;
             this.grpProjFiles.TabStop = false;
             this.grpProjFiles.Text = "Project Files";
+            // 
+            // btnOpenInQt
+            // 
+            this.btnOpenInQt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpenInQt.AutoSize = true;
+            this.btnOpenInQt.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnOpenInQt.ContextMenuStrip = this.QtPathMenu;
+            this.btnOpenInQt.Location = new System.Drawing.Point(148, 146);
+            this.btnOpenInQt.Name = "btnOpenInQt";
+            this.btnOpenInQt.Size = new System.Drawing.Size(105, 23);
+            this.btnOpenInQt.TabIndex = 15;
+            this.btnOpenInQt.Text = "Open in Qt Creator";
+            this.btnOpenInQt.UseVisualStyleBackColor = true;
+            this.btnOpenInQt.Click += new System.EventHandler(this.btnOpenInQt_Click);
+            // 
+            // QtPathMenu
+            // 
+            this.QtPathMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SetQtPath,
+            this.toolStripMenuItem1});
+            this.QtPathMenu.Name = "QtPathMenu";
+            this.QtPathMenu.Size = new System.Drawing.Size(214, 48);
+            // 
+            // SetQtPath
+            // 
+            this.SetQtPath.Name = "SetQtPath";
+            this.SetQtPath.Size = new System.Drawing.Size(213, 22);
+            this.SetQtPath.Text = "Set Qt Executable";
+            this.SetQtPath.Click += new System.EventHandler(this.SetQtPath_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(213, 22);
+            this.toolStripMenuItem1.Text = "Auto-detect Qt Executable";
+            // 
+            // checkAlwaysUpdateVS
+            // 
+            this.checkAlwaysUpdateVS.AutoSize = true;
+            this.checkAlwaysUpdateVS.Location = new System.Drawing.Point(183, 21);
+            this.checkAlwaysUpdateVS.Name = "checkAlwaysUpdateVS";
+            this.checkAlwaysUpdateVS.Size = new System.Drawing.Size(59, 17);
+            this.checkAlwaysUpdateVS.TabIndex = 21;
+            this.checkAlwaysUpdateVS.Text = "Always";
+            this.checkAlwaysUpdateVS.UseVisualStyleBackColor = true;
+            this.checkAlwaysUpdateVS.CheckedChanged += new System.EventHandler(this.checkAlwaysUpdateVS_CheckedChanged);
             // 
             // checkBox5
             // 
@@ -391,7 +393,7 @@
             this.spContainer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.spContainer.IsSplitterFixed = true;
-            this.spContainer.Location = new System.Drawing.Point(12, 120);
+            this.spContainer.Location = new System.Drawing.Point(12, 94);
             this.spContainer.Name = "spContainer";
             // 
             // spContainer.Panel1
@@ -405,57 +407,110 @@
             this.spContainer.SplitterDistance = 257;
             this.spContainer.TabIndex = 22;
             // 
-            // checkAlwaysUpdateVS
+            // menuStrip1
             // 
-            this.checkAlwaysUpdateVS.AutoSize = true;
-            this.checkAlwaysUpdateVS.Location = new System.Drawing.Point(177, 23);
-            this.checkAlwaysUpdateVS.Name = "checkAlwaysUpdateVS";
-            this.checkAlwaysUpdateVS.Size = new System.Drawing.Size(59, 17);
-            this.checkAlwaysUpdateVS.TabIndex = 21;
-            this.checkAlwaysUpdateVS.Text = "Always";
-            this.checkAlwaysUpdateVS.UseVisualStyleBackColor = true;
-            this.checkAlwaysUpdateVS.CheckedChanged += new System.EventHandler(this.checkAlwaysUpdateVS_CheckedChanged);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuFile,
+            this.menuHelp});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(544, 24);
+            this.menuStrip1.TabIndex = 23;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // btnOpenInQt
+            // menuFile
             // 
-            this.btnOpenInQt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenInQt.AutoSize = true;
-            this.btnOpenInQt.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnOpenInQt.Location = new System.Drawing.Point(148, 146);
-            this.btnOpenInQt.Name = "btnOpenInQt";
-            this.btnOpenInQt.Size = new System.Drawing.Size(105, 23);
-            this.btnOpenInQt.TabIndex = 15;
-            this.btnOpenInQt.Text = "Open in Qt Creator";
-            this.btnOpenInQt.UseVisualStyleBackColor = true;
-            this.btnOpenInQt.Click += new System.EventHandler(this.btnOpenInQt_Click);
+            this.menuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuSettings,
+            this.toolStripSeparator1,
+            this.menuExit});
+            this.menuFile.Name = "menuFile";
+            this.menuFile.Size = new System.Drawing.Size(37, 20);
+            this.menuFile.Text = "&File";
+            // 
+            // menuSettings
+            // 
+            this.menuSettings.Name = "menuSettings";
+            this.menuSettings.Size = new System.Drawing.Size(134, 22);
+            this.menuSettings.Text = "&Settings";
+            this.menuSettings.Click += new System.EventHandler(this.menuSettings_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(131, 6);
+            // 
+            // menuExit
+            // 
+            this.menuExit.Name = "menuExit";
+            this.menuExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.menuExit.Size = new System.Drawing.Size(134, 22);
+            this.menuExit.Text = "&Exit";
+            this.menuExit.Click += new System.EventHandler(this.menuExit_Click);
+            // 
+            // menuHelp
+            // 
+            this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuPrepareKit,
+            this.toolStripSeparator2,
+            this.menuAbout});
+            this.menuHelp.Name = "menuHelp";
+            this.menuHelp.Size = new System.Drawing.Size(44, 20);
+            this.menuHelp.Text = "&Help";
+            // 
+            // menuAbout
+            // 
+            this.menuAbout.Name = "menuAbout";
+            this.menuAbout.Size = new System.Drawing.Size(203, 22);
+            this.menuAbout.Text = "&About";
+            this.menuAbout.Click += new System.EventHandler(this.menuAbout_Click);
+            // 
+            // menuPrepareKit
+            // 
+            this.menuPrepareKit.Enabled = false;
+            this.menuPrepareKit.Name = "menuPrepareKit";
+            this.menuPrepareKit.Size = new System.Drawing.Size(228, 22);
+            this.menuPrepareKit.Text = "How do I prepare Qt Creator?";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(225, 6);
             // 
             // MainForm
             // 
             this.AcceptButton = this.btnOpenInQt;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 412);
+            this.ClientSize = new System.Drawing.Size(544, 406);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.spContainer);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.generalConfigGroup);
+            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(560, 347);
+            this.MinimumSize = new System.Drawing.Size(560, 318);
             this.Name = "MainForm";
             this.Text = "Qute Configurer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.generalConfigGroup.ResumeLayout(false);
             this.generalConfigGroup.PerformLayout();
             this.grpConfigurations.ResumeLayout(false);
             this.grpConfigurations.PerformLayout();
             this.grpProjFiles.ResumeLayout(false);
             this.grpProjFiles.PerformLayout();
+            this.QtPathMenu.ResumeLayout(false);
             this.spContainer.Panel1.ResumeLayout(false);
             this.spContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spContainer)).EndInit();
             this.spContainer.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -467,9 +522,6 @@
         private System.Windows.Forms.TextBox txtProjectPath;
         private System.Windows.Forms.Button btnBrowseProject;
         private System.Windows.Forms.Button btnBuildConfig;
-        private System.Windows.Forms.Button btnDetectUEPath;
-        private System.Windows.Forms.TextBox txtUEPath;
-        private System.Windows.Forms.Button btnBrowseUEPath;
         private System.Windows.Forms.GroupBox generalConfigGroup;
         private System.Windows.Forms.Button btnVSFiles;
         private System.Windows.Forms.Button btnHelpVS;
@@ -486,6 +538,18 @@
         private System.Windows.Forms.CheckedListBox listBuild;
         private System.Windows.Forms.CheckBox checkAlwaysUpdateVS;
         private System.Windows.Forms.Button btnOpenInQt;
+        private System.Windows.Forms.ContextMenuStrip QtPathMenu;
+        private System.Windows.Forms.ToolStripMenuItem SetQtPath;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem menuFile;
+        private System.Windows.Forms.ToolStripMenuItem menuSettings;
+        private System.Windows.Forms.ToolStripMenuItem menuExit;
+        private System.Windows.Forms.ToolStripMenuItem menuHelp;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem menuAbout;
+        private System.Windows.Forms.ToolStripMenuItem menuPrepareKit;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

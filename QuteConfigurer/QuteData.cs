@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Qute
 {
-    class ProjectData
+    class QuteData
     {
         public QuteResolver.UEProject UEProject { get; set; }
         public QuteResolver.Kit Kit { get; set; }
@@ -35,6 +35,21 @@ namespace Qute
 
         public string GetProjectFilesDir() {
             return Path.Combine(Path.GetDirectoryName(UEProject.Path), @"Intermediate\ProjectFiles");
+        }
+
+        public void ValidateEUPaths() {
+            if (!File.Exists(GetEngineExe())) {
+                throw new QuteException("UE4Editor.exe was not found. Make sure that you set Unreal Engine path correctly.");
+            }
+            if (!File.Exists(GetBuildCmd())) {
+                throw new QuteException("Build.bat was not found. Make sure that you set Unreal Engine path correctly.");
+            }
+            if (!File.Exists(GetCleanCmd())) {
+                throw new QuteException("Clean.bat was not found. Make sure that you set Unreal Engine path correctly.");
+            }
+            if (!File.Exists(GetGenerateCmd())) {
+                throw new QuteException("RocketGenerateProjectFiles.bat was not found. Make sure that you set Unreal Engine path correctly.");
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Qute
         /// Export all necessary Qt Project files.
         /// </summary>
         /// <param name="data"></param>
-        public static void ExportProject(ProjectData data) {
+        public static void ExportProject(QuteData data) {
             var project = data.UEProject;
             if (string.IsNullOrWhiteSpace(project.Name) || string.IsNullOrWhiteSpace(project.Engine)) {
                 Console.Error.WriteLine("Error: Failed to read data from project file.");
@@ -154,7 +154,7 @@ namespace Qute
             writer.WriteEndElement();
         }
 
-        public static void ExportConfiguration(ProjectData data, IEnumerable<Configuration.Build> builds) {
+        public static void ExportConfiguration(QuteData data, IEnumerable<Configuration> builds) {
             var kit = data.Kit;
             if (string.IsNullOrWhiteSpace(data.UEProject.Name) || string.IsNullOrWhiteSpace(data.UEProject.Engine)) {
                 Console.Error.WriteLine("Error: Failed to read data from project file.");

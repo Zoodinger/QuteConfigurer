@@ -11,12 +11,12 @@ namespace Qute
 {
     public partial class MainForm : Form
     {
-        private readonly ProjectData _data;
+        private readonly QuteData _data;
 
         #region Initialize
         public MainForm() {
 
-            _data = new ProjectData();
+            _data = new QuteData();
 
             //Json dll is embedded as a resource. This code will make sure it's loaded.
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => {
@@ -43,43 +43,43 @@ namespace Qute
         private void InitializeConfigurations() {
             var configurations = new object[] 
             {
-                new Configuration.Build {
+                new Configuration {
                     Name = "Debug Editor",
-                    State = Configuration.State.Debug,
-                    Mode = Configuration.Mode.Editor,
-                    BuildFlags = Configuration.Flag.Rocket,
-                    Platform = Configuration.Target.Win64,
-                    RunFlags = Configuration.Flag.Debug,
+                    State = "DebugGame",
+                    Mode = "Editor",
+                    BuildFlags = "-rocket",
+                    Platform = "Win64",
+                    RunFlags = "-debug",
                     ExeSuffix = "",
                     RunFromEditor = true,
                 },
-                new Configuration.Build {
+                new Configuration {
                     Name = "Debug Standalone",
-                    State = Configuration.State.Debug,
-                    Mode = Configuration.Mode.Normal,
-                    BuildFlags = Configuration.Flag.Rocket,
-                    Platform = Configuration.Target.Win64,
-                    RunFlags = Configuration.Flag.None,
-                    ExeSuffix = Configuration.Target.Win64 + "-" + Configuration.State.Debug,
+                    State = "DebugGame",
+                    Mode = "",
+                    BuildFlags = "-rocket",
+                    Platform = "Win64",
+                    RunFlags = "",
+                    ExeSuffix = "Win64-DebugGame",
                     RunFromEditor = false,
                 },
-                new Configuration.Build {
+                new Configuration {
                     Name = "Development Editor",
-                    State = Configuration.State.Development,
-                    Mode = Configuration.Mode.Editor,
-                    BuildFlags = Configuration.Flag.Rocket,
-                    Platform = Configuration.Target.Win64,
-                    RunFlags = Configuration.Flag.None,
+                    State = "Development",
+                    Mode = "Editor",
+                    BuildFlags = "-rocket",
+                    Platform = "Win64",
+                    RunFlags = "",
                     ExeSuffix = "",
                     RunFromEditor = true,
                 },
-                new Configuration.Build {
+                new Configuration {
                     Name = "Development Standalone",
-                    State = Configuration.State.Development,
-                    Mode = Configuration.Mode.Normal,
-                    BuildFlags = Configuration.Flag.Rocket,
-                    Platform = Configuration.Target.Win64,
-                    RunFlags = Configuration.Flag.None,
+                    State = "Development",
+                    Mode = "",
+                    BuildFlags = "-rocket",
+                    Platform = "Win64",
+                    RunFlags = "",
                     ExeSuffix = "",
                     RunFromEditor = false,
                 }
@@ -102,12 +102,11 @@ namespace Qute
             }
         }
 
+        bool _dontSaveSettings = false;
+
         private void MainForm_Load(object sender, EventArgs e) {
             Console.SetOut(new QuteConsoleWriter(txtLog, Color.LightGray));
             Console.SetError(new QuteConsoleWriter(txtLog, Color.Red));
-
-            //Set up the input fields to have already stored settings.
-            txtUEPath.Text = Settings.Default.UEPath;
 
             var kits = QuteResolver.GetKits();
 
@@ -137,10 +136,13 @@ namespace Qute
 
         private void btnQtFiles_Click(object sender, EventArgs e) {
             try {
+                _data.UEProject = QuteResolver.GetProjectInfo(txtProjectPath.Text);
+                _data.ValidateEUPaths();
+
                 if (checkAlwaysUpdateVS.Checked) {
                     UpdateVSFiles();
                 }
-                _data.UEProject = QuteResolver.GetProjectInfo(txtProjectPath.Text);
+                
                 QuteExporter.ExportProject(_data);
             } catch (Exception ex) {
                 Console.Error.WriteLine(ex.Message);
@@ -157,33 +159,6 @@ namespace Qute
             }
         }
 
-        private void btnDetectUEPath_Click(object sender, EventArgs e) {
-            var path = QuteResolver.GetDetectedUEPath();
-            if (path != null && Directory.Exists(path)) {
-                txtUEPath.Text = path;
-                Console.WriteLine("Unreal Engine path changed to '{0}'.", path);
-            } else {
-                Console.WriteLine("Could not auto-detect Unreal Engine installation path.");
-            }
-        }
-
-        private void btnBrowseUEPath_Click(object sender, EventArgs e) {
-            var dialog = new FolderBrowserDialog();
-            if (dialog.ShowDialog() == DialogResult.OK) {
-                txtUEPath.Text = dialog.SelectedPath;
-                Console.WriteLine("Unreal Engine path changed to '{0}'.", dialog.SelectedPath);
-            }
-        }
-
-        private void txtUEPath_TextChanged(object sender, EventArgs e) {
-            _data.UEPath = txtUEPath.Text;
-            if (!Directory.Exists(txtUEPath.Text)) {
-                txtUEPath.ForeColor = Color.Red;
-            } else {
-                txtUEPath.ForeColor = Color.Black;
-            }
-        }
-
         private void txtProjectPath_TextChanged(object sender, EventArgs e) {
             if (!File.Exists(txtProjectPath.Text)) {
                 txtProjectPath.ForeColor = Color.Red;
@@ -195,17 +170,20 @@ namespace Qute
         }
 
         private void btnKitReadMe_Click(object sender, EventArgs e) {
-            Console.Error.WriteLine("Operation is not supported yet.");
+            MessageBox.Show("In order for your configurations to compile and debug properly, a Qt Kit and Debugger must be set up. Refer to the Help menu for more information.", "Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnBuildConfig_Click(object sender, EventArgs e) {
             try {
                 _data.UEProject = QuteResolver.GetProjectInfo(txtProjectPath.Text);
+                _data.ValidateEUPaths();
 
                 if (comboKits.SelectedItem is QuteResolver.Kit) {
-                    QuteExporter.ExportConfiguration(_data, listBuild.CheckedItems.OfType<Configuration.Build>());
+                    QuteExporter.ExportConfiguration(_data, listBuild.CheckedItems.OfType<Configuration>());
+                } else {
+                    Console.Error.WriteLine("Error: No Qt Kit is selected.");
                 }
-            } catch (QuteResolver.ProjectException ex) {
+            } catch (QuteException ex) {
                 Console.Error.WriteLine(ex.Message);
             }
         }
@@ -215,7 +193,7 @@ namespace Qute
 
             var gen = _data.GetGenerateCmd();
             if (!File.Exists(gen)) {
-                throw new QuteResolver.ProjectException("Error: Could not find file " + gen);
+                throw new QuteException("Error: Could not find file " + gen);
             }
 
             var startInfo = new ProcessStartInfo {
@@ -231,7 +209,7 @@ namespace Qute
             process.Start();
             process.WaitForExit();
 
-            Console.WriteLine("Visual Studio project files were upgraded.");
+            Console.WriteLine("Visual Studio project files were generated.");
         }
 
         private void btnGenVSFiles_Click(object sender, EventArgs e) {
@@ -246,13 +224,13 @@ namespace Qute
             MessageBox.Show("Generate project files for Visual Studio. "
               + "You should perform this operation when VS Project files become out of sync,"
               + " or right before you generate Qt project files.",
-              "Help on '" + btnVSFiles.Text + "'", MessageBoxButtons.OK, MessageBoxIcon.Information);
+              "Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnHelpBuildConfig_Click(object sender, EventArgs e) {
             MessageBox.Show("Generate build configuration every time you change the engine. "
              + "An appropriate Qt Kit must be selected!",
-             "Help on '" + btnBuildConfig.Text + "'", MessageBoxButtons.OK, MessageBoxIcon.Information);
+             "Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnHelpQt_Click(object sender, EventArgs e) {
@@ -263,12 +241,15 @@ namespace Qute
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+
+            if (_dontSaveSettings) {
+                return;
+            }
             // Save all settings
             var kit = comboKits.SelectedItem is QuteResolver.Kit ? (QuteResolver.Kit)
                 comboKits.SelectedItem : new QuteResolver.Kit();
             Settings.Default.KitId = kit.Id;
             Settings.Default.KitName = kit.Name;
-            Settings.Default.UEPath = txtUEPath.Text;
             Settings.Default.AlwaysUpdateVS = checkAlwaysUpdateVS.Checked;
 
             var flag = 1u;
@@ -291,7 +272,7 @@ namespace Qute
             try {
                 var info = QuteResolver.GetProjectInfo(txtProjectPath.Text);
                 Console.WriteLine("Name: {0}\nEngine: {1}", info.Name, info.Engine);
-            } catch (QuteResolver.ProjectException ex) {
+            } catch (QuteException ex) {
                 Console.Error.WriteLine(ex.Message);
             }
         }
@@ -316,9 +297,99 @@ namespace Qute
             btnVSFiles.Enabled = !checkAlwaysUpdateVS.Checked;
         }
 
-        private void btnOpenInQt_Click(object sender, EventArgs e) {
-            Console.Error.WriteLine("Operation is not supported yet.");
+        string BrowseQtCreatorPath() {
+            var dialog = new OpenFileDialog { Filter = "qtcreator.exe" };
+            var res = dialog.ShowDialog();
+
+            return res == DialogResult.OK ? dialog.FileName : null;
         }
 
+        private void btnOpenInQt_Click(object sender, EventArgs e) {
+            try {
+                _data.UEProject = QuteResolver.GetProjectInfo(txtProjectPath.Text);
+            } catch (QuteException ex) {
+                Console.Error.WriteLine(ex.Message);
+                return;
+            }
+
+            var qtProjFile = Path.Combine(_data.GetProjectFilesDir(), _data.UEProject.Name + ".pro");
+            if (!File.Exists(qtProjFile)) {
+                Console.Error.WriteLine("Qt project files were not found. Did you generate them?");
+                return;
+            }
+
+            try {
+                var filePath = Settings.Default.QtCreatorPath ?? "";
+                var fileName = Path.GetFileName(filePath);
+
+                if (!File.Exists(filePath) || !fileName.Equals("qtcreator.exe", StringComparison.InvariantCultureIgnoreCase)) {
+                    filePath = QuteResolver.GetDetectedQtCreatorPath();
+                }
+                if (!File.Exists(filePath) || !fileName.Equals("qtcreator.exe", StringComparison.InvariantCultureIgnoreCase)) {
+                    filePath = BrowseQtCreatorPath();
+                    if (filePath == null) {
+                        return;
+                    }
+                }
+
+                if (File.Exists(filePath)) {
+                    Settings.Default.QtCreatorPath = filePath;
+                    var startInfo = new ProcessStartInfo {
+                        FileName = filePath,
+                        Arguments = Path.Combine(_data.GetProjectFilesDir(), _data.UEProject.Name + ".pro")
+                    };
+
+                    var process = new Process {
+                        StartInfo = startInfo,
+                    };
+
+                    process.Start();
+                }
+            } catch (Exception ex) {
+                Console.Error.WriteLine(ex.Message);
+            }
+        }
+
+
+        void SetQtPath_Click(object sender, EventArgs e) {
+            throw new NotImplementedException();
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e) {
+            if (Settings.Default.FirstRun) {
+                if (ShowSettings()) {
+                    Settings.Default.FirstRun = false;
+                } else {
+                    _dontSaveSettings = true;
+                    Application.Exit();
+                }
+            }
+
+            _data.UEPath = Settings.Default.UEPath;
+        }
+
+        bool ShowSettings() {
+            var settings = new SettingsForm();
+            var result = settings.ShowDialog();
+            if (result == DialogResult.OK) {
+                Settings.Default.QtCreatorPath = settings.QtCreatorPath;
+                _data.UEPath = Settings.Default.UEPath = settings.UEPath;
+                Settings.Default.Save();
+                return true;
+            }
+            return false;
+        }
+
+        private void menuExit_Click(object sender, EventArgs e) {
+            Application.Exit();
+        }
+
+        private void menuSettings_Click(object sender, EventArgs e) {
+            ShowSettings();
+        }
+
+        private void menuAbout_Click(object sender, EventArgs e) {
+            new AboutForm().ShowDialog();
+        }
     }
 }

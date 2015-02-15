@@ -44,13 +44,6 @@ namespace Qute
             }
         }
 
-        public class ProjectException : Exception
-        {
-            public ProjectException(string message)
-                : base(message) {
-            }
-        }
-
         public static UEProject GetProjectInfo(string path) {
             string name = null;
             string engine = null;
@@ -81,15 +74,15 @@ namespace Qute
                 }
 
             } catch (FileNotFoundException) {
-                throw new ProjectException("Error: File not found.");
+                throw new QuteException("Error: File not found.");
             } catch (ArgumentException) {
-                throw new ProjectException("Error: Invalid project path.");
+                throw new QuteException("Error: Invalid project path.");
             } catch {
-                throw new ProjectException("Error: Could not read project information.");
+                throw new QuteException("Error: Could not read project information.");
             }
 
             if (name == null || engine == null) {
-                throw new ProjectException("Error: Missing project information.");
+                throw new QuteException("Error: Missing project information.");
             }
 
             return new UEProject(name, engine, path);
@@ -106,6 +99,14 @@ namespace Qute
             } catch {
                 return "";
             }
+        }
+
+        /// <summary>
+        /// Gets the location of the Qt Creator executable, based on the install location of Qt
+        /// </summary>
+        /// <returns></returns>
+        public static string GetDetectedQtCreatorPath() {
+            return Path.Combine(GetDetectedQtPath(), @"Tools\QtCreator\bin\qtcreator.exe");
         }
 
         /// <summary>

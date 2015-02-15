@@ -142,7 +142,7 @@ namespace Qute
                 if (checkAlwaysUpdateVS.Checked) {
                     UpdateVSFiles();
                 }
-                
+
                 QuteExporter.ExportProject(_data);
             } catch (Exception ex) {
                 Console.Error.WriteLine(ex.Message);
@@ -193,7 +193,7 @@ namespace Qute
 
             var gen = _data.GetGenerateCmd();
             if (!File.Exists(gen)) {
-                throw new QuteException("Error: Could not find file " + gen);
+                throw new QuteException("Error: Could not find file '" + gen + "'.");
             }
 
             var startInfo = new ProcessStartInfo {
@@ -208,11 +208,10 @@ namespace Qute
 
             process.Start();
             process.WaitForExit();
-
             Console.WriteLine("Visual Studio project files were generated.");
         }
 
-        private void btnGenVSFiles_Click(object sender, EventArgs e) {
+        private void btnVSFiles_Click(object sender, EventArgs e) {
             try {
                 UpdateVSFiles();
             } catch (Exception ex) {
@@ -305,17 +304,21 @@ namespace Qute
         }
 
         private void btnOpenInQt_Click(object sender, EventArgs e) {
+            OpenInQt();
+        }
+
+        private bool OpenInQt() {
             try {
                 _data.UEProject = QuteResolver.GetProjectInfo(txtProjectPath.Text);
             } catch (QuteException ex) {
                 Console.Error.WriteLine(ex.Message);
-                return;
+                return false;
             }
 
             var qtProjFile = Path.Combine(_data.GetProjectFilesDir(), _data.UEProject.Name + ".pro");
             if (!File.Exists(qtProjFile)) {
                 Console.Error.WriteLine("Qt project files were not found. Did you generate them?");
-                return;
+                return false;
             }
 
             try {
@@ -328,7 +331,7 @@ namespace Qute
                 if (!File.Exists(filePath) || !fileName.Equals("qtcreator.exe", StringComparison.InvariantCultureIgnoreCase)) {
                     filePath = BrowseQtCreatorPath();
                     if (filePath == null) {
-                        return;
+                        return false;
                     }
                 }
 
@@ -344,10 +347,12 @@ namespace Qute
                     };
 
                     process.Start();
+                    return true;
                 }
             } catch (Exception ex) {
                 Console.Error.WriteLine(ex.Message);
             }
+            return false;
         }
 
 
@@ -390,6 +395,31 @@ namespace Qute
 
         private void menuAbout_Click(object sender, EventArgs e) {
             new AboutForm().ShowDialog();
+        }
+
+        private void menuHelpUse_Click(object sender, EventArgs e) {
+
+        }
+
+        private void menuSetup_Click(object sender, EventArgs e) {
+            try {
+                _data.UEProject = QuteResolver.GetProjectInfo(txtProjectPath.Text);
+                _data.ValidateEUPaths();
+                if (!(comboKits.SelectedItem is QuteResolver.Kit)) {
+                    Console.Error.WriteLine("Error: No Qt Kit is selected.");
+                }
+
+                UpdateVSFiles();
+                QuteExporter.ExportConfiguration(_data, listBuild.CheckedItems.OfType<Configuration>());
+                QuteExporter.ExportProject(_data);
+
+                if (OpenInQt()) {
+                    Application.Exit();
+                }
+
+            } catch (QuteException ex) {
+                Console.Error.WriteLine(ex.Message);
+            }
         }
     }
 }

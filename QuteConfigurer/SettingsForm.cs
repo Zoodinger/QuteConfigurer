@@ -43,7 +43,10 @@ namespace Qute
             var dialog = new OpenFileDialog { Filter = "Qt Creator|qtcreator.exe", CheckFileExists = true };
             if (dialog.ShowDialog() == DialogResult.OK) {
                 if (File.Exists(dialog.FileName)) {
-                    txtQtPath.Text = dialog.FileName;
+                    if (txtQtPath.Text != dialog.FileName) {
+                        Console.WriteLine("Qt Creator location changed to '{0}'.", dialog.FileName);
+                        txtQtPath.Text = dialog.FileName;
+                    }
                 }
             }
         }
@@ -51,26 +54,34 @@ namespace Qute
         private void btnDetectUEPath_Click(object sender, EventArgs e) {
             var path = QuteResolver.GetDetectedUEPath();
             if (path != null && Directory.Exists(path)) {
-                txtUEPath.Text = path;
+                if (txtUEPath.Text != path) {
+                    txtUEPath.Text = path;
+                    Console.WriteLine("Unreal Engine path changed to '{0}'.", path);
+                }
             } else {
-                MessageBox.Show("Could not auto-detect Unreal Engine path", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.Error.WriteLine("Error: Could not auto-detect Unreal Engine installation path.");
             }
         }
 
         private void btnDetectQtPath_Click(object sender, EventArgs e) {
             var path = QuteResolver.GetDetectedQtCreatorPath();
             if (path != null && File.Exists(path)) {
-                txtQtPath.Text = path;
+                if (path != txtQtPath.Text) {
+                    txtQtPath.Text = path;
+                    Console.WriteLine("Qt Creator location changed to '{0}'.", path);
+                }
             } else {
-                MessageBox.Show("Could not auto-detect Qt Creator path", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.Error.WriteLine("Error: Could not auto-detect Qt Creator location.");
             }
         }
 
         private void btnBrowseUEPath_Click(object sender, EventArgs e) {
             var dialog = new FolderBrowserDialog();
             if (dialog.ShowDialog() == DialogResult.OK) {
-                txtUEPath.Text = dialog.SelectedPath;
-                Console.WriteLine("Unreal Engine path changed to '{0}'.", dialog.SelectedPath);
+                if (txtUEPath.Text != dialog.SelectedPath) {
+                    txtUEPath.Text = dialog.SelectedPath;
+                    Console.WriteLine("Unreal Engine path changed to '{0}'.", dialog.SelectedPath);
+                }
             }
         }
 

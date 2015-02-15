@@ -162,6 +162,7 @@ namespace Qute
             }
 
             try {
+                Directory.CreateDirectory(data.GetProjectFilesDir());
                 using (var xml = new XmlTextWriter(Path.Combine(data.GetProjectFilesDir(), data.UEProject.Name) + ".pro.user", Encoding.UTF8)) {
                     xml.Formatting = Formatting.Indented;
                     xml.WriteStartDocument();

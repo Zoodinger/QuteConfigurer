@@ -23,7 +23,6 @@ namespace Qute
             _entries = pages;
             Index = 0;
             if (_count == 1) {
-                btnNext.Visible = false;
                 btnPrevious.Visible = false;
                 title.Visible = false;
             }
@@ -58,12 +57,16 @@ namespace Qute
                 }
                 text.Rtf = rtf;
                 btnPrevious.Enabled = _index > 0;
-                btnNext.Enabled = _index + 1 < _count;
+                btnNext.Text = _index + 1 < _count ? "&Next" : "&Close";
             }
         }
 
         private void btnNext_Click(object sender, EventArgs e) {
-            ++Index;
+            if (_index + 1 == _count) {
+                Close();
+            } else {
+                ++Index;
+            }
         }
 
         private void btnPrevious_Click(object sender, EventArgs e) {

@@ -10,8 +10,16 @@ namespace Qute
         public SettingsForm() {
             InitializeComponent();
             if (AppSettings.FirstTime) {
-                txtUEPath.Text = QuteResolver.GetDetectedUEPath();
-                txtQtPath.Text = QuteResolver.GetDetectedQtCreatorPath();
+                try {
+                    txtUEPath.Text = QuteResolver.GetDetectedUEPath();
+                } catch {
+                    txtUEPath.Text = "";
+                }
+                try {
+                    txtQtPath.Text = QuteResolver.GetDetectedQtCreatorPath();
+                } catch {
+                    txtQtPath.Text = "";
+                }
             } else {
                 txtUEPath.Text = AppSettings.UEPath; 
                 txtQtPath.Text = AppSettings.QtPath;
@@ -57,7 +65,12 @@ namespace Qute
         }
 
         private void btnDetectQtPath_Click(object sender, EventArgs e) {
-            var path = QuteResolver.GetDetectedQtCreatorPath();
+            string path;
+            try {
+                path = QuteResolver.GetDetectedQtCreatorPath();
+            } catch {
+                path = null;
+            }
             if (path != null && File.Exists(path)) {
                 if (path != txtQtPath.Text) {
                     txtQtPath.Text = path;

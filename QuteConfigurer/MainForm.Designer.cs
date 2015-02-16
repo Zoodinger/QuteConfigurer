@@ -221,7 +221,7 @@
             this.grpConfigurations.Size = new System.Drawing.Size(257, 175);
             this.grpConfigurations.TabIndex = 0;
             this.grpConfigurations.TabStop = false;
-            this.grpConfigurations.Text = " ";
+            this.grpConfigurations.Text = "Configurations";
             // 
             // listBuild
             // 

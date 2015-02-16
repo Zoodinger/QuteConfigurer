@@ -92,6 +92,9 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "HelpForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.TopMost = true;
             this.ResumeLayout(false);
 
         }

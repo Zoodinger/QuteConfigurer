@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using Qute.Properties;
 
 namespace Qute
 {
@@ -10,12 +9,12 @@ namespace Qute
     {
         public SettingsForm() {
             InitializeComponent();
-            if (Settings.Default.FirstRun) {
+            if (AppSettings.FirstTime) {
                 txtUEPath.Text = QuteResolver.GetDetectedUEPath();
                 txtQtPath.Text = QuteResolver.GetDetectedQtCreatorPath();
             } else {
-                txtUEPath.Text = Settings.Default.UEPath;
-                txtQtPath.Text = Settings.Default.QtCreatorPath;
+                txtUEPath.Text = AppSettings.UEPath; 
+                txtQtPath.Text = AppSettings.QtPath;
             }
             UEPath = txtUEPath.Text;
             QtCreatorPath = txtQtPath.Text;

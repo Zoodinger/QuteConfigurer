@@ -463,7 +463,6 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(560, 318);
             this.Name = "MainForm";
-            this.ShowIcon = false;
             this.Text = "Qute Configurer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);

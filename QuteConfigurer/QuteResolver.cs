@@ -31,6 +31,9 @@ namespace Qute
             }
         }
 
+        /// <summary>
+        /// Represents information about an Unreal Engine project.
+        /// </summary>
         public struct UEProject
         {
             public string Path;
@@ -43,7 +46,10 @@ namespace Qute
                 Name = name;
             }
         }
-
+        
+        /// <summary>
+        /// Gets Unreal Project information from a file.
+        /// </summary>
         public static UEProject GetProjectInfo(string path) {
             string name = null;
             string engine = null;
@@ -125,7 +131,7 @@ namespace Qute
         }
 
         /// <summary>
-        /// Get a sequence containing all the kits
+        /// Get a sequence containing all the kits available for Qt Creator.
         /// </summary>
         /// <returns></returns>
         public static IEnumerable<Kit> GetKits() {

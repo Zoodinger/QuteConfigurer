@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using Qute.Properties;
 
 namespace Qute
 {
@@ -15,7 +14,6 @@ namespace Qute
 
         #region Initialize
         public MainForm() {
-
             _data = new QuteData();
 
             //Json dll is embedded as a resource. This code will make sure it's loaded.
@@ -43,7 +41,7 @@ namespace Qute
         private void InitializeConfigurations() {
             var configurations = new object[] 
             {
-                new Configuration {
+                new QuteExporter.Build {
                     Name = "Debug Editor",
                     State = "DebugGame",
                     Mode = "Editor",
@@ -53,7 +51,7 @@ namespace Qute
                     ExeSuffix = "",
                     RunFromEditor = true,
                 },
-                new Configuration {
+                new QuteExporter.Build {
                     Name = "Debug Standalone",
                     State = "DebugGame",
                     Mode = "",
@@ -63,7 +61,7 @@ namespace Qute
                     ExeSuffix = "Win64-DebugGame",
                     RunFromEditor = false,
                 },
-                new Configuration {
+                new QuteExporter.Build {
                     Name = "Development Editor",
                     State = "Development",
                     Mode = "Editor",
@@ -73,7 +71,7 @@ namespace Qute
                     ExeSuffix = "",
                     RunFromEditor = true,
                 },
-                new Configuration {
+                new QuteExporter.Build {
                     Name = "Development Standalone",
                     State = "Development",
                     Mode = "",
@@ -93,7 +91,7 @@ namespace Qute
             // Each bit, starting from right to left, represents whether a configuration is ticked or not.
             // 
 
-            var checkedCodes = Settings.Default.ConfigFlags;
+            var checkedCodes = AppSettings.ConfigFlags;
             var flag = 1u;
 
             for (var i = 0; i < listBuild.Items.Count; ++i) {
@@ -112,8 +110,8 @@ namespace Qute
 
             foreach (var kit in kits) {
                 comboKits.Items.Add(kit);
-                if (kit.Name.Trim().Equals(Settings.Default.KitName.Trim(), StringComparison.InvariantCultureIgnoreCase)
-                    && kit.Id.Trim().Equals(Settings.Default.KitId.Trim(), StringComparison.InvariantCultureIgnoreCase)) {
+                if (kit.Name.Trim().Equals(AppSettings.KitName.Trim(), StringComparison.InvariantCultureIgnoreCase)
+                    && kit.Id.Trim().Equals(AppSettings.KitId.Trim(), StringComparison.InvariantCultureIgnoreCase)) {
                     comboKits.SelectedItem = kit;
                 }
             }
@@ -128,7 +126,7 @@ namespace Qute
                 }
             }
 
-            checkAlwaysUpdateVS.Checked = Settings.Default.AlwaysUpdateVS;
+            checkAlwaysUpdateVS.Checked = AppSettings.AlwaysUpdateVS;
         }
 
         #endregion
@@ -179,7 +177,7 @@ namespace Qute
                 _data.ValidateEUPaths();
 
                 if (comboKits.SelectedItem is QuteResolver.Kit) {
-                    QuteExporter.ExportConfiguration(_data, listBuild.CheckedItems.OfType<Configuration>());
+                    QuteExporter.ExportConfiguration(_data, listBuild.CheckedItems.OfType<QuteExporter.Build>());
                 } else {
                     Console.Error.WriteLine("Error: No Qt Kit is selected.");
                 }
@@ -247,9 +245,9 @@ namespace Qute
             // Save all settings
             var kit = comboKits.SelectedItem is QuteResolver.Kit ? (QuteResolver.Kit)
                 comboKits.SelectedItem : new QuteResolver.Kit();
-            Settings.Default.KitId = kit.Id;
-            Settings.Default.KitName = kit.Name;
-            Settings.Default.AlwaysUpdateVS = checkAlwaysUpdateVS.Checked;
+            AppSettings.KitId = kit.Id;
+            AppSettings.KitName = kit.Name;
+            AppSettings.AlwaysUpdateVS = checkAlwaysUpdateVS.Checked;
 
             var flag = 1u;
             var code = 0xFFFFFFFF;
@@ -262,9 +260,9 @@ namespace Qute
                 flag = flag << 1;
             }
 
-            Settings.Default.ConfigFlags = code;
+            AppSettings.ConfigFlags = code;
 
-            Settings.Default.Save();
+            AppSettings.Save();
         }
 
         private void btnProjInfo_Click(object sender, EventArgs e) {
@@ -322,7 +320,7 @@ namespace Qute
             }
 
             try {
-                var filePath = Settings.Default.QtCreatorPath ?? "";
+                var filePath = AppSettings.QtPath ?? "";
                 var fileName = Path.GetFileName(filePath);
 
                 if (!File.Exists(filePath) || !fileName.Equals("qtcreator.exe", StringComparison.InvariantCultureIgnoreCase)) {
@@ -336,7 +334,7 @@ namespace Qute
                 }
 
                 if (File.Exists(filePath)) {
-                    Settings.Default.QtCreatorPath = filePath;
+                    AppSettings.QtPath = filePath;
                     var startInfo = new ProcessStartInfo {
                         FileName = filePath,
                         Arguments = Path.Combine(_data.GetProjectFilesDir(), _data.UEProject.Name + ".pro")
@@ -361,25 +359,23 @@ namespace Qute
         }
 
         private void MainForm_Shown(object sender, EventArgs e) {
-            if (Settings.Default.FirstRun) {
-                if (ShowSettings()) {
-                    Settings.Default.FirstRun = false;
-                } else {
+            if (AppSettings.FirstTime) {
+                if (!ShowSettings()) {
                     _dontSaveSettings = true;
                     Application.Exit();
                 }
             }
 
-            _data.UEPath = Settings.Default.UEPath;
+            _data.UEPath = AppSettings.UEPath;
         }
 
         bool ShowSettings() {
             var settings = new SettingsForm();
             var result = settings.ShowDialog();
             if (result == DialogResult.OK) {
-                Settings.Default.QtCreatorPath = settings.QtCreatorPath;
-                _data.UEPath = Settings.Default.UEPath = settings.UEPath;
-                Settings.Default.Save();
+                AppSettings.QtPath = settings.QtCreatorPath;
+                _data.UEPath = AppSettings.UEPath = settings.UEPath;
+                AppSettings.Save();
                 return true;
             }
             return false;
@@ -398,7 +394,7 @@ namespace Qute
         }
 
         private void menuHelpUse_Click(object sender, EventArgs e) {
-            var help = new HelpForm {Text = menuHelpUse.Text};
+            var help = new HelpForm { Text = "Help" };
             help.SetData("Help");
             help.ShowDialog();
         }
@@ -412,7 +408,7 @@ namespace Qute
                 }
 
                 UpdateVSFiles();
-                QuteExporter.ExportConfiguration(_data, listBuild.CheckedItems.OfType<Configuration>());
+                QuteExporter.ExportConfiguration(_data, listBuild.CheckedItems.OfType<QuteExporter.Build>());
                 QuteExporter.ExportProject(_data);
 
                 if (OpenInQt()) {

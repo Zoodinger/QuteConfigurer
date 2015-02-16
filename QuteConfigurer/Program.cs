@@ -45,6 +45,8 @@ namespace Qute
         /// </summary>
         [STAThread]
         static void Main() {
+            AppSettings.InitSettings();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());

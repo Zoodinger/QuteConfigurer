@@ -112,8 +112,8 @@ namespace Qute
 
             foreach (var kit in kits) {
                 comboKits.Items.Add(kit);
-                if (kit.Name == Settings.Default.KitName
-                    && kit.Id == Settings.Default.KitId) {
+                if (kit.Name.Trim().Equals(Settings.Default.KitName.Trim(), StringComparison.InvariantCultureIgnoreCase)
+                    && kit.Id.Trim().Equals(Settings.Default.KitId.Trim(), StringComparison.InvariantCultureIgnoreCase)) {
                     comboKits.SelectedItem = kit;
                 }
             }
@@ -398,7 +398,9 @@ namespace Qute
         }
 
         private void menuHelpUse_Click(object sender, EventArgs e) {
-
+            var help = new HelpForm {Text = menuHelpUse.Text};
+            help.SetData("Help");
+            help.ShowDialog();
         }
 
         private void menuSetup_Click(object sender, EventArgs e) {
@@ -420,6 +422,12 @@ namespace Qute
             } catch (QuteException ex) {
                 Console.Error.WriteLine(ex.Message);
             }
+        }
+
+        private void menuPrepareQt_Click(object sender, EventArgs e) {
+            var help = new HelpForm { Text = menuPrepareQt.Text };
+            help.SetData("Page0", "Page1", "Page2", "Page3", "Page4", "Page5", "Page6", "Page7");
+            help.ShowDialog();
         }
     }
 }

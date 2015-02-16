@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Qute
@@ -24,6 +18,10 @@ namespace Qute
             lblProduct.Text = Program.GetProduct();
             lblVersion.Text = "Version " + Program.GetVersion();
             lblAuthor.Text = Program.GetAuthor();
+        }
+
+        private void description_LinkClicked(object sender, LinkClickedEventArgs e) {
+            Process.Start(e.LinkText);
         }
     }
 }

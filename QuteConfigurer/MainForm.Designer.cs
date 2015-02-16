@@ -28,6 +28,7 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label lblQtBuildKit;
             System.Windows.Forms.Label lblProject;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnQtFiles = new System.Windows.Forms.Button();
             this.comboKits = new System.Windows.Forms.ComboBox();
             this.txtProjectPath = new System.Windows.Forms.TextBox();
@@ -57,7 +58,7 @@
             this.menuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelpUse = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuPrepareKit = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuPrepareQt = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBar = new System.Windows.Forms.MenuStrip();
@@ -400,7 +401,7 @@
             // 
             this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuHelpUse,
-            this.menuPrepareKit,
+            this.menuPrepareQt,
             this.toolStripSeparator2,
             this.menuAbout});
             this.menuHelp.Name = "menuHelp";
@@ -409,30 +410,29 @@
             // 
             // menuHelpUse
             // 
-            this.menuHelpUse.Enabled = false;
             this.menuHelpUse.Name = "menuHelpUse";
             this.menuHelpUse.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.menuHelpUse.Size = new System.Drawing.Size(247, 22);
-            this.menuHelpUse.Text = "How to use";
+            this.menuHelpUse.Size = new System.Drawing.Size(212, 22);
+            this.menuHelpUse.Text = "Using Qute Configurer";
             this.menuHelpUse.Click += new System.EventHandler(this.menuHelpUse_Click);
             // 
-            // menuPrepareKit
+            // menuPrepareQt
             // 
-            this.menuPrepareKit.Enabled = false;
-            this.menuPrepareKit.Name = "menuPrepareKit";
-            this.menuPrepareKit.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.menuPrepareKit.Size = new System.Drawing.Size(247, 22);
-            this.menuPrepareKit.Text = "How do I prepare Qt Creator?";
+            this.menuPrepareQt.Name = "menuPrepareQt";
+            this.menuPrepareQt.ShortcutKeys = System.Windows.Forms.Keys.F2;
+            this.menuPrepareQt.Size = new System.Drawing.Size(212, 22);
+            this.menuPrepareQt.Text = "Preparing Qt Creator";
+            this.menuPrepareQt.Click += new System.EventHandler(this.menuPrepareQt_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(244, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(209, 6);
             // 
             // menuAbout
             // 
             this.menuAbout.Name = "menuAbout";
-            this.menuAbout.Size = new System.Drawing.Size(247, 22);
+            this.menuAbout.Size = new System.Drawing.Size(212, 22);
             this.menuAbout.Text = "&About";
             this.menuAbout.Click += new System.EventHandler(this.menuAbout_Click);
             // 
@@ -457,11 +457,13 @@
             this.Controls.Add(this.spContainer);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.generalConfigGroup);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuBar;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(560, 318);
             this.Name = "MainForm";
+            this.ShowIcon = false;
             this.Text = "Qute Configurer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -515,7 +517,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuExit;
         private System.Windows.Forms.ToolStripMenuItem menuHelp;
         private System.Windows.Forms.ToolStripMenuItem menuHelpUse;
-        private System.Windows.Forms.ToolStripMenuItem menuPrepareKit;
+        private System.Windows.Forms.ToolStripMenuItem menuPrepareQt;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem menuAbout;
         private System.Windows.Forms.MenuStrip menuBar;

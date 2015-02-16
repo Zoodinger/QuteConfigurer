@@ -3,7 +3,6 @@ using System.Deployment.Application;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using Qute.Properties;
 
 namespace Qute
 {

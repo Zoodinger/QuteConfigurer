@@ -117,10 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="txt.Text" xml:space="preserve">
-    <value>This utility aims to make it possible to work with Unreal Engine 4.x projects using Qt Creator. It assumes that a correct kit and debugger are set and generates project files and build configurations.
+  <data name="description.Text" xml:space="preserve">
+    <value>This utility aims to make it possible to work with Unreal Engine 4.x projects using Qt Creator under Windows. It assumes that a correct kit and debugger are set and generates appropriate project files and build configurations.
 
 The process followed was based on the following tutorial:
-https://wiki.unrealengine.com/Using_QtCreator_With_UnrealEngine4</value>
+https://wiki.unrealengine.com/Using_QtCreator_With_UnrealEngine4
+</value>
   </data>
 </root>

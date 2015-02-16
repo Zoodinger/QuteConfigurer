@@ -58,12 +58,153 @@ namespace Qute.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang6153{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 6.3.9600}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang9 Using Qute Configurer\par
+        ///
+        ///\pard\sa200\sl276\slmult1\b0\fs22 You need to have the correct Unreal Engine directory set up and the correct location for qtcreator.exe. Go to File &gt; Settings (or press F3) and set it up.\par
+        ///
+        ///\pard\sa200\sl240\slmult1\qc\fs28{\pict{\*\picprop}\wmetafile8\picw13917\pich4736\picwgoal7890\pichg [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Help {
+            get {
+                return ResourceManager.GetString("Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] Newtonsoft_Json {
             get {
                 object obj = ResourceManager.GetObject("Newtonsoft_Json", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang6153{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 6.3.9600}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang9 Introduction\b0\par
+        ///
+        ///\pard\sa200\sl276\slmult1\fs22 Before Qute Configurer can work, you need to follow the steps outlined in this tutorial. You only need to do this once.\par
+        ///Note that \b you still need Visual Studio\b0  to be installed in order to use Qt Creator as your IDE for Unreal Engine 4.\par
+        ///Press \b Next \b0 t [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page0 {
+            get {
+                return ResourceManager.GetString("Page0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang6153{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 6.3.9600}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang9 Install Qt Creator for Visual Studio 64-bit\par
+        ///
+        ///\pard\sa200\sl276\slmult1\b0\fs22 If it&apos;s not, run the installation again and select it as a component under your version of Qt. It should look something like MSVC2013 64bit or MSVC2013 OpenGL 64bit. \b The 32-bit version will not do.\par
+        ///
+        ///\pard\sa200\sl240\slmult1\qc\b0{ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page1 {
+            get {
+                return ResourceManager.GetString("Page1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang6153{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+        ///{\colortbl ;\red0\green0\blue255;}
+        ///{\*\generator Riched20 6.3.9600}\viewkind4\uc1 
+        ///\pard\sa200\sl240\slmult1\qc\b\f0\fs28\lang9 Install Windows Debugging Tools 64-bit\par
+        ///
+        ///\pard\sa200\sl240\slmult1\b0\fs22 You can download it from {{\field{\*\fldinst{HYPERLINK https://msdn.microsoft.com/en-US/windows/desktop/bg162891 }}{\fldrslt{https://msdn.microsoft.com/en-US/windows/desktop/bg162891\ul0\cf0}}}}\f0\fs22  and m [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page2 {
+            get {
+                return ResourceManager.GetString("Page2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang6153{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+        ///{\colortbl ;\red0\green77\blue187;\red255\green0\blue0;}
+        ///{\*\generator Riched20 6.3.9600}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang9 Set up the Debugger\par
+        ///
+        ///\pard\sa200\sl276\slmult1\b0\fs22 In the \b Options \b0 menu of Qt Creator, go to the \b Build &amp; Run\b0  category and select the \b Debuggers \b0 tab.\par
+        ///
+        ///\pard\sa200\sl240\slmult1\qc{\pict{\*\picprop}\wmetafile8\picw4180\pich1773\picwgo [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page3 {
+            get {
+                return ResourceManager.GetString("Page3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang6153{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+        ///{\colortbl ;\red0\green77\blue187;\red255\green0\blue0;}
+        ///{\*\generator Riched20 6.3.9600}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang9 Set CDB settings\par
+        ///
+        ///\pard\sa200\sl276\slmult1\b0\fs22 In the \b Options \b0 menu of Qt Creator, go to the \b Debugger \b0 category and select the \b CDB \b0 tab.\par
+        ///
+        ///\pard\sa200\sl240\slmult1\qc{\pict{\*\picprop}\wmetafile8\picw4233\pich1852\picwgoal2400\pichg [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page4 {
+            get {
+                return ResourceManager.GetString("Page4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang6153{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 6.3.9600}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang9 Set up an appropriate Kit\par
+        ///
+        ///\pard\sa200\sl276\slmult1\b0\fs22 In the \b Options \b0 menu of Qt Creator, go to the \b Build &amp; Run\b0  category and select the \b Kits \b0 tab.\par
+        ///
+        ///\pard\sa200\sl276\slmult1\qc{\pict{\*\picprop}\wmetafile8\picw4180\pich1773\picwgoal2370\pichgoal1005 
+        ///0100090000038a3e000000006b3e0000000 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page5 {
+            get {
+                return ResourceManager.GetString("Page5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang6153{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+        ///{\*\generator Riched20 6.3.9600}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang9 Code style\par
+        ///
+        ///\pard\sa200\sl276\slmult1\b0\fs22 Note that Unreal Engine requires Tabs instead of spaces.\par
+        ///In the \b Options \b0 menu of Qt Creator, go to the \b C++ \b0 category and select the \b Code Style \b0 tab.\par
+        ///
+        ///\pard\sa200\sl240\slmult1\qc{\pict{\*\picprop}\wmetafile8\picw4207\pich1693\picwgoal2385\pichg [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page6 {
+            get {
+                return ResourceManager.GetString("Page6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang6153{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+        ///{\colortbl ;\red255\green0\blue0;}
+        ///{\*\generator Riched20 6.3.9600}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang9 Final notes\par
+        ///
+        ///\pard\sa200\sl276\slmult1\b0\fs22 When you start to debug your project, you will be asked if you want to use the Microsoft symbol servers.\par
+        ///\cf1\b DO NOT USE THEM!\b0\par
+        ///\cf0 It will slow down debugging to snail speed.\b\par
+        ///}
+        ///.
+        /// </summary>
+        internal static string Page7 {
+            get {
+                return ResourceManager.GetString("Page7", resourceCulture);
             }
         }
     }

@@ -58,7 +58,7 @@ namespace Qute
                     BuildFlags = "-rocket",
                     Platform = "Win64",
                     RunFlags = "",
-                    ExeSuffix = "Win64-DebugGame",
+                    ExeSuffix = "-Win64-DebugGame",
                     RunFromEditor = false,
                 },
                 new QuteExporter.Build {
@@ -80,6 +80,16 @@ namespace Qute
                     RunFlags = "",
                     ExeSuffix = "",
                     RunFromEditor = false,
+                },
+                new QuteExporter.Build {
+                    Name = "Shipping",
+                    State = "Shipping",
+                    Mode = "",
+                    BuildFlags = "-rocket",
+                    Platform = "Win32",
+                    RunFlags = "",
+                    ExeSuffix = "-Win32-Shipping",
+                    RunFromEditor = false
                 }
             };
 
@@ -217,26 +227,6 @@ namespace Qute
             }
         }
 
-        private void btnHelpVS_Click(object sender, EventArgs e) {
-            MessageBox.Show("Generate project files for Visual Studio. "
-              + "You should perform this operation when VS Project files become out of sync,"
-              + " or right before you generate Qt project files.",
-              "Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnHelpBuildConfig_Click(object sender, EventArgs e) {
-            MessageBox.Show("Generate build configuration every time you change the engine. "
-             + "An appropriate Qt Kit must be selected!",
-             "Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnHelpQt_Click(object sender, EventArgs e) {
-            MessageBox.Show("Generate Qt project files. "
-              + "Visual Studio project files must be up-to-date before performing this operation. "
-              + "Do this whenever you add code to your project outside of Qt Creator, or after upgrading the engine.",
-            "Help on '" + btnQtFiles.Text + "'", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
 
             if (_dontSaveSettings) {
@@ -353,17 +343,13 @@ namespace Qute
             return false;
         }
 
-
-        void SetQtPath_Click(object sender, EventArgs e) {
-            throw new NotImplementedException();
-        }
-
         private void MainForm_Shown(object sender, EventArgs e) {
             if (AppSettings.FirstTime) {
                 if (!ShowSettings()) {
                     _dontSaveSettings = true;
                     Application.Exit();
                 }
+                menuPrepareQt_Click(null, null);
             }
 
             _data.UEPath = AppSettings.UEPath;
@@ -400,6 +386,10 @@ namespace Qute
         }
 
         private void menuSetup_Click(object sender, EventArgs e) {
+            SetupAndLaunch();
+        }
+
+        private void SetupAndLaunch() {
             try {
                 _data.UEProject = QuteResolver.GetProjectInfo(txtProjectPath.Text);
                 _data.ValidateEUPaths();
@@ -424,6 +414,10 @@ namespace Qute
             var help = new HelpForm { Text = menuPrepareQt.Text };
             help.SetData("Page0", "Page1", "Page2", "Page3", "Page4", "Page5", "Page6", "Page7");
             help.ShowDialog();
+        }
+
+        private void btnSetup_Click(object sender, EventArgs e) {
+            SetupAndLaunch();
         }
     }
 }

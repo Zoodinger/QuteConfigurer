@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Windows.Forms;
 using Qute.Properties;
 
@@ -21,22 +20,13 @@ namespace Qute
             Console.WriteLine();
             _count = pages.Length;
             _entries = pages;
-            Index = 0;
+            
             if (_count == 1) {
                 btnPrevious.Visible = false;
                 title.Visible = false;
             }
-        }
 
-        /// <summary>
-        /// Hack that will return the full path to the user folder.
-        /// </summary>
-        private string GetUserFolder() {
-            var path =
-                Directory.GetParent(
-                Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)).FullName).FullName;
-            Console.WriteLine(path);
-            return path;
+            Index = 0;
         }
 
         private int Index {
@@ -58,6 +48,8 @@ namespace Qute
                 text.Rtf = rtf;
                 btnPrevious.Enabled = _index > 0;
                 btnNext.Text = _index + 1 < _count ? "&Next" : "&Close";
+                text.Select(0, 0);
+                text.Focus();
             }
         }
 
@@ -75,6 +67,12 @@ namespace Qute
 
         private void text_LinkClicked(object sender, LinkClickedEventArgs e) {
             Process.Start(e.LinkText);
+        }
+
+        private void HelpForm_Shown(object sender, EventArgs e)
+        {
+            text.Select(0, 0);
+            text.Focus();
         }
     }
 }

@@ -51,7 +51,7 @@ namespace Qute
             StreamWriter qtDefines = null;
             StreamWriter qtIncludes = null;
 
-            //Make sure all three files can be written to before proceeding.
+            //Ensure all three files can be written to before proceeding.
             try {
                 qtProject = new StreamWriter(projLoc + project.Name + ".pro");
                 qtDefines = new StreamWriter(projLoc + "defines.pri");
@@ -180,6 +180,8 @@ namespace Qute
 
             try {
                 Directory.CreateDirectory(data.GetProjectFilesDir());
+                var projectDir = Directory.GetParent(data.UEProject.Path).FullName;
+
                 using (var xml = new XmlTextWriter(Path.Combine(data.GetProjectFilesDir(), data.UEProject.Name) + ".pro.user", Encoding.UTF8)) {
                     xml.Formatting = Formatting.Indented;
                     xml.WriteStartDocument();
@@ -206,11 +208,11 @@ namespace Qute
                             foreach (var build in builds) {
                                 xml.StartQMap("QVariantMap", "ProjectExplorer.Target.BuildConfiguration." + buildCount++);
                                 {
-                                    xml.WriteQValue("QString", "ProjectExplorer.BuildConfiguration.BuildDirectory", "./Qute/" + build.Name.Replace(" ", ""));
+                                    xml.WriteQValue("QString", "ProjectExplorer.BuildConfiguration.BuildDirectory", Path.Combine(data.GetProjectFilesDir(),"Qute", build.Name.Replace(" ", "")));
 
                                     var arguments = string.Format("{0}{1} {2} {3} \"{4}\" {5}",
                                         data.UEProject.Name, build.Mode, build.Platform, build.State, data.UEProject.Path, build.BuildFlags);
-                                     var workDir = @"..\Build";
+                                    var workDir = Path.Combine(projectDir, @"Build");
 
                                     //Information for the Build command
                                     xml.StartQMap("QVariantMap", "ProjectExplorer.BuildConfiguration.BuildStepList.0");
@@ -281,11 +283,12 @@ namespace Qute
                                         exe = data.GetEngineExe();
                                         argument = string.Format("\"{0}\" ", data.UEProject.Path) + run.RunFlags;
                                     } else {
-                                        exe = string.Format("..\\..\\Binaries\\{0}\\{1}{2}.exe", run.Platform, data.UEProject.Name, run.ExeSuffix);
+                                        exe = string.Format("Binaries\\{0}\\{1}{2}.exe", run.Platform, data.UEProject.Name, run.ExeSuffix);
+                                        exe = Path.Combine(projectDir, exe);
                                         argument = run.RunFlags;
                                     }
 
-                                    var workDir = @"..\..\Binaries\" + run.Platform;
+                                    var workDir = Path.Combine(projectDir, "Binaries", run.Platform);
 
                                     xml.WriteQValue("QString", "ProjectExplorer.CustomExecutableRunConfiguration.Arguments", argument);
                                     xml.WriteQValue("QString", "ProjectExplorer.CustomExecutableRunConfiguration.Executable", exe);

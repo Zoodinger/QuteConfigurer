@@ -62,7 +62,6 @@
             this.text.ForeColor = System.Drawing.Color.Black;
             this.text.Location = new System.Drawing.Point(12, 32);
             this.text.Name = "text";
-            this.text.ReadOnly = true;
             this.text.Size = new System.Drawing.Size(518, 397);
             this.text.TabIndex = 4;
             this.text.Text = "";
@@ -96,6 +95,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.TopMost = true;
+            this.Shown += new System.EventHandler(this.HelpForm_Shown);
             this.ResumeLayout(false);
 
         }
@@ -104,7 +104,7 @@
 
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnPrevious;
-        private System.Windows.Forms.RichTextBox text;
         private System.Windows.Forms.Label title;
+        private System.Windows.Forms.RichTextBox text;
     }
 }

@@ -62,6 +62,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.menuBar = new System.Windows.Forms.MenuStrip();
+            this.btnSetup = new System.Windows.Forms.Button();
             lblQtBuildKit = new System.Windows.Forms.Label();
             lblProject = new System.Windows.Forms.Label();
             this.generalConfigGroup.SuspendLayout();
@@ -148,7 +149,7 @@
             this.btnBuildConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuildConfig.AutoSize = true;
             this.btnBuildConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBuildConfig.Location = new System.Drawing.Point(120, 146);
+            this.btnBuildConfig.Location = new System.Drawing.Point(120, 164);
             this.btnBuildConfig.Name = "btnBuildConfig";
             this.btnBuildConfig.Size = new System.Drawing.Size(131, 23);
             this.btnBuildConfig.TabIndex = 12;
@@ -202,10 +203,10 @@
             this.txtLog.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLog.ForeColor = System.Drawing.Color.Green;
             this.txtLog.HideSelection = false;
-            this.txtLog.Location = new System.Drawing.Point(12, 275);
+            this.txtLog.Location = new System.Drawing.Point(12, 293);
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
-            this.txtLog.Size = new System.Drawing.Size(520, 135);
+            this.txtLog.Size = new System.Drawing.Size(520, 125);
             this.txtLog.TabIndex = 21;
             this.txtLog.Text = "";
             // 
@@ -218,26 +219,27 @@
             this.grpConfigurations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpConfigurations.Location = new System.Drawing.Point(0, 0);
             this.grpConfigurations.Name = "grpConfigurations";
-            this.grpConfigurations.Size = new System.Drawing.Size(257, 175);
+            this.grpConfigurations.Size = new System.Drawing.Size(257, 193);
             this.grpConfigurations.TabIndex = 0;
             this.grpConfigurations.TabStop = false;
             this.grpConfigurations.Text = "Configurations";
             // 
             // listBuild
             // 
-            this.listBuild.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.listBuild.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBuild.CheckOnClick = true;
             this.listBuild.FormattingEnabled = true;
             this.listBuild.Items.AddRange(new object[] {
-            "Debug Editor",
-            "Debug Standalone",
-            "Development Editor",
-            "Development Standalone"});
+            "[Sample] ",
+            "[Sample] ",
+            "[Sample] ",
+            "[Sample] ",
+            "[Sample] ",
+            "[Sample] "});
             this.listBuild.Location = new System.Drawing.Point(6, 46);
             this.listBuild.Name = "listBuild";
-            this.listBuild.Size = new System.Drawing.Size(245, 94);
+            this.listBuild.Size = new System.Drawing.Size(245, 109);
             this.listBuild.TabIndex = 0;
             this.listBuild.SelectedIndexChanged += new System.EventHandler(this.listBuild_SelectedIndexChanged);
             // 
@@ -250,7 +252,7 @@
             this.grpProjFiles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpProjFiles.Location = new System.Drawing.Point(0, 0);
             this.grpProjFiles.Name = "grpProjFiles";
-            this.grpProjFiles.Size = new System.Drawing.Size(259, 175);
+            this.grpProjFiles.Size = new System.Drawing.Size(259, 193);
             this.grpProjFiles.TabIndex = 0;
             this.grpProjFiles.TabStop = false;
             this.grpProjFiles.Text = "Project Files";
@@ -261,7 +263,7 @@
             this.btnOpenInQt.AutoSize = true;
             this.btnOpenInQt.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnOpenInQt.ContextMenuStrip = this.QtPathMenu;
-            this.btnOpenInQt.Location = new System.Drawing.Point(148, 146);
+            this.btnOpenInQt.Location = new System.Drawing.Point(148, 164);
             this.btnOpenInQt.Name = "btnOpenInQt";
             this.btnOpenInQt.Size = new System.Drawing.Size(105, 23);
             this.btnOpenInQt.TabIndex = 15;
@@ -282,7 +284,6 @@
             this.SetQtPath.Name = "SetQtPath";
             this.SetQtPath.Size = new System.Drawing.Size(213, 22);
             this.SetQtPath.Text = "Set Qt Executable";
-            this.SetQtPath.Click += new System.EventHandler(this.SetQtPath_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -346,7 +347,7 @@
             // spContainer.Panel2
             // 
             this.spContainer.Panel2.Controls.Add(this.grpProjFiles);
-            this.spContainer.Size = new System.Drawing.Size(520, 175);
+            this.spContainer.Size = new System.Drawing.Size(520, 193);
             this.spContainer.SplitterDistance = 257;
             this.spContainer.TabIndex = 22;
             // 
@@ -447,12 +448,26 @@
             this.menuBar.TabIndex = 23;
             this.menuBar.Text = "Menu";
             // 
+            // btnSetup
+            // 
+            this.btnSetup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSetup.AutoSize = true;
+            this.btnSetup.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSetup.Location = new System.Drawing.Point(439, 424);
+            this.btnSetup.Name = "btnSetup";
+            this.btnSetup.Size = new System.Drawing.Size(93, 23);
+            this.btnSetup.TabIndex = 24;
+            this.btnSetup.Text = "Setup && Launch";
+            this.btnSetup.UseVisualStyleBackColor = true;
+            this.btnSetup.Click += new System.EventHandler(this.btnSetup_Click);
+            // 
             // MainForm
             // 
-            this.AcceptButton = this.btnOpenInQt;
+            this.AcceptButton = this.btnSetup;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 422);
+            this.ClientSize = new System.Drawing.Size(544, 459);
+            this.Controls.Add(this.btnSetup);
             this.Controls.Add(this.menuBar);
             this.Controls.Add(this.spContainer);
             this.Controls.Add(this.txtLog);
@@ -461,7 +476,7 @@
             this.MainMenuStrip = this.menuBar;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(560, 318);
+            this.MinimumSize = new System.Drawing.Size(560, 373);
             this.Name = "MainForm";
             this.Text = "Qute Configurer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -520,6 +535,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem menuAbout;
         private System.Windows.Forms.MenuStrip menuBar;
+        private System.Windows.Forms.Button btnSetup;
     }
 }
 

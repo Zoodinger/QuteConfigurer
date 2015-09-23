@@ -17,7 +17,6 @@ namespace Qute
         int _index;
 
         public void SetData(params string[] pages) {
-            Console.WriteLine();
             _count = pages.Length;
             _entries = pages;
             

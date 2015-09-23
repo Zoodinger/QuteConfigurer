@@ -32,7 +32,10 @@ namespace Qute
 
         public string UEPath { get; private set; }
 
-        private void btnOK_Click(object sender, EventArgs e) {
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            QtCreatorPath = txtQtPath.Text;
+            UEPath = txtUEPath.Text;
             DialogResult = DialogResult.OK;
         }
 
